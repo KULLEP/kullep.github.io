@@ -6,6 +6,7 @@ import '@vkontakte/vkui/dist/vkui.css';
 
 import Home from './panels/Home';
 import Persik from './panels/Persik';
+import GetGroup from './modules/GroupUser';
 
 const App = () => {
 	const [activePanel, setActivePanel] = useState('home');
@@ -31,6 +32,8 @@ const App = () => {
 	const go = e => {
 		setActivePanel(e.currentTarget.dataset.to);
 	};
+
+
 
 	return (
 		<View activePanel={activePanel} popout={popout}>
