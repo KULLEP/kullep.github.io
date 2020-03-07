@@ -6,19 +6,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>VK API HAPPY День рождения</title>
 
- 
-	<link rel="stylesheet" href="https://raw.githubusercontent.com/KULLEP/kullep.github.io/master/vk_api_happy/_css/main.css">
-	<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
-
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="_css/main.css">
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 
 
 </head>
 
- 
+
 <body>
 
 	<main class="col-12 m-0 p-0 row justify-content-center">
@@ -34,6 +33,37 @@
 	</main>
 
 
-	<script src="https://raw.githubusercontent.com/KULLEP/kullep.github.io/master/vk_api_happy/_js/main.js"></script>
+	<script src="./_js/main.js"></script>
+
+	<script>
+		$.ajax({
+	url: 'https://api.vk.com/method/groups.get?count=3&access_token=cb6a9ab3a5be20e329d7a60255b71be1414c6287934805a6dfe6d976820edd989da46d43dcd4d32122c0d&v=5.103',
+	method: 'GET',
+	dataType: 'JSONP',
+	success: function (data) {
+
+
+console.log(data);
+let g = data.response.items.join(',');
+		console.log(g);
+		$.ajax({
+			url: `https://api.vk.com/method/groups.getById?group_ids=${g}}&access_token=cb6a9ab3a5be20e329d7a60255b71be1414c6287934805a6dfe6d976820edd989da46d43dcd4d32122c0d&v=5.103`,
+			method: 'GET',
+			dataType: 'JSONP',
+			success: function (d) {
+				console.log(d);
+			}
+		});
+
+
+
+
+	}
+});
+
+	</script>
+
+
+	
 </body>
 </html>													
