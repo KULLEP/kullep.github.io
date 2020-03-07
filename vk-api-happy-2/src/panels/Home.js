@@ -23,11 +23,7 @@ const Home = ({ id, go, fetchedUser }) => (
 
 
 {fetchedUser &&
-		<Group title="">
-			<Cell>
-				{`${fetchedUser.sex} ${fetchedUser.birth_day} ${fetchedUser.groups}`}
-			</Cell>
-		</Group>}
+
 
 
 
@@ -48,9 +44,6 @@ Home.propTypes = {
 		photo_200: PropTypes.string,
 		first_name: PropTypes.string,
 		last_name: PropTypes.string,
-		sex: PropTypes, /////
-		birth_day: PropTypes.number, /////
-		groups:PropTypes.number, /////
 		city: PropTypes.shape({
 			title: PropTypes.string,
 		}),
