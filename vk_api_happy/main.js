@@ -10,14 +10,43 @@
 
 
 
+
+// https://oauth.vk.com/authorize?client_id=7348710&display=page&redirect_uri=https://vk.com/app7348710_260069152&scope=group&response_type=code&v=5.103
+
+
+
+
+// https://oauth.vk.com/access_token?client_id=7348710&client_secret=cyyHvSRIS2nQhBjF2Ivo&redirect_uri=https://vk.com/app7348710_260069152&code=5991c9c25b82a1d145
+
+
+
+
 // $.ajax({
-// 	url: `https://api.vk.com/method/groups.getById?group_ids=102087446&access_token=cb6a9ab3a5be20e329d7a60255b71be1414c6287934805a6dfe6d976820edd989da46d43dcd4d32122c0d&v=5.103`,
-// 	method: 'GET',
+// 	url: `https://oauth.vk.com/access_token?client_id=7348710&client_secret=cyyHvSRIS2nQhBjF2Ivo&redirect_uri=https://vk.com/app7348710_260069152&code=6a3e4ed4c27703922c`,
+// 	method: 'POST',
 // 	dataType: 'JSONP',
 // 	success: function (d) {
 // 		console.log(d);
 // 	}
 // });
+
+// Загрузка мемов
+// $.ajax({
+// 	type: 'POST',
+// 	url: `https://oauth.vk.com/access_token?client_id=7348710&client_secret=cyyHvSRIS2nQhBjF2Ivo&redirect_uri=https://vk.com/app7348710_260069152`,
+// 	data: 'code=a4cd56eaaac5afe5d6',
+// 	success: function(data){
+// 		console.log(data)
+// 		//$('#main_block_memes').html(data);
+// 	}
+// });
+
+
+
+
+
+
+
 let now = new Date();
 let tomorrow = now.getDate()+1;
 let month_tt = now.getMonth();
@@ -51,7 +80,6 @@ const sendRequest = (method, params, func) => {
 
 const getIdGroupUser = () => {
 	sendRequest('groups.get', {count: 7}, function (data) {
-		console.log(data);
 		drowGroupsOnLoad(data.response.items);
 	});
 }
@@ -89,7 +117,6 @@ const btn_get_group_info = (e) => {
 	document.querySelector('#group_info_users').classList.remove("d-none");
 	document.querySelector('body').classList.add("bg-dark-1");
 	obj_user_group_info.group_id = e; // ID Группы в объект
-	console.log(e);
 }
 
 
@@ -242,7 +269,6 @@ document.getElementById('search_group').onclick =() => {
 	sendRequest('groups.search', {q: group_name}, function (data) {
 		for(let i=0; i<=data.response.items.length; i++) {
 			let d = data.response.items[i];
-			console.log(data);
 			document.querySelector('#list_group_user').innerHTML +=`
 			<a class="nav-link" id='${d.id}' href='#' >
 			<li class="list-group-item  ">
