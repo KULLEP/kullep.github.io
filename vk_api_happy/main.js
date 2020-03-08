@@ -107,7 +107,7 @@ const drowGroupsOnLoad = (groups) => {
 			<a id="${d.id}" onclick="btn_get_group_info($(this).attr('id'));" class="nav-link" href="javascript:void(0);" >
 			<li class="list-group-item  ">
 
-			<img class="border border-secondary rounded-circle circle" src="${d.photo_100}" />
+			<img class="border border-secondary rounded-circle circle" src="${d.photo_50}" />
 			<span class="text-dark h6">${d.name}</span>	
 			
 			</li></a>
