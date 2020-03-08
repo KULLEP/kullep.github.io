@@ -3,6 +3,11 @@
 
 // https://api.vk.com/method/users.get?user_id=210700286&v=5.52
 
+// popup  - page
+// https://oauth.vk.com/authorize?client_id=7348710&display=popup&redirect_uri=https://kullep.github.io/vk_api_happy/&scope=groups&response_type=token&v=5.103&state=123456
+
+
+
 $.ajax({
 	url: GetUrl('https://oauth.vk.com/authorize?client_id=7348710&display=page&redirect_uri=&scope=groups&response_type=token&v=5.103'),
 	method: 'GET',
@@ -22,7 +27,7 @@ function GetUrl(method, params) {
 
 	params['access_token'] = 'cf70cd71dfa05276180a0746150e4a92cb7caa3ae6fadfade8befa8b6bc3e588bd499c67883401c33bf97';
 
-	return `https://api.vk.com/method/${method}?${$.param(params)}&v=5.103`;
+	return `https://api.vk.com/method/${method}${$.param(params)}&v=5.103`;
 }
 
 
