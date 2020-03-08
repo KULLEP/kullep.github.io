@@ -279,7 +279,7 @@ document.getElementById('search_group').onclick =() => {
 		for(let i=0; i<=data.response.items.length; i++) {
 			let d = data.response.items[i];
 			document.querySelector('#list_group_user').innerHTML +=`
-			<a class="nav-link" id='${d.id}' href='#' >
+			<a class="nav-link" id='${d.id}' href='#' onclick="btn_get_group_info($(this).attr('id'));">
 			<li class="list-group-item  ">
 			<img class="border border-secondary rounded-circle circle" src="${d.photo_50}" />
 			<span class="text-dark h6">${d.name}</span>	
