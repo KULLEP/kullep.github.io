@@ -18,8 +18,15 @@
 // 		console.log(d);
 // 	}
 // });
-
-var date_birthday;
+let now = new Date();
+let tomorrow = now.getDate()+1;
+let month_tt = now.getMonth();
+var obj_user_group_info = {
+	group_id: '',
+	bdate: '',
+}
+obj_user_group_info.bdate += tomorrow+'.'+month_tt;
+document.querySelector('#birth_day_men_date').innerHTML = obj_user_group_info.bdate;
 
 
 function GetUrl(method, params) {
@@ -80,9 +87,8 @@ getIdGroupUser();
 const btn_get_group_info = (e) => {
 	document.querySelector('#group_info_users').classList.add("d-block");
 	document.querySelector('#group_info_users').classList.remove("d-none");
-
 	document.querySelector('body').classList.add("bg-dark-1");
-
+	obj_user_group_info.group_id = e; // ID Группы в объект
 	console.log(e);
 }
 
@@ -159,39 +165,91 @@ const string_date_text = (e) => {
 		alert( "Нет таких значений" );
 	}
 
-	date_birthday = day+'.'+month_date;;
+	obj_user_group_info.bdate = day+'.'+month_date;;
 	document.querySelector('#birth_day_men_date').innerHTML =day + ' ' + month_str;
+}
+
+
+const drowUserBirthDay = (e) => {
+	let str = e.slice(1); // Убрать запятую в наале
+
+
+	sendRequest('users.get', {user_ids: str, fields:'photo_50,quotes'}, function (data) {
+
+		let d = data.response;
+
+		document.getElementById('link_users_list').innerHTML = '';
+		document.getElementById('birthday_mans_list').innerHTML = '';
+
+		for(let i=0; i < d.length; i++) {
+
+
+			document.getElementById('link_users_list').innerHTML += `<p>https://vk.com/id${d[i].id}</p>`;
+
+
+			document.getElementById('birthday_mans_list').innerHTML += `
+			<a id="${d[i].id}" class="col-6 nav-link" href="https://vk.com/id${d[i].id}" >
+			<li class="list-group-item  ">
+
+			<img class="border border-secondary rounded-circle circle" src="${d[i].photo_50}" />
+			<span class="text-dark h6">${d[i].last_name} ${d[i].first_name}</span>	
+
+			</li></a>
+			`
+		}
+	});
+}
+
+
+
+
+document.getElementById('birth_day_men').onclick =() => {
+	sendRequest('groups.getMembers', {group_id: obj_user_group_info.group_id, fields:'bdate'}, function (data) {
+		
+		regexp = new RegExp(obj_user_group_info.bdate);
+		let birth_num = 0;
+		var b_str_user = '';
+
+		for(let i=0; i<= 400; i++) {
+			let d = data.response.items[i];
+
+			if(d.bdate != undefined) {
+				let text_d = d.bdate;
+
+				if(text_d.match(regexp) != null) {
+					birth_num += 1;
+					b_str_user += ','+d.id;
+				}
+			}
+		}
+
+		if(birth_num == 0) {
+			document.getElementById('birthday_mans_list').innerHTML = `<h3 class="col-12">Вы не обнаружили именинников</h3>`;
+		}
+		else {
+			drowUserBirthDay(b_str_user);
+		}
+	});
 }
 
 
 
 
 
-
-
 document.getElementById('search_group').onclick =() => {
-
 	document.querySelector('#list_group_user').innerHTML = '';
-
 	let group_name = document.querySelector('#search_group_id').value;
-
-
-
 	sendRequest('groups.search', {q: group_name}, function (data) {
 		for(let i=0; i<=data.response.items.length; i++) {
-
 			let d = data.response.items[i];
 			console.log(data);
 			document.querySelector('#list_group_user').innerHTML +=`
 			<a class="nav-link" id='${d.id}' href='#' >
 			<li class="list-group-item  ">
-
 			<img class="border border-secondary rounded-circle circle" src="${d.photo_100}" />
 			<span class="text-dark h6">${d.name}</span>	
-
 			</li></a>
 			`;
 		}
 	});
-
 }

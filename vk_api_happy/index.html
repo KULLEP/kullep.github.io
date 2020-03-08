@@ -46,35 +46,50 @@
 		</ul>
 
 		<!-- GROUP INFO -->
-		<div id="group_info_users" class="h-100 bg-white col-12 row justify-content-center position-absolute d-block">
+		<div id="group_info_users" class="h-100 bg-white col-12 row justify-content-center position-absolute d-none">
 			<div class="mt-3 text-center">
 				<span class="h5">Когда день рождения у пользователя ?</span>
 			</div>
 
 			<div class='col-12 my-4 p-0'>
-			<div class="container">
-				<div class="row">
-					<div class="col-md-offset-3">
-						<!-- Calendar --><div class="calendar"></div><!-- /Calendar -->
-					</div><!--/.col-md-6 col-md-offset-3-->
-				</div><!--/.row-->
-			</div><!--/.container-->
+				<div class="container">
+					<div class="row">
+						<div class="col-md-offset-3">
+							<!-- Calendar --><div class="calendar"></div><!-- /Calendar -->
+						</div><!--/.col-md-6 col-md-offset-3-->
+					</div><!--/.row-->
+				</div><!--/.container-->
+			</div>
+
+			<div class="text-center mt-3 col-12">
+				<h4 id="birth_day_men_date"></h4>
+				<button id="birth_day_men" type="submit" class="btn btn-primary">Получить именинников</button>
+			</div>
+
+			<div class="col-10">
+				<details>
+					<summary class="noselect">Ссылки на пользователей</summary>
+					<div class="border rounded dorder-info" id='link_users_list'>
+						
+					</div>
+				</details>
+			</div>
+
+			<div class="col-12">
+				<ul id="birthday_mans_list" class="row">
+				</ul>
+			</div>
+
+
 		</div>
-
-		<div class="text-center mt-3">
-			<h4 id="birth_day_men_date"></h4>
-			<button id="birth_day_men" type="submit" class="btn btn-primary">Получить именинников</button>
-		</div>
-
-	</div>
-	<!-- GROUP INFO END -->
+		<!-- GROUP INFO END -->
 
 
 
-</main>
+	</main>
 
 
-<script src="main.js?1"></script>
+	<script src="main.js?1"></script>
 
 
 </body>
