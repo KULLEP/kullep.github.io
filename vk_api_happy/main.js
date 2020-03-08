@@ -44,7 +44,20 @@
 
 
 
+if(localStorage.hasOwnProperty('access_token_this_vk_api_happy')) { // Проверка наличия ключа в куках если он есть
+	document.getElementById('form_authorized').classList.remove("d-block");
+	document.getElementById('form_authorized').classList.add("d-none");	
+	document.getElementById('form_authorized').innerHTML = ''; // Удаление формы
+} else {
+	document.getElementById('form_access_token').onclick = () => {
+	let access_token = document.getElementById('form_access_token_input').value;
+	localStorage.setItem('access_token_this_vk_api_happy', access_token);
+	window.location = window.location;
+}
+}
 
+
+ 
 
 
 let now = new Date();
@@ -61,9 +74,7 @@ document.querySelector('#birth_day_men_date').innerHTML = obj_user_group_info.bd
 function GetUrl(method, params) {
 	if(!method) throw new new Error('Нет метода');
 	params = params || {}; // Либо равны либо пустой объект
-
-	params['access_token'] = '97317c86d006e0ff3fcd1c5c740471ff6a3eb1b89a6cc66cc11e7c5fadf2b38732e803fbe377aa5f0d3a4';
-
+	params['access_token'] = localStorage.getItem('access_token_this_vk_api_happy');
 	return `https://api.vk.com/method/${method}?${$.param(params)}&v=5.103`;
 }
 
@@ -216,7 +227,7 @@ const drowUserBirthDay = (e) => {
 
 			document.getElementById('birthday_mans_list').innerHTML += `
 			<a id="${d[i].id}" class="col-6 nav-link" href="https://vk.com/id${d[i].id}" >
-			<li class="list-group-item  ">
+			<li class="list-group-item">
 
 			<img class="border border-secondary rounded-circle circle" src="${d[i].photo_50}" />
 			<span class="text-dark h6">${d[i].last_name} ${d[i].first_name}</span>	

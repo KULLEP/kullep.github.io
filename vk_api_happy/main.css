@@ -9,6 +9,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
   margin-bottom: 0px!important;
 }
 
+#birthday_mans_list a li {
+    white-space: nowrap!important;
+    overflow: hidden!important;
+    text-overflow: ellipsis!important;
+  }
+
 
 .noselect {
   -webkit-user-select: none;

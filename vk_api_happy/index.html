@@ -24,10 +24,8 @@
 
 	<main class="col-12 m-0 p-0 row justify-content-center">
 
-
-
 		<div class="my-4 col-12 row justify-content-center">
-			<form class="col-5 rounded border border-primary p-4" action="#">
+			<form class="col-8 rounded border border-primary p-4" action="#">
 				<div class=" text-center">
 					<label class="h5" for="search_group_id">Что ищем ?</label>
 					<input type="text" class="form-control" id="search_group_id" aria-describedby="emailHelp" placeholder="Введите ссылку на группу">
@@ -63,7 +61,8 @@
 
 			<div class="text-center mt-3 col-12">
 				<h4 id="birth_day_men_date"></h4>
-				<button id="birth_day_men" type="submit" class="btn btn-primary">Получить именинников</button>
+				<button id="birth_day_men" type="submit" class="mb-1 btn btn-primary">Получить именинников</button>
+				<hr/>
 			</div>
 
 			<div class="col-10">
@@ -79,12 +78,38 @@
 				<ul id="birthday_mans_list" class="row">
 				</ul>
 			</div>
-
-
 		</div>
 		<!-- GROUP INFO END -->
 
 
+
+
+
+		<!-- FORM AUTHORIZED -->
+		<div id="form_authorized" class="col-12 row justify-content-center h-100 bg-light position-absolute">
+			<h2 class="col-12 text-center">Форма авторизации</h2>
+			<form style="top:25%" class="bg-white col-6 rounded border border-primary p-4 position-absolute" action="#">
+				<ul class="p-0 m-0 text-white">
+					<li class="list-group-item bg-info">1 - Откройте эту ссылку <a target="_blank" href="https://oauth.vk.com/authorize?client_id=7348710&display=popup&redirect_uri=https://vk.com/app7348710_260069152&scope=groups&response_type=token&v=5.103" class="text-center text-white nav-link bg-success border rounded p-1 h5">Ссылка</a></li>
+					<li class="list-group-item bg-info">2 - Разрешите доступ приложению</li>
+					<li class="list-group-item bg-info">3 - Скопируйте из адресной строки полученный код:
+						<p class="text-danger bg-light p-1 rounded">https://api.vk.com/blank.html#access_token=<br/><b>ЭТОТ КОД</b></p>
+					</li>
+					<li class="list-group-item bg-info">4 - Вставьте в форму внизу</li>
+					<li class="list-group-item bg-info">5 - Отправить</li>
+				</ul>
+
+				<div class="text-center mt-3">
+					<input type="text" class="form-control" id="form_access_token_input" placeholder="Код">
+				</div>
+
+				<div class="text-center mt-3">
+					<button id="form_access_token" type="submit" class="btn btn-success">Отправить</button>
+				</div>
+
+			</form>
+		</div>
+		<!-- FORM AUTHORIZED -->
 
 	</main>
 
