@@ -8,7 +8,7 @@
 
 // https://oauth.vk.com/authorize?client_id=7348710&display=popup&redirect_uri=https://vk.com/app7348710_260069152&scope=groups&response_type=token&v=5.103
 
- 
+
 
 // CODE
 // https://oauth.vk.com/authorize?client_id=7348710&display=page&redirect_uri=https://vk.com/app7348710_260069152&scope=wall,groups&response_type=code&v=5.103
@@ -292,7 +292,7 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 	let t3 = document.getElementById('date_posts_happy_day').value;
 	let t4 = document.getElementById('date_posts_happy_month').value;
 	let t5 = document.getElementById('date_posts_happy_year').value;
- 
+
 	if(t1 == '') t1 = date_today.getMinutes();
 	if(t2 == '') t2 = date_today.getHours();
 	if(t3 == '') t3 = date_today.getDate();
@@ -301,7 +301,7 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 
 	var date_post_form = new Date(t5, t4, t3, t2, t1); 
 
- 
+
 	form_post_happy_info.publish_date = date_post_form.getTime() / 1000;
 
 	var own;
@@ -313,18 +313,25 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 		own = obj_user_group_info.group_id;
 	}
 
-console.log(own + ' ' + form_post_happy_info.message);
+	 
 
-	sendRequest('wall.post', {
-		owner_id: own,
-	//	friends_only: form_post_happy_info.friends_only,
-	//	from_group: form_post_happy_info.from_group,
-		message: form_post_happy_info.message,
-	//	publish_date: form_post_happy_info.publish_date,
-	//	close_comments: form_post_happy_info.close_comments
-	}, function (data) {
+
+	VK.api("wall.post", {owner_id: own, message: form_post_happy_info.message}, function (data) {		
 		console.log(data);
 	});
+
+
+
+// 	sendRequest('wall.post', {
+// 		owner_id: own,
+// 	//	friends_only: form_post_happy_info.friends_only,
+// 	//	from_group: form_post_happy_info.from_group,
+// 	message: form_post_happy_info.message,
+// 	//	publish_date: form_post_happy_info.publish_date,
+// 	//	close_comments: form_post_happy_info.close_comments
+// }, function (data) {
+// 	console.log(data);
+// });
 
 
 
