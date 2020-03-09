@@ -59,17 +59,32 @@ var obj_user_group_info = {
 };
 
 var form_post_happy_info = {
+
+	birth_num: 0, // Кол-во именинников
 owner_id: '', // Идентификатор пользователя или сообщества, на стене которого должна быть опубликована запись.
 friends_only: '', // 1 — запись будет доступна только друзьям, 0 — всем пользователям. По умолчанию публикуемые записи доступны всем пользователям.
 from_group: '', // Данный параметр учитывается, если owner_id < 0 (запись публикуется на стене группы). 1 — запись будет опубликована от имени группы, 0 — запись будет опубликована от имени пользователя (по умолчанию).
 message: '', // Текст сообщения (является обязательным, если не задан параметр attachments)
 attachments: '', // Список объектов, приложенных к записи и разделённых символом ","
-signed: '', // 1 — У записи, размещенной от имени сообщества, будет добавлена подпись (имя пользователя, разместившего запись), 0 — подписи добавлено не будет.
 publish_date: '', // Дата публикации записи в формате unixtime. Если параметр указан, публикация записи будет отложена до указанного времени.
-post_id: '1', // Идентификатор записи, которую необходимо опубликовать. Данный параметр используется для публикации отложенных записей и предложенных новостей.
 close_comments: '' //1 — комментарии к записи отключены. 0 — комментарии к записи включены.
 };
 
+
+
+
+
+
+/*   Получить случайное поздравление и записать его в textarea   */
+const get_random_congratulation = () => { 
+	let r = Math.round(Math.random()*10);
+	if(form_post_happy_info == 1) {
+		form_post_happy_info.message = congratulation.solo[r];
+	} else if (form_post_happy_info > 1) {
+		form_post_happy_info.message = congratulation.group[r];
+	}
+	document.getElementById('congratulation_textarea').innerHTML = form_post_happy_info.message;
+};
 
 obj_user_group_info.bdate += tomorrow+'.'+month_tt;
 document.querySelector('#birth_day_men_date').innerHTML = obj_user_group_info.bdate;
@@ -227,20 +242,90 @@ const string_date_text = (e) => {
 
 
 
-const get_random_congratulation = () => {
-	$.getJSON('congratulation.json', function(data) {
-		var items = [];
-		var r = Math.random();
-		console.log(data);
-	 
+
+
+
+
+
+/* ОТПРАВИТЬ ПОСТ */
+document.getElementById('btn_form_post_happy').onclick = () => {
+
+
+	let r1 = document.getElementsByName('where_create_post');
+	for (var i=0;i<r1.length; i++) {
+		if (r1[i].checked) {
+			form_post_happy_info.owner_id = i;
+		}
+	}
+
+	let r2 = document.getElementsByName('who_access_post');
+	for (var i=0;i<r2.length; i++) {
+		if (r2[i].checked) {
+			form_post_happy_info.friends_only = i;
+		}
+	}
+
+	let r3 = document.getElementsByName('on_what_behalf');
+	for (var i=0;i<r3.length; i++) {
+		if (r3[i].checked) {
+			form_post_happy_info.from_group = i;
+		}
+	}
+
+	let r4 = document.getElementsByName('comments_post');
+	for (var i=0;i<r4.length; i++) {
+		if (r4[i].checked) {
+			form_post_happy_info.close_comments = i;
+		}
+	}
+
+	let comm = document.getElementById('congratulation_textarea').value;
+	form_post_happy_info.message = comm;
+
+	date_today = new Date();  
+	let t1 = document.getElementById('date_posts_happy_minute').value;
+	let t2 = document.getElementById('date_posts_happy_hours').value;
+	let t3 = document.getElementById('date_posts_happy_day').value;
+	let t4 = document.getElementById('date_posts_happy_month').value;
+	let t5 = document.getElementById('date_posts_happy_year').value;
+
+	if(t1 == '') t1 = date_today.getSeconds();
+	if(t2 == '') t2 = date_today.getMinutes();
+	if(t3 == '') t3 = date_today.getDay();
+	if(t4 == '') t4 = date_today.getMonth();
+	if(t5 == '') t5 = date_today.getFullYear();
+
+	var date_post_form = new Date(t5, t4, t3, t2, t1);  
+	form_post_happy_info.publish_date = date_post_form.getTime();
+
+	var own;
+
+	if(form_post_happy_info.owner_id == 1) {
+		own = obj_user_group_info.user_id;
+	}
+	else if(form_post_happy_info.owner_id == 0) { 
+		own = obj_user_group_info.group_id;
+	}
+
+	sendRequest('wall.post', {
+		owner_id: own,
+		friends_only: form_post_happy_info.friends_only,
+		from_group: form_post_happy_info.from_group,
+		message: form_post_happy_info.message,
+		publish_date: form_post_happy_info.publish_date,
+		close_comments: form_post_happy_info.close_comments
+	}, function (data) {
+		console.log('ACCESS');
 	});
+
+
+
+
 }
 
-get_random_congratulation();
 
 
-
-/*  ПОСТ С ПОЗДРАВЛЕНИЕМ  */
+/*  СОЗДАНИЕ ПОСТА С ПОЗДРАВЛЕНИЕМ  */
 const create_post = (e) => {
 
 	document.getElementById('form_post').classList.remove("d-none");
@@ -299,13 +384,15 @@ const submit_congratulation = (e) => {
 const drowUserBirthDay = (e) => {
 	let str = e.slice(1); // Убрать запятую в наале
 
-	document.getElementById('post_mailing').innerHTML = `
-	<button onclick='create_post();' class="mb-1 btn btn-primary">Разместить запись с поздравлением именинников</button>
 
-	<button onclick='submit_congratulation()' class="mb-1 btn btn-primary">Отправить поздравления именинникам</button>
-	<hr/>
+	if (form_post_happy_info.birth_num > 0) {
+		document.getElementById('post_mailing').innerHTML = `
+		<button onclick='create_post();' class="mb-1 btn btn-primary">Разместить запись с поздравлением именинников</button>
+		<button onclick='submit_congratulation()' class="mb-1 btn btn-primary">Отправить поздравления именинникам</button>
+		<hr/>
+		`;
+	}
 
-	`;
 
 	sendRequest('users.get', {user_ids: str, fields:'photo_50,quotes'}, function (data) {
 
@@ -323,10 +410,8 @@ const drowUserBirthDay = (e) => {
 			document.getElementById('birthday_mans_list').innerHTML += `
 			<a id="${d[i].id}" class="col-6 nav-link" href="https://vk.com/id${d[i].id}" >
 			<li class="list-group-item">
-
 			<img class="border border-secondary rounded-circle circle" src="${d[i].photo_50}" />
-			<span class="text-dark h6">${d[i].last_name} ${d[i].first_name}</span>	
-
+			<span class="text-dark h6">${d[i].last_name} ${d[i].first_name}</span>
 			</li></a>
 			`
 		}
@@ -337,10 +422,14 @@ const drowUserBirthDay = (e) => {
 
 
 document.getElementById('birth_day_men').onclick = () => {
+
+
+
 	sendRequest('groups.getMembers', {group_id: obj_user_group_info.group_id, fields:'bdate'}, function (data) {
 		
+		form_post_happy_info.birth_num = 0;
 		regexp = new RegExp(obj_user_group_info.bdate);
-		let birth_num = 0;
+
 		var b_str_user = '';
 
 		for(let i=0; i<= 400; i++) {
@@ -350,14 +439,16 @@ document.getElementById('birth_day_men').onclick = () => {
 				let text_d = d.bdate;
 
 				if(text_d.match(regexp) != null) {
-					birth_num += 1;
+					form_post_happy_info.birth_num += 1;
 					b_str_user += ','+d.id;
 				}
 			}
 		}
 
-		if(birth_num == 0) {
+		if(form_post_happy_info.birth_num == 0) {
 			document.getElementById('birthday_mans_list').innerHTML = `<h3 class="col-12">Именинники не обнаружены</h3>`;
+			document.getElementById('post_mailing').innerHTML = '';
+			document.getElementById('link_users_list').innerHTML = '';
 		}
 		else {
 			drowUserBirthDay(b_str_user);

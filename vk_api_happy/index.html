@@ -14,6 +14,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 	<script src="calendar.js"></script>
+	<script src="congratulation.js"></script>
 	<script src="moment-2.2.1.js"></script>
 
 
@@ -28,7 +29,7 @@
 			<form class="col-8 rounded border border-primary p-4" action="#">
 				<div class=" text-center">
 					<label class="h5" for="search_group_id">Что ищем ?</label>
-					<input type="text" class="form-control" id="search_group_id" aria-describedby="emailHelp" placeholder="Введите ссылку на группу">
+					<input type="text" class="form-control" id="search_group_id" aria-describedby="emailHelp" placeholder="Введите название группы">
 				</div>
 
 
@@ -133,11 +134,11 @@
 						</div>
 
 						<div class="btn-group btn-group-toggle" data-toggle="buttons">
-							<label class="btn btn-secondary active">
-								<input type="radio" id="where_send_post_1" autocomplete="off" checked>На свою страницу
+							<label class="shadow btn btn-secondary active">
+								<input value="1" type="radio" name="where_create_post" checked>На свою страницу
 							</label>
-							<label class="btn btn-secondary">
-								<input type="radio" id="where_send_post_0" autocomplete="off">В эту группу
+							<label class="shadow btn btn-secondary">
+								<input value="0" type="radio" name="where_create_post">В эту группу
 							</label>
 						</div>
 					</li>
@@ -151,11 +152,11 @@
 						</div>
 
 						<div class="btn-group btn-group-toggle" data-toggle="buttons">
-							<label class="btn btn-secondary active">
-								<input type="radio" id="who_access_post" autocomplete="off" checked>Всем пользователям
+							<label class="shadow btn btn-secondary active">
+								<input value="0" type="radio" name="who_access_post" checked>Всем пользователям
 							</label>
-							<label class="btn btn-secondary">
-								<input type="radio" id="who_access_post" autocomplete="off">Только друзьям
+							<label class="shadow btn btn-secondary">
+								<input value="1" type="radio" name="who_access_post">Только друзьям
 							</label>
 						</div>
 
@@ -166,15 +167,15 @@
 					<!-- ОТ КАКОГО ИМЕНИ РАЗМЕЩЕНИЕ -->
 					<li class="list-group-item bg-info text-center">
 						<div class="col-12 mb-2"> 
-							<span class="text-white h5 mr-auto">От какого имени разместить запись</span> 			
+							<span class="text-white h5 mr-auto">От какого имени разместить запись (если вы постите в группе)</span> 			
 						</div>
 
 						<div class="btn-group btn-group-toggle" data-toggle="buttons">
-							<label class="btn btn-secondary active">
-								<input type="radio" id="on_what_behalf_0" autocomplete="off" checked>От имени пользователя
+							<label class="shadow btn btn-secondary active">
+								<input value="0" type="radio" name="on_what_behalf" checked>От имени пользователя
 							</label>
-							<label class="btn btn-secondary">
-								<input type="radio" id="on_what_behalf_1" autocomplete="off">От имени группы
+							<label class="shadow btn btn-secondary">
+								<input value="1" type="radio" name="on_what_behalf">От имени группы
 							</label>
 						</div>
 					</li>
@@ -184,10 +185,11 @@
 					<!-- ТЕКСТ С ПОЗДРАВЛЕНИЕМ -->
 					<li class="list-group-item bg-info text-center">
 						<div class="col-12 mb-2"> 
-							<span class="text-white h5 mr-auto">Текст с поздравлением</span> 			
-						</div>			
+							<span class="text-white h5 mr-auto">Текст с поздравлением</span> 		<input style="height:28px;" class="shadow py-0 px-1 btn btn-outline-light my-2 my-sm-0" onclick="get_random_congratulation();" type="button" value="Случайное поздравление" />	
+						</div>	
+
 						<div class="col-12 form-group row justify-content-center">
-							<textarea class="col-8 form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+							<textarea id="congratulation_textarea" class="shadow col-8 form-control" rows="3"></textarea>
 						</div>						
 					</li>
 					<!-- ТЕКСТ С ПОЗДРАВЛЕНИЕМ -->
@@ -195,22 +197,35 @@
 
 
 					<!-- ДАТА ПУБЛИКАЦИИ -->
-					<li class="list-group-item bg-info">			
-						<label class="btn btn-secondary active">
-							<input type="text" id="date_posts_happy" autocomplete="off" /> 
-						</label>						
+					<li class="list-group-item bg-info text-center">
+						<div class="col-12 mb-2"> 
+							<span class="text-white h5 mr-auto">Дата публикации</span> 			
+						</div>		
+
+						<input class="w-20 my-2 d-inline-block form-control shadow" type="text" id="date_posts_happy_minute" placeholder="Минута" autocomplete="off" />
+
+						<input class="w-20 my-2 d-inline-block form-control shadow" type="text" id="date_posts_happy_hours" placeholder="Час" autocomplete="off" />
+
+						<input class="w-20 my-2 d-inline-block form-control shadow" type="text" id="date_posts_happy_day" placeholder="День" autocomplete="off" /> 
+
+						<input class="w-20 my-2 d-inline-block form-control shadow" type="text" id="date_posts_happy_month" placeholder="Месяц" autocomplete="off" /> 
+
+						<input class="w-20 my-2 d-inline-block form-control shadow" type="text" id="date_posts_happy_year" placeholder="Год" autocomplete="off" /> 				
 					</li>
 					<!-- ДАТА ПУБЛИКАЦИИ -->
 
 
-					<!-- КОМЕНТАРИИ ВКЛ / ОТКЛ -->
-					<li class="list-group-item bg-info">			
+					<!-- КОММЕНТАРИИ ВКЛ / ОТКЛ -->
+					<li class="list-group-item bg-info text-center">
+						<div class="col-12 mb-2"> 
+							<span class="text-white h5 mr-auto">Комментарии</span> 			
+						</div>			
 						<div class="btn-group btn-group-toggle" data-toggle="buttons">
-							<label class="btn btn-secondary active">
-								<input type="radio" name="options" id="option1" autocomplete="off" checked> Active
+							<label class="shadow btn btn-secondary active">
+								<input value="0" type="radio" name="comments_post" autocomplete="off" checked> Вкл
 							</label>
-							<label class="btn btn-secondary">
-								<input type="radio" name="options" id="option2" autocomplete="off"> Radio
+							<label class="shadow btn btn-secondary">
+								<input value="1" type="radio" name="comments_post" autocomplete="off"> Откл
 							</label>
 						</div>
 					</li>
@@ -219,7 +234,7 @@
 				</ul>
 
 				<div class="text-center mt-3">
-					<button id="form_access_token" type="submit" class="btn btn-success">Разместить пост</button>
+					<a href="javascript:void(0);" id="btn_form_post_happy"  class="btn btn-success">Разместить пост</a>
 				</div>
 
 			</form>
