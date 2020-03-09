@@ -361,7 +361,7 @@ const btn_44_func = () => {
 
 
 const btn_55_func = () => {
-	VK.api("wall.post", {owner_id: own, message: 'HELLO'}, function (data) {		
+	VK.api("wall.post", {owner_id: obj_user_group_info.user_id, message: 'HELLO'}, function (data) {		
 		console.log(data);
 	});
 };
