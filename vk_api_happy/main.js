@@ -30,17 +30,6 @@
 // 	}
 // });
 
-// Загрузка мемов
-// $.ajax({
-// 	type: 'POST',
-// 	url: `https://oauth.vk.com/access_token?client_id=7348710&client_secret=cyyHvSRIS2nQhBjF2Ivo&redirect_uri=https://vk.com/app7348710_260069152`,
-// 	data: 'code=a4cd56eaaac5afe5d6',
-// 	success: function(data){
-// 		console.log(data)
-// 		//$('#main_block_memes').html(data);
-// 	}
-// });
-
 
 
 
@@ -50,14 +39,14 @@ if(localStorage.hasOwnProperty('access_token_this_vk_api_happy')) { // Пров�
 	document.getElementById('form_authorized').innerHTML = ''; // Удаление формы
 } else {
 	document.getElementById('form_access_token').onclick = () => {
-	let access_token = document.getElementById('form_access_token_input').value;
-	localStorage.setItem('access_token_this_vk_api_happy', access_token);
-	window.location = window.location;
-}
+		let access_token = document.getElementById('form_access_token_input').value;
+		localStorage.setItem('access_token_this_vk_api_happy', access_token);
+		window.location = window.location;
+	}
 }
 
 
- 
+
 
 
 let now = new Date();
@@ -66,7 +55,22 @@ let month_tt = now.getMonth();
 var obj_user_group_info = {
 	group_id: '',
 	bdate: '',
-}
+	user_id: '',
+};
+
+var form_post_happy_info = {
+owner_id: '', // Идентификатор пользователя или сообщества, на стене которого должна быть опубликована запись.
+friends_only: '', // 1 — запись будет доступна только друзьям, 0 — всем пользователям. По умолчанию публикуемые записи доступны всем пользователям.
+from_group: '', // Данный параметр учитывается, если owner_id < 0 (запись публикуется на стене группы). 1 — запись будет опубликована от имени группы, 0 — запись будет опубликована от имени пользователя (по умолчанию).
+message: '', // Текст сообщения (является обязательным, если не задан параметр attachments)
+attachments: '', // Список объектов, приложенных к записи и разделённых символом ","
+signed: '', // 1 — У записи, размещенной от имени сообщества, будет добавлена подпись (имя пользователя, разместившего запись), 0 — подписи добавлено не будет.
+publish_date: '', // Дата публикации записи в формате unixtime. Если параметр указан, публикация записи будет отложена до указанного времени.
+post_id: '1', // Идентификатор записи, которую необходимо опубликовать. Данный параметр используется для публикации отложенных записей и предложенных новостей.
+close_comments: '' //1 — комментарии к записи отключены. 0 — комментарии к записи включены.
+};
+
+
 obj_user_group_info.bdate += tomorrow+'.'+month_tt;
 document.querySelector('#birth_day_men_date').innerHTML = obj_user_group_info.bdate;
 
@@ -87,6 +91,19 @@ const sendRequest = (method, params, func) => {
 		success: func
 	});
 }
+
+
+
+
+const get_info_user = () => {
+	sendRequest('users.get', {fields:'online'}, function (data) {
+		obj_user_group_info.user_id = data.response[0].id; 
+	});
+}
+get_info_user();
+
+
+
 
 
 const getIdGroupUser = () => {
@@ -206,9 +223,89 @@ const string_date_text = (e) => {
 }
 
 
+
+
+
+
+const get_random_congratulation = () => {
+	$.getJSON('congratulation.json', function(data) {
+		var items = [];
+		var r = Math.random();
+		console.log(data);
+	 
+	});
+}
+
+get_random_congratulation();
+
+
+
+/*  ПОСТ С ПОЗДРАВЛЕНИЕМ  */
+const create_post = (e) => {
+
+	document.getElementById('form_post').classList.remove("d-none");
+	document.getElementById('form_post').classList.add("d-block");
+
+
+
+
+}
+
+
+// const submit_post = (e) => {
+// 	sendRequest('wall.post', {user_ids: str, fields:'photo_50,quotes'}, function (data) {
+
+// 	};
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ОТПРАВИТЬ ПОЗДРАВЛЕНИЕ ИМЕНИННИКАМ  */
+const submit_congratulation = (e) => {
+	console.log(e);
+};
+
+
 const drowUserBirthDay = (e) => {
 	let str = e.slice(1); // Убрать запятую в наале
 
+	document.getElementById('post_mailing').innerHTML = `
+	<button onclick='create_post();' class="mb-1 btn btn-primary">Разместить запись с поздравлением именинников</button>
+
+	<button onclick='submit_congratulation()' class="mb-1 btn btn-primary">Отправить поздравления именинникам</button>
+	<hr/>
+
+	`;
 
 	sendRequest('users.get', {user_ids: str, fields:'photo_50,quotes'}, function (data) {
 
@@ -239,7 +336,7 @@ const drowUserBirthDay = (e) => {
 
 
 
-document.getElementById('birth_day_men').onclick =() => {
+document.getElementById('birth_day_men').onclick = () => {
 	sendRequest('groups.getMembers', {group_id: obj_user_group_info.group_id, fields:'bdate'}, function (data) {
 		
 		regexp = new RegExp(obj_user_group_info.bdate);
@@ -260,7 +357,7 @@ document.getElementById('birth_day_men').onclick =() => {
 		}
 
 		if(birth_num == 0) {
-			document.getElementById('birthday_mans_list').innerHTML = `<h3 class="col-12">Вы не обнаружили именинников</h3>`;
+			document.getElementById('birthday_mans_list').innerHTML = `<h3 class="col-12">Именинники не обнаружены</h3>`;
 		}
 		else {
 			drowUserBirthDay(b_str_user);
@@ -272,7 +369,7 @@ document.getElementById('birth_day_men').onclick =() => {
 
 
 
-document.getElementById('search_group').onclick =() => {
+document.getElementById('search_group').onclick = () => {
 	document.querySelector('#list_group_user').innerHTML = '';
 	let group_name = document.querySelector('#search_group_id').value;
 	sendRequest('groups.search', {q: group_name}, function (data) {
@@ -288,3 +385,81 @@ document.getElementById('search_group').onclick =() => {
 		}
 	});
 }
+
+
+
+
+const draw_img_arr_users_collage = () => {
+	let arr_img_users = [
+	"https://dummyimage.com/500x250/c98cae/000000.png?text=1",
+	"https://dummyimage.com/500x250/8ba8c7/000000.png?text=2",
+	"https://dummyimage.com/500x250/8bc7a3/000000.png?text=3",
+	"https://dummyimage.com/500x250/ab8f6a/000000.png?text=4",
+	"https://dummyimage.com/500x250/ab8f6a/000000.png?text=2",
+	"https://dummyimage.com/500x250/ab8f6a/000000.png?text=4"];
+
+	let img_size = 100;
+	let k = arr_img_users.length;
+	let k2 = k / 2;
+
+	let wh_canvas = document.getElementById("canvas")
+	wh_canvas.width = arr_img_users.length * img_size / 2;
+	wh_canvas.height = img_size * 2;
+
+	const draw = () => {
+		arr_img_users.map((e, i) => {
+			let image = new Image();
+			image.src = e;
+			for(x=0;x<=k;x++) {
+				image.onload = () => document.getElementById(`canvas`)
+				.getContext('2d')
+				.drawImage(image, img_size * (i >= k2 ? i - k2 : i), (i >= k2 ?  img_size : 0), img_size, img_size)
+			}
+
+		});
+		wh_canvas.toBlob(function(blob) {
+  // после того, как Blob создан, загружаем его
+  let link = document.createElement('a');
+  link.download = 'example.png';
+
+  link.href = URL.createObjectURL(blob);
+  link.click();
+
+  // удаляем внутреннюю ссылку на Blob, что позволит браузеру очистить память
+  URL.revokeObjectURL(link.href);
+}, 'image/png');
+	}
+	draw();
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

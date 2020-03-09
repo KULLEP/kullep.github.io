@@ -65,6 +65,11 @@
 				<hr/>
 			</div>
 
+			<div id="post_mailing" class="text-center mt-3 col-12">
+
+
+			</div>
+
 			<div class="col-10">
 				<details>
 					<summary class="noselect">Ссылки на пользователей</summary>
@@ -110,6 +115,116 @@
 			</form>
 		</div>
 		<!-- FORM AUTHORIZED -->
+
+
+
+
+		<!-- FORM POST -->
+		<div id="form_post" class="   d-block   	m-0 p-0 col-12 row justify-content-center h-100 bg-light position-absolute">
+			<h2 class="col-12 text-center">Форма редактирования поста</h2>
+			<form style="top:25%" class="bg-white col-10 rounded border border-primary p-4 position-absolute" action="#">
+
+				<ul class="p-0 m-0 text-white">
+
+					<!-- КУДА ОТПРАВИТЬ ПОСТ-->
+					<li class="list-group-item bg-info text-center">
+						<div class="col-12 mb-2"> 
+							<span class="text-white h5 mr-auto">Где разместить запись</span> 			
+						</div>
+
+						<div class="btn-group btn-group-toggle" data-toggle="buttons">
+							<label class="btn btn-secondary active">
+								<input type="radio" id="where_send_post_1" autocomplete="off" checked>На свою страницу
+							</label>
+							<label class="btn btn-secondary">
+								<input type="radio" id="where_send_post_0" autocomplete="off">В эту группу
+							</label>
+						</div>
+					</li>
+					<!-- КУДА ОТПРАВИТЬ ПОСТ-->
+
+
+					<!-- КОМУ ДОСТУПНА ЗАПСЬ -->
+					<li class="list-group-item bg-info text-center">
+						<div class="col-12 mb-2"> 
+							<span class="text-white h5 mr-auto">Кому будет доступна запись</span> 			
+						</div>
+
+						<div class="btn-group btn-group-toggle" data-toggle="buttons">
+							<label class="btn btn-secondary active">
+								<input type="radio" id="who_access_post" autocomplete="off" checked>Всем пользователям
+							</label>
+							<label class="btn btn-secondary">
+								<input type="radio" id="who_access_post" autocomplete="off">Только друзьям
+							</label>
+						</div>
+
+					</li>
+					<!-- КОМУ ДОСТУПНА ЗАПСЬ -->
+
+
+					<!-- ОТ КАКОГО ИМЕНИ РАЗМЕЩЕНИЕ -->
+					<li class="list-group-item bg-info text-center">
+						<div class="col-12 mb-2"> 
+							<span class="text-white h5 mr-auto">От какого имени разместить запись</span> 			
+						</div>
+
+						<div class="btn-group btn-group-toggle" data-toggle="buttons">
+							<label class="btn btn-secondary active">
+								<input type="radio" id="on_what_behalf_0" autocomplete="off" checked>От имени пользователя
+							</label>
+							<label class="btn btn-secondary">
+								<input type="radio" id="on_what_behalf_1" autocomplete="off">От имени группы
+							</label>
+						</div>
+					</li>
+					<!-- ОТ КАКОГО ИМЕНИ РАЗМЕЩЕНИЕ -->
+
+
+					<!-- ТЕКСТ С ПОЗДРАВЛЕНИЕМ -->
+					<li class="list-group-item bg-info text-center">
+						<div class="col-12 mb-2"> 
+							<span class="text-white h5 mr-auto">Текст с поздравлением</span> 			
+						</div>			
+						<div class="col-12 form-group row justify-content-center">
+							<textarea class="col-8 form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+						</div>						
+					</li>
+					<!-- ТЕКСТ С ПОЗДРАВЛЕНИЕМ -->
+
+
+
+					<!-- ДАТА ПУБЛИКАЦИИ -->
+					<li class="list-group-item bg-info">			
+						<label class="btn btn-secondary active">
+							<input type="text" id="date_posts_happy" autocomplete="off" /> 
+						</label>						
+					</li>
+					<!-- ДАТА ПУБЛИКАЦИИ -->
+
+
+					<!-- КОМЕНТАРИИ ВКЛ / ОТКЛ -->
+					<li class="list-group-item bg-info">			
+						<div class="btn-group btn-group-toggle" data-toggle="buttons">
+							<label class="btn btn-secondary active">
+								<input type="radio" name="options" id="option1" autocomplete="off" checked> Active
+							</label>
+							<label class="btn btn-secondary">
+								<input type="radio" name="options" id="option2" autocomplete="off"> Radio
+							</label>
+						</div>
+					</li>
+					<!-- КОМЕНТАРИИ ВКЛ / ОТКЛ -->
+
+				</ul>
+
+				<div class="text-center mt-3">
+					<button id="form_access_token" type="submit" class="btn btn-success">Разместить пост</button>
+				</div>
+
+			</form>
+		</div>
+		<!-- FORM POST -->
 
 	</main>
 
