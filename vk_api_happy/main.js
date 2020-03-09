@@ -8,13 +8,13 @@
 
 // https://oauth.vk.com/authorize?client_id=7348710&display=popup&redirect_uri=https://vk.com/app7348710_260069152&scope=groups&response_type=token&v=5.103
 
-
+ 
 
 // CODE
-// https://oauth.vk.com/authorize?client_id=7348710&display=page&redirect_uri=https://vk.com/app7348710_260069152&scope=groups&response_type=code&v=5.103
+// https://oauth.vk.com/authorize?client_id=7348710&display=page&redirect_uri=https://vk.com/app7348710_260069152&scope=wall,groups&response_type=code&v=5.103
 
 // ACCESS TOKEN
-// https://oauth.vk.com/access_token?client_id=1&client_secret=H2Pk8htyFD8024mZaPHm&redirect_uri=http://mysite.ru&code=7a6fa4dff77a228eeda56603b8f53806c883f011c40b72630bb50df056f6479e52a
+// https://oauth.vk.com/access_token?client_id=7348710&client_secret=cyyHvSRIS2nQhBjF2Ivo&redirect_uri=https://vk.com/app7348710_260069152&code=17566fe4606a6532fe
 
 
 
@@ -237,7 +237,7 @@ const string_date_text = (e) => {
 	}
 
 	obj_user_group_info.bdate = day+'.'+month_date;;
-	document.querySelector('#birth_day_men_date').innerHTML =day + ' ' + month_str;
+	document.querySelector('#birth_day_men_date').innerHTML = day + ' ' + month_str;
 }
 
 
