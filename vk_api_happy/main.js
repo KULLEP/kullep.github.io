@@ -314,14 +314,17 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 	}
 
 	 
-
+VK.api("wall.post", {"message": "hello"}, function (data) {		
+		console.log(data);
+	});
 
 	VK.api("wall.post", {owner_id: own, message: form_post_happy_info.message}, function (data) {		
 		console.log(data);
 	});
 
-
-
+VK.callMethod("showRequestBox", obj_user_group_info.user_id, "Hello!", "myRequestKey");
+VK.callMethod("scrollWindow", 200, 500);
+VK.callMethod("setTitle", "New title");
 // 	sendRequest('wall.post', {
 // 		owner_id: own,
 // 	//	friends_only: form_post_happy_info.friends_only,
