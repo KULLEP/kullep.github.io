@@ -313,18 +313,15 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 		own = obj_user_group_info.group_id;
 	}
 
-	 
-VK.api("wall.post", {"message": "hello"}, function (data) {		
-		console.log(data);
-	});
+
 
 	VK.api("wall.post", {owner_id: own, message: form_post_happy_info.message}, function (data) {		
 		console.log(data);
 	});
 
-VK.callMethod("showRequestBox", obj_user_group_info.user_id, "Hello!", "myRequestKey");
-VK.callMethod("scrollWindow", 200, 500);
-VK.callMethod("setTitle", "New title");
+	VK.callMethod("showRequestBox", obj_user_group_info.user_id, "Hello!", "myRequestKey");
+
+
 // 	sendRequest('wall.post', {
 // 		owner_id: own,
 // 	//	friends_only: form_post_happy_info.friends_only,
@@ -336,10 +333,50 @@ VK.callMethod("setTitle", "New title");
 // 	console.log(data);
 // });
 
-
-
-
 }
+
+
+
+
+
+const btn_11_func = () => {
+	VK.Auth.login();
+};
+
+const btn_22_func = () => {
+	VK.callMethod("setTitle", "New title");
+};
+
+
+const btn_33_func = () => {
+	VK.callMethod("scrollWindow", 200, 500);
+};
+
+
+const btn_44_func = () => {
+	VK.api("wall.post", {"message": "hello"}, function (data) {		
+		console.log(data);
+	});
+};
+
+
+const btn_55_func = () => {
+	VK.api("wall.post", {owner_id: own, message: 'HELLO'}, function (data) {		
+		console.log(data);
+	});
+};
+
+
+
+const btn_66_func = () => {
+	VK.callMethod("showRequestBox", obj_user_group_info.user_id, "Hello!", "myRequestKey");
+};
+
+
+
+
+
+
 
 
 
