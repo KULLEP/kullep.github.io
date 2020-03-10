@@ -243,7 +243,7 @@ const string_date_text = (e) => {
 
 
 
- 
+
 /* ЗАКРЫТЬ ФОРМУ ИНФЫ О ГРУППЕ */
 const btn_group_info_users_back = () => {
 	document.getElementById('group_info_users').classList.remove("d-block");
@@ -321,12 +321,6 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 
 	form_post_happy_info.publish_date = date_post_form.getTime() / 1000;
 
-
-
-	console.log('before '+this_param_own_id);
-
-
-
 	if(form_post_happy_info.owner_id == 1) {
 		this_param_own_id = obj_user_group_info.user_id;
 	}
@@ -334,34 +328,22 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 		this_param_own_id = obj_user_group_info.group_id * -1;
 	}
 
-	console.log('after '+this_param_own_id);
-
-
-
-
 // VK.api("wall.post", {owner_id: obj_user_group_info.user_id, message: 'HELLO'}, function (data) {		
 // 		console.log(data);
 // 	});
 
 
 
-VK.api("wall.post", {owner_id: this_param_own_id, message: form_post_happy_info.message}, function (data) {		
+VK.api("wall.post", {
+	owner_id: this_param_own_id,
+	friends_only: form_post_happy_info.friends_only,
+	from_group: form_post_happy_info.from_group,
+	message: form_post_happy_info.message,
+	publish_date: form_post_happy_info.publish_date,
+	close_comments: form_post_happy_info.close_comments
+}, function (data) {		
 	console.log(data);
 });
-
-
-
-// 	sendRequest('wall.post', {
-// 		owner_id: own,
-// 	//	friends_only: form_post_happy_info.friends_only,
-// 	//	from_group: form_post_happy_info.from_group,
-// 	message: form_post_happy_info.message,
-// 	//	publish_date: form_post_happy_info.publish_date,
-// 	//	close_comments: form_post_happy_info.close_comments
-// }, function (data) {
-// 	console.log(data);
-// });
-
 }
 
 
@@ -416,7 +398,7 @@ const btn_55_func = () => {
 // 	});
 // };
 
- 
+
 // const submit_post = (e) => {
 // 	sendRequest('wall.post', {user_ids: str, fields:'photo_50,quotes'}, function (data) {
 
