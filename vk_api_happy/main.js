@@ -334,10 +334,11 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 
 
 
-VK.api("wall.post", {
-	owner_id: this_param_own_id, friends_only: form_post_happy_info.friends_only, from_group: form_post_happy_info.from_group, message: form_post_happy_info.message, publish_date: form_post_happy_info.publish_date, close_comments: form_post_happy_info.close_comments
+VK.api("wall.post", {owner_id: this_param_own_id, friends_only: form_post_happy_info.friends_only, from_group: form_post_happy_info.from_group, message: form_post_happy_info.message, publish_date: form_post_happy_info.publish_date, close_comments: form_post_happy_info.close_comments
 }, function (data) {		
 	console.log(data);
+	console.log({owner_id: this_param_own_id, friends_only: form_post_happy_info.friends_only, from_group: form_post_happy_info.from_group, message: form_post_happy_info.message, publish_date: form_post_happy_info.publish_date, close_comments: form_post_happy_info.close_comments
+});
 });
 }
 
