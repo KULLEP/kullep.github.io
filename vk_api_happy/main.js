@@ -314,13 +314,17 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 	}
 
 
+// VK.api("wall.post", {owner_id: obj_user_group_info.user_id, message: 'HELLO'}, function (data) {		
+// 		console.log(data);
+// 	});
 
-	VK.api("wall.post", {owner_id: own, message: form_post_happy_info.message}, function (data) {		
+
+
+	VK.api("wall.post", {owner_id: own, message: 'form_post_happy_info.message'}, function (data) {		
 		console.log(data);
 	});
 
-	VK.callMethod("showRequestBox", obj_user_group_info.user_id, "Hello!", "myRequestKey");
-
+ 
 
 // 	sendRequest('wall.post', {
 // 		owner_id: own,
@@ -339,25 +343,25 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 
 
 
-const btn_11_func = () => {
-	VK.Auth.login();
-};
+// const btn_11_func = () => {
+// 	VK.Auth.login();
+// };
 
-const btn_22_func = () => {
-	VK.callMethod("setTitle", "New title");
-};
-
-
-const btn_33_func = () => {
-	VK.callMethod("scrollWindow", 200, 500);
-};
+// const btn_22_func = () => {
+// 	VK.callMethod("setTitle", "New title");
+// };
 
 
-const btn_44_func = () => {
-	VK.api("wall.post", {"message": "hello"}, function (data) {		
-		console.log(data);
-	});
-};
+// const btn_33_func = () => {
+// 	VK.callMethod("scrollWindow", 200, 500);
+// };
+
+
+// const btn_44_func = () => {
+// 	VK.api("wall.post", {"message": "hello"}, function (data) {		
+// 		console.log(data);
+// 	});
+// };
 
 
 const btn_55_func = () => {
@@ -368,24 +372,24 @@ const btn_55_func = () => {
 
 
 
-const btn_66_func = () => {
-	VK.callMethod("showRequestBox", obj_user_group_info.user_id, "Hello!", function (data) {		
-		console.log(data);
-	});
-};
+// const btn_66_func = () => {
+// 	VK.callMethod("showRequestBox", obj_user_group_info.user_id, "Hello!", function (data) {		
+// 		console.log(data);
+// 	});
+// };
 
 
-const btn_77_func = () => {
-	VK.callMethod("wall.post", {owner_id: 192805239}, "Hello!", function (data) {		
-		console.log(data);
-	});
-};
+// const btn_77_func = () => {
+// 	VK.callMethod("wall.post", {owner_id: 192805239}, "Hello!", function (data) {		
+// 		console.log(data);
+// 	});
+// };
 
-const btn_88_func = () => {
-	VK.callMethod("wall.post", {owner_id: '192805239'}, "Hello!", function (data) {		
-		console.log(data);
-	});
-};
+// const btn_88_func = () => {
+// 	VK.callMethod("wall.post", {owner_id: '192805239'}, "Hello!", function (data) {		
+// 		console.log(data);
+// 	});
+// };
 
 
 
