@@ -300,29 +300,35 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 	if(t5 == '') t5 = date_today.getFullYear();
 
 	var date_post_form = new Date(t5, t4, t3, t2, t1); 
-
+ 	let this_param_own_id = '';
 
 	form_post_happy_info.publish_date = date_post_form.getTime() / 1000;
 
 console.log('before '+form_post_happy_info.owner_id);
  
-	var own;
+	 
 
 	if(form_post_happy_info.owner_id == 1) {
-		own = obj_user_group_info.user_id;
+		this_param_own_id = obj_user_group_info.user_id;
 	}
 	else if(form_post_happy_info.owner_id == 0) { 
-		own = obj_user_group_info.group_id;
+		this_param_own_id = obj_user_group_info.group_id;
 	}
 console.log('after '+form_post_happy_info.owner_id);
-console.log(own);
+console.log('this_param_own_id '+this_param_own_id);
+
+console.log('user id '+obj_user_group_info.user_id);
+console.log('group id '+group_id.user_id);
+
+
+
 // VK.api("wall.post", {owner_id: obj_user_group_info.user_id, message: 'HELLO'}, function (data) {		
 // 		console.log(data);
 // 	});
 
 
 
-	VK.api("wall.post", {owner_id: own, message: 'form_post_happy_info.message'}, function (data) {		
+	VK.api("wall.post", {owner_id: this_param_own_id, message: 'form_post_happy_info.message'}, function (data) {		
 		console.log(data);
 	});
 
