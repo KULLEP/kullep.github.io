@@ -62,7 +62,7 @@ var obj_user_group_info = {
 };
 
 var form_post_happy_info = {
-	photo_arr = '',
+	photo_arr: '',
 	start_congratulation: "Сегодня мы спешим поздравить наших сообщников с ДНЕМ РОЖДЕНИЯ!!!\n\n\n",
 	birth_num: 0, // Кол-во именинников
 owner_id: 1, // Идентификатор пользователя или сообщества, на стене которого должна быть опубликована запись.
@@ -331,13 +331,14 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 		this_param_own_id = obj_user_group_info.group_id * -1;
 	}
 
-// VK.api("wall.post", {owner_id: obj_user_group_info.user_id, message: 'HELLO'}, function (data) {		
-// 		console.log(data);
-// 	});
+	//  form_post_happy_info.photo_arr
+  form_post_happy_info.photo_arr = form_post_happy_info.photo_arr.slice(1); // Убрать запятую в начале
+
+
 let message_result = form_post_happy_info.start_congratulation + form_post_happy_info.message;
 
 console.log(message_result);
-VK.api("wall.post", {owner_id: this_param_own_id, friends_only: form_post_happy_info.friends_only, from_group: form_post_happy_info.from_group, message: message_result, publish_date: form_post_happy_info.publish_date, close_comments: form_post_happy_info.close_comments
+VK.api("wall.post", {owner_id: this_param_own_id, attachments: form_post_happy_info.photo_arr,friends_only: form_post_happy_info.friends_only, from_group: form_post_happy_info.from_group, message: message_result, publish_date: form_post_happy_info.publish_date, close_comments: form_post_happy_info.close_comments
 }, function (data) {		
 	console.log(data);
 	console.log({owner_id: this_param_own_id, friends_only: form_post_happy_info.friends_only, from_group: form_post_happy_info.from_group, message: form_post_happy_info.message, publish_date: form_post_happy_info.publish_date, close_comments: form_post_happy_info.close_comments
@@ -375,21 +376,21 @@ const drowUserBirthDay = (e) => {
 	sendRequest('users.get', {user_ids: str, fields:'photo_50,quotes,photo_id'}, function (data) {
 
 
-console.log(data);
+		console.log(data);
 // photo_id в строку для финала
-// form_post_happy_info.photo_arr += 
+
 
 let d = data.response;
+
 
 document.getElementById('link_users_list').innerHTML = '';
 document.getElementById('birthday_mans_list').innerHTML = '';
 
 for(let i=0; i < d.length; i++) {
 
+	form_post_happy_info.photo_arr += ',photo'+d[i].photo_id;
 
 	document.getElementById('link_users_list').innerHTML += `<p>https://vk.com/id${d[i].id}</p>`;
-
-
 	document.getElementById('birthday_mans_list').innerHTML += `
 	<a id="${d[i].id}" class="col-6 nav-link" href="https://vk.com/id${d[i].id}" >
 	<li class="list-group-item">
