@@ -304,6 +304,8 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 
 	form_post_happy_info.publish_date = date_post_form.getTime() / 1000;
 
+console.log('before '+form_post_happy_info.owner_id);
+ 
 	var own;
 
 	if(form_post_happy_info.owner_id == 1) {
@@ -312,8 +314,8 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 	else if(form_post_happy_info.owner_id == 0) { 
 		own = obj_user_group_info.group_id;
 	}
-
-
+console.log('after '+form_post_happy_info.owner_id);
+console.log(own);
 // VK.api("wall.post", {owner_id: obj_user_group_info.user_id, message: 'HELLO'}, function (data) {		
 // 		console.log(data);
 // 	});
