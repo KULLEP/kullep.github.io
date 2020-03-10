@@ -304,20 +304,20 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 
 	date_today = new Date();  
 
-	let t0 = date_today.getSeconds() + 10;
+	// let t0 = date_today.getSeconds() + 10;
 	let t1 = document.getElementById('date_posts_happy_minute').value;
 	let t2 = document.getElementById('date_posts_happy_hours').value;
 	let t3 = document.getElementById('date_posts_happy_day').value;
 	let t4 = document.getElementById('date_posts_happy_month').value;
 	let t5 = document.getElementById('date_posts_happy_year').value;
 
-	if(t1 == '') t1 = date_today.getMinutes();
+	if(t1 == '') t1 = date_today.getMinutes() + 0.1;
 	if(t2 == '') t2 = date_today.getHours();
 	if(t3 == '') t3 = date_today.getDate();
 	if(t4 == '') t4 = date_today.getMonth();
 	if(t5 == '') t5 = date_today.getFullYear();
 
-	var date_post_form = new Date(t5, t4, t3, t2, t1, t0); 
+	var date_post_form = new Date(t5, t4, t3, t2, t1); 
 
 
 	let this_param_own_id = 1;
