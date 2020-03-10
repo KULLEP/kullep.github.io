@@ -311,7 +311,7 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 	let t4 = document.getElementById('date_posts_happy_month').value;
 	let t5 = document.getElementById('date_posts_happy_year').value;
 
-	if(t1 == '') t1 = date_today.getMinutes() + 0.1;
+	if(t1 == '') t1 = date_today.getMinutes();
 	if(t2 == '') t2 = date_today.getHours();
 	if(t3 == '') t3 = date_today.getDate();
 	if(t4 == '') t4 = date_today.getMonth();
@@ -335,15 +335,14 @@ document.getElementById('btn_form_post_happy').onclick = () => {
   form_post_happy_info.photo_arr = form_post_happy_info.photo_arr.slice(1); // Убрать запятую в начале
 
 
-let message_result = form_post_happy_info.start_congratulation + form_post_happy_info.message;
+  let message_result = form_post_happy_info.start_congratulation + form_post_happy_info.message;
 
-console.log(message_result);
-VK.api("wall.post", {owner_id: this_param_own_id, attachments: form_post_happy_info.photo_arr,friends_only: form_post_happy_info.friends_only, from_group: form_post_happy_info.from_group, message: message_result, publish_date: form_post_happy_info.publish_date, close_comments: form_post_happy_info.close_comments
-}, function (data) {		
-	console.log(data);
-	console.log({owner_id: this_param_own_id, friends_only: form_post_happy_info.friends_only, from_group: form_post_happy_info.from_group, message: form_post_happy_info.message, publish_date: form_post_happy_info.publish_date, close_comments: form_post_happy_info.close_comments
-	});
-});
+  console.log(message_result);
+  VK.api("wall.post", {owner_id: this_param_own_id, attachments: form_post_happy_info.photo_arr, friends_only: form_post_happy_info.friends_only, from_group: form_post_happy_info.from_group, message: message_result, publish_date: form_post_happy_info.publish_date, close_comments: form_post_happy_info.close_comments
+  }, function (data) {		
+  	console.log(data);
+  });
+
 }
 
 
