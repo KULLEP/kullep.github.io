@@ -369,11 +369,17 @@ const btn_55_func = () => {
 
 
 const btn_66_func = () => {
-	VK.callMethod("showRequestBox", obj_user_group_info.user_id, "Hello!", "myRequestKey");
+	VK.callMethod("showRequestBox", obj_user_group_info.user_id, "Hello!", function (data) {		
+		console.log(data);
+	});
 };
 
 
-
+const btn_77_func = () => {
+	VK.callMethod("wall.post", {owner_id: 'ID GROUP'}, "Hello!", function (data) {		
+		console.log(data);
+	});
+};
 
 
 
