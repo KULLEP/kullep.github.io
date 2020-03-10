@@ -376,12 +376,16 @@ const btn_66_func = () => {
 
 
 const btn_77_func = () => {
-	VK.callMethod("wall.post", {owner_id: 'ID GROUP'}, "Hello!", function (data) {		
+	VK.callMethod("wall.post", {owner_id: 192805239}, "Hello!", function (data) {		
 		console.log(data);
 	});
 };
 
-
+const btn_88_func = () => {
+	VK.callMethod("wall.post", {owner_id: '192805239'}, "Hello!", function (data) {		
+		console.log(data);
+	});
+};
 
 
 
