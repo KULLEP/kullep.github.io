@@ -243,10 +243,25 @@ const string_date_text = (e) => {
 
 
 
+ 
+/* ЗАКРЫТЬ ФОРМУ ИНФЫ О ГРУППЕ */
+const btn_group_info_users_back = () => {
+	document.getElementById('group_info_users').classList.remove("d-block");
+	document.getElementById('group_info_users').classList.add("d-none");
+}
 
 
+/*  ОТКРЫТЬ РЕДАКТОР ПОСТА С ПОЗДРАВЛЕНИЕМ  */
+const create_post = (e) => {
+	document.getElementById('form_post').classList.remove("d-none");
+	document.getElementById('form_post').classList.add("d-block");
+}
 
-
+/* ЗАКРЫТЬ РЕДАКТОР ПОСТА */
+const btn_form_post_happy_back = () => {
+	document.getElementById('form_post').classList.remove("d-block");
+	document.getElementById('form_post').classList.add("d-none");
+}
 
 
 
@@ -302,7 +317,7 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 	var date_post_form = new Date(t5, t4, t3, t2, t1); 
 
 
-	let this_param_own_id = '';
+	let this_param_own_id = 1;
 
 	form_post_happy_info.publish_date = date_post_form.getTime() / 1000;
 
@@ -320,7 +335,7 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 	}
 
 	console.log('after '+this_param_own_id);
- 
+
 
 
 
@@ -401,21 +416,7 @@ const btn_55_func = () => {
 // 	});
 // };
 
-
-
-
-/*  СОЗДАНИЕ ПОСТА С ПОЗДРАВЛЕНИЕМ  */
-const create_post = (e) => {
-
-	document.getElementById('form_post').classList.remove("d-none");
-	document.getElementById('form_post').classList.add("d-block");
-
-
-
-
-}
-
-
+ 
 // const submit_post = (e) => {
 // 	sendRequest('wall.post', {user_ids: str, fields:'photo_50,quotes'}, function (data) {
 

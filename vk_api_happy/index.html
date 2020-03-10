@@ -64,7 +64,10 @@
 
 			<div class="text-center mt-3 col-12">
 				<h4 id="birth_day_men_date"></h4>
-				<button id="birth_day_men" type="submit" class="mb-1 btn btn-primary">Получить именинников</button>
+
+				<a onclick="btn_group_info_users_back();" href="javascript:void(0);" id="btn_form_post_happy_back" class="btn btn-danger">Назад</a>
+				<button id="birth_day_men" type="submit" class=" btn btn-primary">Получить именинников</button>
+
 				<hr/>
 			</div>
 
@@ -123,9 +126,11 @@
 
 
 		<!-- FORM POST -->
-		<div id="form_post" class="   d-block   	m-0 p-0 col-12 row justify-content-center h-100 bg-light position-absolute">
+		<div id="form_post" class="d-block m-0 p-0 col-12 bg-light position-absolute" style="height: -webkit-fill-available;">
+
+
 			<h2 class="col-12 text-center">Форма редактирования поста</h2>
-			<form style="top:25%" class="bg-white col-10 rounded border border-primary p-4 position-absolute" action="#">
+			<form style="top:7%" class="ml-5 bg-white col-10 rounded border border-primary p-4 position-absolute" action="#">
 
 				<ul class="p-0 m-0 text-white">
 
@@ -235,11 +240,13 @@
 
 				</ul>
 
-				<div class="text-center mt-3">
+				<div class="col-12 row justify-content-between mt-3">
+					<a onclick="btn_form_post_happy_back();" href="javascript:void(0);" id="btn_form_post_happy_back" class="btn btn-danger">Назад</a>
+
 					<a href="javascript:void(0);" id="btn_form_post_happy"  class="btn btn-success">Разместить пост</a>
 				</div>
 
- 
+
 
 			</form>
 		</div>
