@@ -302,6 +302,7 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 
 	date_today = new Date();  
 
+	let t0 = date_today.getSeconds() + 5;
 	let t1 = document.getElementById('date_posts_happy_minute').value;
 	let t2 = document.getElementById('date_posts_happy_hours').value;
 	let t3 = document.getElementById('date_posts_happy_day').value;
@@ -314,7 +315,7 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 	if(t4 == '') t4 = date_today.getMonth();
 	if(t5 == '') t5 = date_today.getFullYear();
 
-	var date_post_form = new Date(t5, t4, t3, t2, t1); 
+	var date_post_form = new Date(t5, t4, t3, t2, t1, t0); 
 
 
 	let this_param_own_id = 1;
@@ -338,7 +339,7 @@ VK.api("wall.post", {owner_id: this_param_own_id, friends_only: form_post_happy_
 }, function (data) {		
 	console.log(data);
 	console.log({owner_id: this_param_own_id, friends_only: form_post_happy_info.friends_only, from_group: form_post_happy_info.from_group, message: form_post_happy_info.message, publish_date: form_post_happy_info.publish_date, close_comments: form_post_happy_info.close_comments
-});
+	});
 });
 }
 
