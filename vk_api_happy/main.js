@@ -62,7 +62,8 @@ var obj_user_group_info = {
 };
 
 var form_post_happy_info = {
-
+	photo_arr = '',
+	start_congratulation: "Сегодня мы спешим поздравить наших сообщников с ДНЕМ РОЖДЕНИЯ!!!\n\n\n",
 	birth_num: 0, // Кол-во именинников
 owner_id: 1, // Идентификатор пользователя или сообщества, на стене которого должна быть опубликована запись.
 friends_only: '', // 1 — запись будет доступна только друзьям, 0 — всем пользователям. По умолчанию публикуемые записи доступны всем пользователям.
@@ -81,9 +82,10 @@ close_comments: '' //1 — комментарии к записи отключе
 /*   Получить случайное поздравление и записать его в textarea   */
 const get_random_congratulation = () => { 
 	let r = Math.round(Math.random()*10);
-	if(form_post_happy_info == 1) {
+
+	if(form_post_happy_info.birth_num == 1) {
 		form_post_happy_info.message = congratulation.solo[r];
-	} else if (form_post_happy_info > 1) {
+	} else if (form_post_happy_info.birth_num > 1) {
 		form_post_happy_info.message = congratulation.group[r];
 	}
 	document.getElementById('congratulation_textarea').innerHTML = form_post_happy_info.message;
@@ -302,7 +304,7 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 
 	date_today = new Date();  
 
-	let t0 = date_today.getSeconds() + 5;
+	let t0 = date_today.getSeconds() + 10;
 	let t1 = document.getElementById('date_posts_happy_minute').value;
 	let t2 = document.getElementById('date_posts_happy_hours').value;
 	let t3 = document.getElementById('date_posts_happy_day').value;
@@ -332,99 +334,16 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 // VK.api("wall.post", {owner_id: obj_user_group_info.user_id, message: 'HELLO'}, function (data) {		
 // 		console.log(data);
 // 	});
+let message_result = form_post_happy_info.start_congratulation + form_post_happy_info.message;
 
-
-
-VK.api("wall.post", {owner_id: this_param_own_id, friends_only: form_post_happy_info.friends_only, from_group: form_post_happy_info.from_group, message: form_post_happy_info.message, publish_date: form_post_happy_info.publish_date, close_comments: form_post_happy_info.close_comments
+console.log(message_result);
+VK.api("wall.post", {owner_id: this_param_own_id, friends_only: form_post_happy_info.friends_only, from_group: form_post_happy_info.from_group, message: message_result, publish_date: form_post_happy_info.publish_date, close_comments: form_post_happy_info.close_comments
 }, function (data) {		
 	console.log(data);
 	console.log({owner_id: this_param_own_id, friends_only: form_post_happy_info.friends_only, from_group: form_post_happy_info.from_group, message: form_post_happy_info.message, publish_date: form_post_happy_info.publish_date, close_comments: form_post_happy_info.close_comments
 	});
 });
 }
-
-
-
-
-
-// const btn_11_func = () => {
-// 	VK.Auth.login();
-// };
-
-// const btn_22_func = () => {
-// 	VK.callMethod("setTitle", "New title");
-// };
-
-
-// const btn_33_func = () => {
-// 	VK.callMethod("scrollWindow", 200, 500);
-// };
-
-
-// const btn_44_func = () => {
-// 	VK.api("wall.post", {"message": "hello"}, function (data) {		
-// 		console.log(data);
-// 	});
-// };
-
-
-const btn_55_func = () => {
-	VK.api("wall.post", {owner_id: obj_user_group_info.user_id, message: 'HELLO'}, function (data) {		
-		console.log(data);
-	});
-};
-
-
-
-// const btn_66_func = () => {
-// 	VK.callMethod("showRequestBox", obj_user_group_info.user_id, "Hello!", function (data) {		
-// 		console.log(data);
-// 	});
-// };
-
-
-// const btn_77_func = () => {
-// 	VK.callMethod("wall.post", {owner_id: 192805239}, "Hello!", function (data) {		
-// 		console.log(data);
-// 	});
-// };
-
-// const btn_88_func = () => {
-// 	VK.callMethod("wall.post", {owner_id: '192805239'}, "Hello!", function (data) {		
-// 		console.log(data);
-// 	});
-// };
-
-
-// const submit_post = (e) => {
-// 	sendRequest('wall.post', {user_ids: str, fields:'photo_50,quotes'}, function (data) {
-
-// 	};
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -441,7 +360,7 @@ const submit_congratulation = (e) => {
 
 
 const drowUserBirthDay = (e) => {
-	let str = e.slice(1); // Убрать запятую в наале
+	let str = e.slice(1); // Убрать запятую в начале
 
 
 	if (form_post_happy_info.birth_num > 0) {
@@ -453,28 +372,33 @@ const drowUserBirthDay = (e) => {
 	}
 
 
-	sendRequest('users.get', {user_ids: str, fields:'photo_50,quotes'}, function (data) {
-
-		let d = data.response;
-
-		document.getElementById('link_users_list').innerHTML = '';
-		document.getElementById('birthday_mans_list').innerHTML = '';
-
-		for(let i=0; i < d.length; i++) {
+	sendRequest('users.get', {user_ids: str, fields:'photo_50,quotes,photo_id'}, function (data) {
 
 
-			document.getElementById('link_users_list').innerHTML += `<p>https://vk.com/id${d[i].id}</p>`;
+console.log(data);
+// photo_id в строку для финала
+// form_post_happy_info.photo_arr += 
+
+let d = data.response;
+
+document.getElementById('link_users_list').innerHTML = '';
+document.getElementById('birthday_mans_list').innerHTML = '';
+
+for(let i=0; i < d.length; i++) {
 
 
-			document.getElementById('birthday_mans_list').innerHTML += `
-			<a id="${d[i].id}" class="col-6 nav-link" href="https://vk.com/id${d[i].id}" >
-			<li class="list-group-item">
-			<img class="border border-secondary rounded-circle circle" src="${d[i].photo_50}" />
-			<span class="text-dark h6">${d[i].last_name} ${d[i].first_name}</span>
-			</li></a>
-			`
-		}
-	});
+	document.getElementById('link_users_list').innerHTML += `<p>https://vk.com/id${d[i].id}</p>`;
+
+
+	document.getElementById('birthday_mans_list').innerHTML += `
+	<a id="${d[i].id}" class="col-6 nav-link" href="https://vk.com/id${d[i].id}" >
+	<li class="list-group-item">
+	<img class="border border-secondary rounded-circle circle" src="${d[i].photo_50}" />
+	<span class="text-dark h6">${d[i].last_name} ${d[i].first_name}</span>
+	</li></a>
+	`
+}
+});
 }
 
 
