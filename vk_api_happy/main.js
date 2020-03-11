@@ -267,12 +267,12 @@ const btn_group_info_users_back = () => {
 /*  ОТКРЫТЬ РЕДАКТОР ПОСТА С ПОЗДРАВЛЕНИЕМ  */
 const create_post = (e) => {
 	document.getElementById('form_post').classList.remove("d-none");
-	document.getElementById('form_post').classList.add("d-block");
+	document.getElementById('form_post').classList.add("d-flex");
 }
 
 /* ЗАКРЫТЬ РЕДАКТОР ПОСТА */
 const btn_form_post_happy_back = () => {
-	document.getElementById('form_post').classList.remove("d-block");
+	document.getElementById('form_post').classList.remove("d-flex");
 	document.getElementById('form_post').classList.add("d-none");
 }
 
