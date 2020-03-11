@@ -412,6 +412,7 @@ const drowUserBirthDay = (e) => {
 				console.log(data);
 			}
 		});
+		console.log(form_post_happy_info.photo_for_collage);
 
 	});
 };
