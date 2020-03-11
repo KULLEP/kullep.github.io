@@ -47,11 +47,10 @@
 		</ul>
 
 		<!-- GROUP INFO -->
-		<div id="group_info_users" class="h-100 bg-white col-12 row justify-content-center position-absolute d-none">
+		<div id="group_info_users" class="h-100 bg-white col-12 row justify-content-center position-absolute d-block">
 			<div class="mt-3 text-center">
 				<span class="h5">Когда день рождения у пользователя ?</span>
 			</div>
-
 			<div class='col-12 my-4 p-0'>
 				<div class="container">
 					<div class="row">
@@ -61,7 +60,6 @@
 					</div><!--/.row-->
 				</div><!--/.container-->
 			</div>
-
 			<div class="text-center mt-3 col-12">
 				<h4 id="birth_day_men_date"></h4>
 
@@ -70,197 +68,173 @@
 
 				<hr/>
 			</div>
-
 			<div id="post_mailing" class="text-center mt-3 col-12">
-
-
 			</div>
+			<div class="text-center p-0 px-5 m-0 row col-12 justify-content-between">
+				<div clas="col-10">
+					<details class="col-12">
+						<summary class="noselect">Ссылки на пользователей</summary>
+						<div class="border rounded dorder-info" id='link_users_list'>
+						</div>
+					</details>
+				</div>
+				<div class="col-auto">
+					<a onclick="copy_in_buffer();" href="javascript:void(0);" class="btn btn-info">
+						Скопировать ссылки
+					</a>
 
-			<div class="col-10">
-				<details>
-					<summary class="noselect">Ссылки на пользователей</summary>
-					<div class="border rounded dorder-info" id='link_users_list'>
-						
+					<a onclick="copy_in_buffer_with_name();" href="javascript:void(0);" class="btn btn-info">
+						Скопировать id с именами
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-12">
+			<ul id="birthday_mans_list" class="row">
+			</ul>
+		</div>
+	</div>
+	<!-- GROUP INFO END -->
+
+
+
+	<!-- FORM POST -->
+	<div id="form_post" class="d-none m-0 p-0 col-12 bg-light position-absolute" style="height: -webkit-fill-available;">
+
+
+		<h2 class="col-12 text-center">Форма редактирования поста</h2>
+		<form style="top:7%" class="ml-5 bg-white col-10 rounded border border-primary p-4 position-absolute" action="#">
+
+			<ul class="p-0 m-0 text-white">
+
+				<!-- КУДА ОТПРАВИТЬ ПОСТ-->
+				<li class="list-group-item bg-info text-center">
+					<div class="col-12 mb-2"> 
+						<span class="text-white h5 mr-auto">Где разместить запись</span> 			
 					</div>
-				</details>
+
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+						<label class="shadow btn btn-secondary active">
+							<input value="1" type="radio" name="where_create_post" checked>В эту группу
+						</label>
+						<label class="shadow btn btn-secondary">
+							<input value="0" type="radio" name="where_create_post">На свою страницу
+						</label>
+					</div>
+				</li>
+				<!-- КУДА ОТПРАВИТЬ ПОСТ-->
+
+
+				<!-- КОМУ ДОСТУПНА ЗАПСЬ -->
+				<li class="list-group-item bg-info text-center">
+					<div class="col-12 mb-2"> 
+						<span class="text-white h5 mr-auto">Кому будет доступна запись</span> 			
+					</div>
+
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+						<label class="shadow btn btn-secondary active">
+							<input value="0" type="radio" name="who_access_post" checked>Всем пользователям
+						</label>
+						<label class="shadow btn btn-secondary">
+							<input value="1" type="radio" name="who_access_post">Только друзьям
+						</label>
+					</div>
+
+				</li>
+				<!-- КОМУ ДОСТУПНА ЗАПСЬ -->
+
+
+				<!-- ОТ КАКОГО ИМЕНИ РАЗМЕЩЕНИЕ -->
+				<li class="list-group-item bg-info text-center">
+					<div class="col-12 mb-2"> 
+						<span class="text-white h5 mr-auto">От какого имени разместить запись (если вы постите в группе)</span> 			
+					</div>
+
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+						<label class="shadow btn btn-secondary active">
+							<input value="0" type="radio" name="on_what_behalf" checked>От имени пользователя
+						</label>
+						<label class="shadow btn btn-secondary">
+							<input value="1" type="radio" name="on_what_behalf">От имени группы
+						</label>
+					</div>
+				</li>
+				<!-- ОТ КАКОГО ИМЕНИ РАЗМЕЩЕНИЕ -->
+
+
+				<!-- ТЕКСТ С ПОЗДРАВЛЕНИЕМ -->
+				<li class="list-group-item bg-info text-center">
+					<div class="col-12 mb-2"> 
+						<span class="text-white h5 mr-auto">Текст с поздравлением</span> 		<a href="javascript:void(0);" style="height:28px;" class="shadow py-0 px-1 btn btn-outline-light my-2 my-sm-0" onclick="get_random_congratulation();">Случайное поздравление</a>	
+					</div>	
+
+					<div class="col-12 form-group row justify-content-center">
+						<textarea id="congratulation_textarea" class="shadow col-8 form-control" rows="3"></textarea>
+					</div>						
+				</li>
+				<!-- ТЕКСТ С ПОЗДРАВЛЕНИЕМ -->
+
+
+
+				<!-- ДАТА ПУБЛИКАЦИИ -->
+				<li class="list-group-item bg-info text-center">
+					<div class="col-12 mb-2"> 
+						<span class="text-white h5 mr-auto">Дата публикации</span> 			
+					</div>		
+
+					<input class="w-20 my-2 d-inline-block form-control shadow" type="text" id="date_posts_happy_minute" placeholder="Минута" autocomplete="off" />
+
+					<input class="w-20 my-2 d-inline-block form-control shadow" type="text" id="date_posts_happy_hours" placeholder="Час" autocomplete="off" />
+
+					<input class="w-20 my-2 d-inline-block form-control shadow" type="text" id="date_posts_happy_day" placeholder="День" autocomplete="off" /> 
+
+					<input class="w-20 my-2 d-inline-block form-control shadow" type="text" id="date_posts_happy_month" placeholder="Месяц" autocomplete="off" /> 
+
+					<input class="w-20 my-2 d-inline-block form-control shadow" type="text" id="date_posts_happy_year" placeholder="Год" autocomplete="off" /> 				
+				</li>
+				<!-- ДАТА ПУБЛИКАЦИИ -->
+
+
+				<!-- КОММЕНТАРИИ ВКЛ / ОТКЛ -->
+				<li class="list-group-item bg-info text-center">
+					<div class="col-12 mb-2"> 
+						<span class="text-white h5 mr-auto">Комментарии</span> 			
+					</div>			
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+						<label class="shadow btn btn-secondary active">
+							<input value="0" type="radio" name="comments_post" autocomplete="off" checked> Вкл
+						</label>
+						<label class="shadow btn btn-secondary">
+							<input value="1" type="radio" name="comments_post" autocomplete="off"> Откл
+						</label>
+					</div>
+				</li>
+				<!-- КОМЕНТАРИИ ВКЛ / ОТКЛ -->
+
+			</ul>
+
+			<div class="col-12 row justify-content-between mt-3">
+				<a onclick="btn_form_post_happy_back();" href="javascript:void(0);" id="btn_form_post_happy_back" class="btn btn-danger">Назад</a>
+
+				<a href="javascript:void(0);" id="btn_form_post_happy"  class="btn btn-success">Разместить пост</a>
 			</div>
 
-			<div class="col-12">
-				<ul id="birthday_mans_list" class="row">
-				</ul>
-			</div>
-		</div>
-		<!-- GROUP INFO END -->
 
 
+		</form>
+	</div>
+	<!-- FORM POST -->
+
+</main>
 
 
+<script src="main.js?1"></script>
 
-		<!-- FORM AUTHORIZED -->
-		<div id="form_authorized" class="d-none    m-0 p-0 col-12 row justify-content-center h-100 bg-light position-absolute">
-			<h2 class="col-12 text-center">Форма авторизации</h2>
-			<form style="top:25%" class="bg-white col-10 rounded border border-primary p-4 position-absolute" action="#">
-				<ul class="p-0 m-0 text-white">
-					<li class="list-group-item bg-info">1 - Откройте эту ссылку <a target="_blank" href="https://oauth.vk.com/authorize?client_id=7348710&display=popup&redirect_uri=https://vk.com/app7348710_260069152&scope=groups&response_type=token&v=5.103" class="text-center text-white nav-link bg-success border rounded p-1 h5">Ссылка</a></li>
-					<li class="list-group-item bg-info">2 - Разрешите доступ приложению</li>
-					<li class="list-group-item bg-info">3 - Скопируйте из адресной строки полученный код:
-						<p class="text-danger bg-light p-1 rounded">https://api.vk.com/blank.html#access_token=<br/><b>ЭТОТ КОД</b></p>
-					</li>
-					<li class="list-group-item bg-info">4 - Вставьте в форму внизу</li>
-					<li class="list-group-item bg-info">5 - Отправить</li>
-				</ul>
-
-				<div class="text-center mt-3">
-					<input type="text" class="form-control" id="form_access_token_input" placeholder="Код">
-				</div>
-
-				<div class="text-center mt-3">
-					<button id="form_access_token" type="submit" class="btn btn-success">Отправить</button>
-				</div>
-
-			</form>
-		</div>
-		<!-- FORM AUTHORIZED -->
-
-
-
-
-		<!-- FORM POST -->
-		<div id="form_post" class="d-none m-0 p-0 col-12 bg-light position-absolute" style="height: -webkit-fill-available;">
-
-
-			<h2 class="col-12 text-center">Форма редактирования поста</h2>
-			<form style="top:7%" class="ml-5 bg-white col-10 rounded border border-primary p-4 position-absolute" action="#">
-
-				<ul class="p-0 m-0 text-white">
-
-					<!-- КУДА ОТПРАВИТЬ ПОСТ-->
-					<li class="list-group-item bg-info text-center">
-						<div class="col-12 mb-2"> 
-							<span class="text-white h5 mr-auto">Где разместить запись</span> 			
-						</div>
-
-						<div class="btn-group btn-group-toggle" data-toggle="buttons">
-							<label class="shadow btn btn-secondary active">
-								<input value="1" type="radio" name="where_create_post" checked>В эту группу
-							</label>
-							<label class="shadow btn btn-secondary">
-								<input value="0" type="radio" name="where_create_post">На свою страницу
-							</label>
-						</div>
-					</li>
-					<!-- КУДА ОТПРАВИТЬ ПОСТ-->
-
-
-					<!-- КОМУ ДОСТУПНА ЗАПСЬ -->
-					<li class="list-group-item bg-info text-center">
-						<div class="col-12 mb-2"> 
-							<span class="text-white h5 mr-auto">Кому будет доступна запись</span> 			
-						</div>
-
-						<div class="btn-group btn-group-toggle" data-toggle="buttons">
-							<label class="shadow btn btn-secondary active">
-								<input value="0" type="radio" name="who_access_post" checked>Всем пользователям
-							</label>
-							<label class="shadow btn btn-secondary">
-								<input value="1" type="radio" name="who_access_post">Только друзьям
-							</label>
-						</div>
-
-					</li>
-					<!-- КОМУ ДОСТУПНА ЗАПСЬ -->
-
-
-					<!-- ОТ КАКОГО ИМЕНИ РАЗМЕЩЕНИЕ -->
-					<li class="list-group-item bg-info text-center">
-						<div class="col-12 mb-2"> 
-							<span class="text-white h5 mr-auto">От какого имени разместить запись (если вы постите в группе)</span> 			
-						</div>
-
-						<div class="btn-group btn-group-toggle" data-toggle="buttons">
-							<label class="shadow btn btn-secondary active">
-								<input value="0" type="radio" name="on_what_behalf" checked>От имени пользователя
-							</label>
-							<label class="shadow btn btn-secondary">
-								<input value="1" type="radio" name="on_what_behalf">От имени группы
-							</label>
-						</div>
-					</li>
-					<!-- ОТ КАКОГО ИМЕНИ РАЗМЕЩЕНИЕ -->
-
-
-					<!-- ТЕКСТ С ПОЗДРАВЛЕНИЕМ -->
-					<li class="list-group-item bg-info text-center">
-						<div class="col-12 mb-2"> 
-							<span class="text-white h5 mr-auto">Текст с поздравлением</span> 		<a href="javascript:void(0);" style="height:28px;" class="shadow py-0 px-1 btn btn-outline-light my-2 my-sm-0" onclick="get_random_congratulation();">Случайное поздравление</a>	
-						</div>	
-
-						<div class="col-12 form-group row justify-content-center">
-							<textarea id="congratulation_textarea" class="shadow col-8 form-control" rows="3"></textarea>
-						</div>						
-					</li>
-					<!-- ТЕКСТ С ПОЗДРАВЛЕНИЕМ -->
-
-
-
-					<!-- ДАТА ПУБЛИКАЦИИ -->
-					<li class="list-group-item bg-info text-center">
-						<div class="col-12 mb-2"> 
-							<span class="text-white h5 mr-auto">Дата публикации</span> 			
-						</div>		
-
-						<input class="w-20 my-2 d-inline-block form-control shadow" type="text" id="date_posts_happy_minute" placeholder="Минута" autocomplete="off" />
-
-						<input class="w-20 my-2 d-inline-block form-control shadow" type="text" id="date_posts_happy_hours" placeholder="Час" autocomplete="off" />
-
-						<input class="w-20 my-2 d-inline-block form-control shadow" type="text" id="date_posts_happy_day" placeholder="День" autocomplete="off" /> 
-
-						<input class="w-20 my-2 d-inline-block form-control shadow" type="text" id="date_posts_happy_month" placeholder="Месяц" autocomplete="off" /> 
-
-						<input class="w-20 my-2 d-inline-block form-control shadow" type="text" id="date_posts_happy_year" placeholder="Год" autocomplete="off" /> 				
-					</li>
-					<!-- ДАТА ПУБЛИКАЦИИ -->
-
-
-					<!-- КОММЕНТАРИИ ВКЛ / ОТКЛ -->
-					<li class="list-group-item bg-info text-center">
-						<div class="col-12 mb-2"> 
-							<span class="text-white h5 mr-auto">Комментарии</span> 			
-						</div>			
-						<div class="btn-group btn-group-toggle" data-toggle="buttons">
-							<label class="shadow btn btn-secondary active">
-								<input value="0" type="radio" name="comments_post" autocomplete="off" checked> Вкл
-							</label>
-							<label class="shadow btn btn-secondary">
-								<input value="1" type="radio" name="comments_post" autocomplete="off"> Откл
-							</label>
-						</div>
-					</li>
-					<!-- КОМЕНТАРИИ ВКЛ / ОТКЛ -->
-
-				</ul>
-
-				<div class="col-12 row justify-content-between mt-3">
-					<a onclick="btn_form_post_happy_back();" href="javascript:void(0);" id="btn_form_post_happy_back" class="btn btn-danger">Назад</a>
-
-					<a href="javascript:void(0);" id="btn_form_post_happy"  class="btn btn-success">Разместить пост</a>
-				</div>
-
-
-
-			</form>
-		</div>
-		<!-- FORM POST -->
-
-	</main>
-
-
-	<script src="main.js?1"></script>
-
-	<script type="text/javascript">
-		VK.init({
-			apiId: 7348710
-		});
-	</script>
+<script type="text/javascript">
+	VK.init({
+		apiId: 7348710
+	});
+</script>
 </body>
 </html>													

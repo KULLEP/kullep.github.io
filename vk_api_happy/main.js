@@ -49,8 +49,6 @@
 // }
 
 
-
-
 /* ЭТО ДЛЯ КАЛЕНДАРЯ */
 let now = new Date();
 let tomorrow = now.getDate()+1;
@@ -65,6 +63,8 @@ var obj_user_group_info = {
 
 var form_post_happy_info = {
 	photo_arr: '',
+	happy_list_link: '', // Список ссылок именинников
+	happy_list_link_with_name: '', // Список ссылок именинников с именами
 	start_congratulation: "Сегодня мы спешим поздравить наших сообщников с ДНЕМ РОЖДЕНИЯ!!!\n\n\n",
 	birth_num: 0, // Кол-во именинников
 owner_id: 1, // Идентификатор пользователя или сообщества, на стене которого должна быть опубликована запись.
@@ -384,6 +384,8 @@ const drowUserBirthDay = (e) => {
 		document.getElementById('link_users_list').innerHTML = '';
 		document.getElementById('birthday_mans_list').innerHTML = '';
 		for(let i=0; i < d.length; i++) {
+			form_post_happy_info.happy_list_link += d[i].id+' ';
+			form_post_happy_info.happy_list_link_with_name += ' [ id'+d[i].id+' | '+d[i].first_name+' '+d[i].last_name+' ] ';
 			form_post_happy_info.photo_arr += ',photo'+d[i].photo_id;
 			document.getElementById('link_users_list').innerHTML += `<p>https://vk.com/id${d[i].id}</p>`;
 			document.getElementById('birthday_mans_list').innerHTML += `
@@ -399,13 +401,43 @@ const drowUserBirthDay = (e) => {
 
 
 
+const copy_in_buffer = () => {
+	writeBtn.addEventListener('click', () => {
+		let inputValue = form_post_happy_info.happy_list_link;
+		if (inputValue) {
+			navigator.clipboard.writeText(inputValue)
+			.then(() => {
+			})
+			.catch(err => {
+				console.log('Something went wrong', err);
+			})
+		}
+	});
+};
+
+
+const copy_in_buffer_with_name = () => {
+	writeBtn.addEventListener('click', () => {
+		let inputValue = form_post_happy_info.happy_list_link_with_name;
+		if (inputValue) {
+			navigator.clipboard.writeText(inputValue)
+			.then(() => {
+			})
+			.catch(err => {
+				console.log('Something went wrong', err);
+			})
+		}
+	});
+};
+
+
 
 document.getElementById('birth_day_men').onclick = () => {
 	VK.api("groups.getMembers", {group_id: obj_user_group_info.group_id, fields:'bdate'}, function (data) {	
 		form_post_happy_info.birth_num = 0;
 		regexp = new RegExp(obj_user_group_info.bdate);
 		var b_str_user = '';
-		for(let i=0; i<= 400; i++) {
+		for(let i=0; i <= 400; i++) {
 			let d = data.response.items[i];
 			if(d.bdate != undefined) {
 				let text_d = d.bdate;
@@ -419,6 +451,8 @@ document.getElementById('birth_day_men').onclick = () => {
 			document.getElementById('birthday_mans_list').innerHTML = `<h3 class="col-12">Именинники не обнаружены</h3>`;
 			document.getElementById('post_mailing').innerHTML = '';
 			document.getElementById('link_users_list').innerHTML = '';
+			form_post_happy_info.happy_list_link = '';
+			form_post_happy_info.happy_list_link_with_name = '';
 		}
 		else {
 			drowUserBirthDay(b_str_user);
