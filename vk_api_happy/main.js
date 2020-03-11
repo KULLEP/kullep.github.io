@@ -118,29 +118,27 @@ const sendRequest = (method, params, func) => {
 
 
 const get_info_user = () => {
-	sendRequest('users.get', {fields:'online'}, function (data) {
+	VK.api("users.get", {fields: 'online'}, function (data) {		
 		obj_user_group_info.user_id = data.response[0].id; 
 	});
-}
+};
 get_info_user();
 
 
 
 
 
-const getIdGroupUser = () => {
-	sendRequest('groups.get', {count: 7}, function (data) {
+const getIdGroupUser = () => {	
+	VK.api("groups.get", {count: 7}, function (data) {		
 		drowGroupsOnLoad(data.response.items);
 	});
-}
+};
 
 
 
 const drowGroupsOnLoad = (groups) => {
-
 	groups.forEach( function(e) {
-
-		sendRequest('groups.getById', {group_id: e}, function (data) {
+		VK.api("groups.getById", {group_id: e}, function (data) {		
 			let d = data.response[0];
 			document.querySelector('#list_group_user').innerHTML +=`
 			<a id="${d.id}" onclick="btn_get_group_info($(this).attr('id'));" class="nav-link" href="javascript:void(0);" >
@@ -148,11 +146,22 @@ const drowGroupsOnLoad = (groups) => {
 			<img class="border border-secondary rounded-circle circle" src="${d.photo_50}" />
 			<span class="text-dark h6">${d.name}</span>	
 			</li></a>
-			`;
+			`;	
 		});
+
+		// sendRequest('groups.getById', {group_id: e}, function (data) {
+		// 	let d = data.response[0];
+		// 	document.querySelector('#list_group_user').innerHTML +=`
+		// 	<a id="${d.id}" onclick="btn_get_group_info($(this).attr('id'));" class="nav-link" href="javascript:void(0);" >
+		// 	<li class="list-group-item  ">
+		// 	<img class="border border-secondary rounded-circle circle" src="${d.photo_50}" />
+		// 	<span class="text-dark h6">${d.name}</span>	
+		// 	</li></a>
+		// 	`;
+		// });
 	});
 
-}
+};
 
 
 
@@ -363,8 +372,6 @@ const submit_congratulation = (e) => {
 
 const drowUserBirthDay = (e) => {
 	let str = e.slice(1); // Убрать запятую в начале
-
-
 	if (form_post_happy_info.birth_num > 0) {
 		document.getElementById('post_mailing').innerHTML = `
 		<button onclick='create_post();' class="mb-1 btn btn-primary">Разместить запись с поздравлением именинников</button>
@@ -372,64 +379,42 @@ const drowUserBirthDay = (e) => {
 		<hr/>
 		`;
 	}
-
-
-	sendRequest('users.get', {user_ids: str, fields:'photo_50,quotes,photo_id'}, function (data) {
-
-
-		console.log(data);
-// photo_id в строку для финала
-
-
-let d = data.response;
-
-
-document.getElementById('link_users_list').innerHTML = '';
-document.getElementById('birthday_mans_list').innerHTML = '';
-
-for(let i=0; i < d.length; i++) {
-
-	form_post_happy_info.photo_arr += ',photo'+d[i].photo_id;
-
-	document.getElementById('link_users_list').innerHTML += `<p>https://vk.com/id${d[i].id}</p>`;
-	document.getElementById('birthday_mans_list').innerHTML += `
-	<a id="${d[i].id}" class="col-6 nav-link" href="https://vk.com/id${d[i].id}" >
-	<li class="list-group-item">
-	<img class="border border-secondary rounded-circle circle" src="${d[i].photo_50}" />
-	<span class="text-dark h6">${d[i].last_name} ${d[i].first_name}</span>
-	</li></a>
-	`
-}
-});
-}
+	VK.api("users.get", {user_ids: str, fields:'photo_50,quotes,photo_id'}, function (data) {		
+		let d = data.response;
+		document.getElementById('link_users_list').innerHTML = '';
+		document.getElementById('birthday_mans_list').innerHTML = '';
+		for(let i=0; i < d.length; i++) {
+			form_post_happy_info.photo_arr += ',photo'+d[i].photo_id;
+			document.getElementById('link_users_list').innerHTML += `<p>https://vk.com/id${d[i].id}</p>`;
+			document.getElementById('birthday_mans_list').innerHTML += `
+			<a id="${d[i].id}" class="col-6 nav-link" href="https://vk.com/id${d[i].id}" >
+			<li class="list-group-item">
+			<img class="border border-secondary rounded-circle circle" src="${d[i].photo_50}" />
+			<span class="text-dark h6">${d[i].last_name} ${d[i].first_name}</span>
+			</li></a>
+			`
+		}
+	});
+};
 
 
 
 
 document.getElementById('birth_day_men').onclick = () => {
-
-
-
-	sendRequest('groups.getMembers', {group_id: obj_user_group_info.group_id, fields:'bdate'}, function (data) {
-		
+	VK.api("groups.getMembers", {group_id: obj_user_group_info.group_id, fields:'bdate'}, function (data) {	
 		form_post_happy_info.birth_num = 0;
 		regexp = new RegExp(obj_user_group_info.bdate);
-
 		var b_str_user = '';
-
 		for(let i=0; i<= 400; i++) {
 			let d = data.response.items[i];
-
 			if(d.bdate != undefined) {
 				let text_d = d.bdate;
-
 				if(text_d.match(regexp) != null) {
 					form_post_happy_info.birth_num += 1;
 					b_str_user += ','+d.id;
 				}
 			}
 		}
-
 		if(form_post_happy_info.birth_num == 0) {
 			document.getElementById('birthday_mans_list').innerHTML = `<h3 class="col-12">Именинники не обнаружены</h3>`;
 			document.getElementById('post_mailing').innerHTML = '';
@@ -439,7 +424,7 @@ document.getElementById('birth_day_men').onclick = () => {
 			drowUserBirthDay(b_str_user);
 		}
 	});
-}
+};
 
 
 
@@ -448,10 +433,7 @@ document.getElementById('birth_day_men').onclick = () => {
 document.getElementById('search_group').onclick = () => {
 	document.querySelector('#list_group_user').innerHTML = '';
 	let group_name = document.querySelector('#search_group_id').value;
-
-
 	VK.api("groups.search", {q: group_name}, function (data) {		
-		console.log(data);
 		for(let i=0; i<=data.response.items.length; i++) {
 			let d = data.response.items[i];
 			document.querySelector('#list_group_user').innerHTML +=`
