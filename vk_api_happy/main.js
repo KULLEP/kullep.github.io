@@ -385,7 +385,7 @@ const drowUserBirthDay = (e) => {
 		document.getElementById('birthday_mans_list').innerHTML = '';
 		for(let i=0; i < d.length; i++) {
 			form_post_happy_info.happy_list_link += d[i].id+' ';
-			form_post_happy_info.happy_list_link_with_name += ' [ id'+d[i].id+' | '+d[i].first_name+' '+d[i].last_name+' ] ';
+			form_post_happy_info.happy_list_link_with_name += ' [ id - '+d[i].id+' | '+d[i].first_name+' '+d[i].last_name+' ] ';
 			form_post_happy_info.photo_arr += ',photo'+d[i].photo_id;
 			document.getElementById('link_users_list').innerHTML += `<p>https://vk.com/id${d[i].id}</p>`;
 			document.getElementById('birthday_mans_list').innerHTML += `
