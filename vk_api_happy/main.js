@@ -402,32 +402,30 @@ const drowUserBirthDay = (e) => {
 
 
 const copy_in_buffer = () => {
-	writeBtn.addEventListener('click', () => {
-		let inputValue = form_post_happy_info.happy_list_link;
-		if (inputValue) {
-			navigator.clipboard.writeText(inputValue)
-			.then(() => {
-			})
-			.catch(err => {
-				console.log('Something went wrong', err);
-			})
-		}
-	});
+	console.log(form_post_happy_info.happy_list_link);
+	let inputValue = form_post_happy_info.happy_list_link;
+	if (inputValue) {
+		navigator.clipboard.writeText(inputValue)
+		.then(() => {
+		})
+		.catch(err => {
+			console.log('Something went wrong', err);
+		})
+	}
 };
 
 
 const copy_in_buffer_with_name = () => {
-	writeBtn.addEventListener('click', () => {
-		let inputValue = form_post_happy_info.happy_list_link_with_name;
-		if (inputValue) {
-			navigator.clipboard.writeText(inputValue)
-			.then(() => {
-			})
-			.catch(err => {
-				console.log('Something went wrong', err);
-			})
-		}
-	});
+	console.log(form_post_happy_info.happy_list_link_with_name);
+	let inputValue = form_post_happy_info.happy_list_link_with_name;
+	if (inputValue) {
+		navigator.clipboard.writeText(inputValue)
+		.then(() => {
+		})
+		.catch(err => {
+			console.log('Something went wrong', err);
+		})
+	}
 };
 
 

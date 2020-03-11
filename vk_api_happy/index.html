@@ -70,23 +70,28 @@
 			</div>
 			<div id="post_mailing" class="text-center mt-3 col-12">
 			</div>
-			<div class="text-center p-0 px-5 m-0 row col-12 justify-content-between">
-				<div clas="col-10">
+			<div class="text-center p-0 px-5 m-0 row col-12 justify-content-center">
+
+				<div class="col-12 px-5 m-0 mb-3 row justify-content-center">
+					<a onclick="copy_in_buffer();" href="javascript:void(0);" class="mx-2 btn btn-info">
+						Скопировать ссылки
+					</a>
+
+					<a onclick="copy_in_buffer_with_name();" href="javascript:void(0);" class="mx-2 btn btn-info">
+						Скопировать id с именами
+					</a>
+				</div>
+
+				<div class="col-10">
 					<details class="col-12">
 						<summary class="noselect">Ссылки на пользователей</summary>
 						<div class="border rounded dorder-info" id='link_users_list'>
 						</div>
 					</details>
 				</div>
-				<div class="col-auto">
-					<a onclick="copy_in_buffer();" href="javascript:void(0);" class="btn btn-info">
-						Скопировать ссылки
-					</a>
+				
 
-					<a onclick="copy_in_buffer_with_name();" href="javascript:void(0);" class="btn btn-info">
-						Скопировать id с именами
-					</a>
-				</div>
+
 			</div>
 		</div>
 
