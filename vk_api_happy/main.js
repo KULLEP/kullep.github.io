@@ -36,25 +36,27 @@
 
 
 
-if(localStorage.hasOwnProperty('access_token_this_vk_api_happy')) { // Проверка наличия ключа в куках если он есть
-	document.getElementById('form_authorized').classList.remove("d-block");
-	document.getElementById('form_authorized').classList.add("d-none");	
-	document.getElementById('form_authorized').innerHTML = ''; // Удаление формы
-} else {
-	document.getElementById('form_access_token').onclick = () => {
-		let access_token = document.getElementById('form_access_token_input').value;
-		localStorage.setItem('access_token_this_vk_api_happy', access_token);
-		window.location = window.location;
-	}
-}
+// if(localStorage.hasOwnProperty('access_token_this_vk_api_happy')) { // Проверка наличия ключа в куках если он есть
+// 	document.getElementById('form_authorized').classList.remove("d-block");
+// 	document.getElementById('form_authorized').classList.add("d-none");	
+// 	document.getElementById('form_authorized').innerHTML = ''; // Удаление формы
+// } else {
+// 	document.getElementById('form_access_token').onclick = () => {
+// 		let access_token = document.getElementById('form_access_token_input').value;
+// 		localStorage.setItem('access_token_this_vk_api_happy', access_token);
+// 		window.location = window.location;
+// 	}
+// }
 
 
 
 
-
+/* ЭТО ДЛЯ КАЛЕНДАРЯ */
 let now = new Date();
 let tomorrow = now.getDate()+1;
 let month_tt = now.getMonth();
+
+
 var obj_user_group_info = {
 	group_id: '',
 	bdate: '',
@@ -446,7 +448,10 @@ document.getElementById('birth_day_men').onclick = () => {
 document.getElementById('search_group').onclick = () => {
 	document.querySelector('#list_group_user').innerHTML = '';
 	let group_name = document.querySelector('#search_group_id').value;
-	sendRequest('groups.search', {q: group_name}, function (data) {
+
+
+	VK.api("groups.search", {q: group_name}, function (data) {		
+		console.log(data);
 		for(let i=0; i<=data.response.items.length; i++) {
 			let d = data.response.items[i];
 			document.querySelector('#list_group_user').innerHTML +=`
@@ -458,6 +463,23 @@ document.getElementById('search_group').onclick = () => {
 			`;
 		}
 	});
+
+
+	// sendRequest('groups.search', {q: group_name}, function (data) {
+
+	// 	for(let i=0; i<=data.response.items.length; i++) {
+	// 		let d = data.response.items[i];
+	// 		document.querySelector('#list_group_user').innerHTML +=`
+	// 		<a id="${d.id}" onclick="btn_get_group_info($(this).attr('id'));" class="nav-link" href="javascript:void(0);" >
+	// 		<li class="list-group-item  ">
+	// 		<img class="border border-secondary rounded-circle circle" src="${d.photo_50}" />
+	// 		<span class="text-dark h6">${d.name}</span>	
+	// 		</li></a>
+	// 		`;
+	// 	}
+	// });
+
+
 }
 
 
