@@ -401,11 +401,12 @@ const drowUserBirthDay = (e) => {
 			</li></a>
 			`
 		}
-
+		console.log(form_post_happy_info.photo_for_collage);
 		$.ajax({
 			type: 'POST',
 			url: 'collage_drow.php',
-			data: 'arr='+JSON.stringify(form_post_happy_info.photo_for_collage),
+			dataType: 'json',
+			data: 'arr':JSON.stringify(form_post_happy_info.photo_for_collage),
 			success: function(data) {
 				console.log(data);
 			}

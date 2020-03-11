@@ -1,5 +1,11 @@
 <?php
 
+if(isset($_POST) && !empty($_POST['arr'])) {
+    var_dump(json_decode($_POST['arr']));
+
+    die();
+}
+
 $arr = $_POST['arr'];
 
 $new_arr = json_decode($arr);
