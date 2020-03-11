@@ -62,6 +62,7 @@ var obj_user_group_info = {
 };
 
 var form_post_happy_info = {
+	photo_for_collage = []; // Массив фото для Фотоколлажа
 	photo_arr: '',
 	happy_list_link: '', // Список ссылок именинников
 	happy_list_link_with_name: '', // Список ссылок именинников с именами
@@ -348,7 +349,6 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 
   let message_result = form_post_happy_info.start_congratulation + form_post_happy_info.message;
 
-  console.log(message_result);
   VK.api("wall.post", {owner_id: this_param_own_id, attachments: form_post_happy_info.photo_arr, friends_only: form_post_happy_info.friends_only, from_group: form_post_happy_info.from_group, message: message_result, publish_date: form_post_happy_info.publish_date, close_comments: form_post_happy_info.close_comments
   }, function (data) {		
   	console.log(data);
@@ -383,7 +383,12 @@ const drowUserBirthDay = (e) => {
 		let d = data.response;
 		document.getElementById('link_users_list').innerHTML = '';
 		document.getElementById('birthday_mans_list').innerHTML = '';
+		form_post_happy_info.photo_for_collage = [];
+		form_post_happy_info.happy_list_link = '';
+		form_post_happy_info.happy_list_link_with_name = '';
+
 		for(let i=0; i < d.length; i++) {
+			form_post_happy_info.photo_for_collage.push(d[i].photo_50);
 			form_post_happy_info.happy_list_link += 'https://vk.com/id'+d[i].id+' ';
 			form_post_happy_info.happy_list_link_with_name += ' [ id - '+d[i].id+' | '+d[i].first_name+' '+d[i].last_name+' ] ';
 			form_post_happy_info.photo_arr += ',photo'+d[i].photo_id;
@@ -396,6 +401,16 @@ const drowUserBirthDay = (e) => {
 			</li></a>
 			`
 		}
+
+		$.ajax({
+			type: 'POST',
+			url: 'collage_drow.php',
+			data: 'arr='+JSON.stringify(form_post_happy_info.photo_for_collage),
+			success: function(data) {
+				console.log(data);
+			}
+		});
+
 	});
 };
 
@@ -477,70 +492,8 @@ document.getElementById('search_group').onclick = () => {
 			`;
 		}
 	});
-
-
-	// sendRequest('groups.search', {q: group_name}, function (data) {
-
-	// 	for(let i=0; i<=data.response.items.length; i++) {
-	// 		let d = data.response.items[i];
-	// 		document.querySelector('#list_group_user').innerHTML +=`
-	// 		<a id="${d.id}" onclick="btn_get_group_info($(this).attr('id'));" class="nav-link" href="javascript:void(0);" >
-	// 		<li class="list-group-item  ">
-	// 		<img class="border border-secondary rounded-circle circle" src="${d.photo_50}" />
-	// 		<span class="text-dark h6">${d.name}</span>	
-	// 		</li></a>
-	// 		`;
-	// 	}
-	// });
-
-
-}
-
-
-
-
-const draw_img_arr_users_collage = () => {
-	let arr_img_users = [
-	"https://dummyimage.com/500x250/c98cae/000000.png?text=1",
-	"https://dummyimage.com/500x250/8ba8c7/000000.png?text=2",
-	"https://dummyimage.com/500x250/8bc7a3/000000.png?text=3",
-	"https://dummyimage.com/500x250/ab8f6a/000000.png?text=4",
-	"https://dummyimage.com/500x250/ab8f6a/000000.png?text=2",
-	"https://dummyimage.com/500x250/ab8f6a/000000.png?text=4"];
-
-	let img_size = 100;
-	let k = arr_img_users.length;
-	let k2 = k / 2;
-
-	let wh_canvas = document.getElementById("canvas")
-	wh_canvas.width = arr_img_users.length * img_size / 2;
-	wh_canvas.height = img_size * 2;
-
-	const draw = () => {
-		arr_img_users.map((e, i) => {
-			let image = new Image();
-			image.src = e;
-			for(x=0;x<=k;x++) {
-				image.onload = () => document.getElementById(`canvas`)
-				.getContext('2d')
-				.drawImage(image, img_size * (i >= k2 ? i - k2 : i), (i >= k2 ?  img_size : 0), img_size, img_size)
-			}
-
-		});
-		wh_canvas.toBlob(function(blob) {
-  // после того, как Blob создан, загружаем его
-  let link = document.createElement('a');
-  link.download = 'example.png';
-
-  link.href = URL.createObjectURL(blob);
-  link.click();
-
-  // удаляем внутреннюю ссылку на Blob, что позволит браузеру очистить память
-  URL.revokeObjectURL(link.href);
-}, 'image/png');
-	}
-	draw();
 };
+
 
 
 
