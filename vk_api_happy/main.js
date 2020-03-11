@@ -406,7 +406,8 @@ const drowUserBirthDay = (e) => {
 			type: 'POST',
 			url: 'collage_drow.php',
 			dataType: 'json',
-			data: 'arr':JSON.stringify(form_post_happy_info.photo_for_collage),
+			//data: 'arr':JSON.stringify(form_post_happy_info.photo_for_collage),
+			 data:{'data':JSON.stringify(["Яблоко", "Апельсин", "Слива"])}
 			success: function(data) {
 				console.log(data);
 			}
