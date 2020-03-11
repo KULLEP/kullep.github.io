@@ -62,7 +62,7 @@ var obj_user_group_info = {
 };
 
 var form_post_happy_info = {
-	photo_for_collage = []; // Массив фото для Фотоколлажа
+	photo_for_collage = [], // Массив фото для Фотоколлажа
 	photo_arr: '',
 	happy_list_link: '', // Список ссылок именинников
 	happy_list_link_with_name: '', // Список ссылок именинников с именами
