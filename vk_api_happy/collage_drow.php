@@ -2,7 +2,7 @@
 
 $arr = $_POST['arr'];
 
-$new_arr = json_decode ($arr);
+$new_arr = json_decode($arr);
 
 include 'collage.php';
 
