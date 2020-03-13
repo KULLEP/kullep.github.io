@@ -149,17 +149,6 @@ const drowGroupsOnLoad = (groups) => {
 			</li></a>
 			`;	
 		});
-
-		// sendRequest('groups.getById', {group_id: e}, function (data) {
-		// 	let d = data.response[0];
-		// 	document.querySelector('#list_group_user').innerHTML +=`
-		// 	<a id="${d.id}" onclick="btn_get_group_info($(this).attr('id'));" class="nav-link" href="javascript:void(0);" >
-		// 	<li class="list-group-item  ">
-		// 	<img class="border border-secondary rounded-circle circle" src="${d.photo_50}" />
-		// 	<span class="text-dark h6">${d.name}</span>	
-		// 	</li></a>
-		// 	`;
-		// });
 	});
 
 };
@@ -379,7 +368,7 @@ const drowUserBirthDay = (e) => {
 		<hr/>
 		`;
 	}
-	VK.api("users.get", {user_ids: str, fields:'photo_50,quotes,photo_id'}, function (data) {		
+	VK.api("users.get", {user_ids: str, fields:'photo_50,photo_100,quotes,photo_id'}, function (data) {		
 		let d = data.response;
 		document.getElementById('link_users_list').innerHTML = '';
 		document.getElementById('birthday_mans_list').innerHTML = '';
@@ -388,7 +377,7 @@ const drowUserBirthDay = (e) => {
 		form_post_happy_info.happy_list_link_with_name = '';
 
 		for(let i=0; i < d.length; i++) {
-			form_post_happy_info.photo_for_collage.push(d[i].photo_50);
+			form_post_happy_info.photo_for_collage.push(d[i].photo_100);
 			form_post_happy_info.happy_list_link += 'https://vk.com/id'+d[i].id+' ';
 			form_post_happy_info.happy_list_link_with_name += ' [ id - '+d[i].id+' | '+d[i].first_name+' '+d[i].last_name+' ] ';
 			form_post_happy_info.photo_arr += ',photo'+d[i].photo_id;
@@ -401,19 +390,18 @@ const drowUserBirthDay = (e) => {
 			</li></a>
 			`
 		}
-		console.log(form_post_happy_info.photo_for_collage);
-		$.ajax({
-			type: 'POST',
-			url: 'https://panda-hub.ru/collage/collage_drow.php',
-			dataType: 'JSON',
-			data: {'arr':JSON.stringify(form_post_happy_info.photo_for_collage)},
-			//data:{'data':JSON.stringify(["Яблоко", "Апельсин", "Слива"])},
-			success: function(data) {
-				console.log(data);
-			}
-		});
-		console.log(form_post_happy_info.photo_for_collage);
-
+		if(form_post_happy_info.birth_num >= 9) {
+			$.ajax({
+				url: 'collage/collage_drow.php',
+				type: 'GET',
+				data: {arr:JSON.stringify(form_post_happy_info.photo_for_collage)},
+				dataType: 'json',
+				contentType: 'application/json',
+				json: true
+			}).done(function(data){
+				document.getElementById('post_mailing').innerHTML += `<a class="mb-1 btn btn-success" href="https://panda-hub.ru/vk_api_happy/img/${data.text}.jpg">Ссылка на фотоколлаж</a>`
+			});
+		}
 	});
 };
 
@@ -453,7 +441,7 @@ document.getElementById('birth_day_men').onclick = () => {
 		form_post_happy_info.birth_num = 0;
 		regexp = new RegExp(obj_user_group_info.bdate);
 		var b_str_user = '';
-		for(let i=0; i <= 400; i++) {
+		for(let i=0; i <= 900; i++) {
 			let d = data.response.items[i];
 			if(d.bdate != undefined) {
 				let text_d = d.bdate;

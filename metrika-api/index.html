@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang='en'>
+<head>
+	<meta charset='utf-8'>
+	<title>Создание PDF на стороне клиента</title>
+	
+	<script src='js/pdfmake.min.js'></script>
+	<script src='js/vfs_fonts.js'></script>
+	<script src='js/script.js'></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+	<style>
+		h4 {
+			margin-bottom: 7px;
+			position: relative;
+			overflow: hidden;
+			font-size: 24px;
+			font-weight: normal;
+			text-align: center;
+		}
+		h4 > span {
+			display: inline-block;
+			margin: 0 .4em;
+		}
+		h4 > span:before,
+		h4 > span:after {
+			content: '';
+			position: absolute;
+			width: 100%;
+			border-top: 2px solid #4e4e4e;
+			margin-top: .6em;
+		}
+		h4 > span:before {
+			margin-left: -102%;
+		}
+		h4 > span:after {
+			margin-left: 2%;
+		}
+
+		fieldset {
+			margin: 0px;
+		}
+		body {
+			display: flex;
+			justify-content: center;
+			text-align: center;
+		}
+
+		form {
+			width: 350px;
+			border: 2px solid black;
+			padding: 7px;
+		}
+
+		input {
+			text-align: center;
+			margin-bottom: 5px;
+		}
+
+ 
+
+		input[type=submit] {
+			margin-bottom: 10px;
+			margin-top: 20px;
+		}
+
+.mr-5 {
+	margin-right: 15px;
+}
+
+	</style>
+
+</head>
+<body>
+
+	<form action="#">
+		<h4><span>id</span></h4>
+		<input id="id" type="text" placeholder="id метрики" />
+
+
+		<h4><span>Период</span></h4>
+
+		<span class="mr-5">От</span><input id="from" type="date" /><br/>
+		<span class="mr-5">До</span><input id="to" type="date" />
+		<br/>
+		<input id="submit" type="submit" value="Получить PDF" />
+	</form>
+
+	<script src='main.js'></script>
+</body>
+</html>

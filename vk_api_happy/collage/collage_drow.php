@@ -1,18 +1,10 @@
 <?php
 
-if(isset($_POST) && !empty($_POST['arr'])) {
-    var_dump(json_decode($_POST['arr']));
+$arr = $_GET['arr'];
 
-    die();
-}
-
-$arr = $_POST['arr'];
-
-$new_arr = json_decode($arr);
+$images = json_decode($arr);
 
 include 'collage.php';
-
-$images = $new_arr;
 
 // $images = array(
 // 	"https://sun9-59.userapi.com/wMM1fC9mn2ze9EZwVUoLL32OAHrzC-OWANiFtg/9f6pPZjAxfI.jpg?ava=1",
@@ -28,11 +20,14 @@ $time = time();
 $type = 'jpg';
 $imageObj = new Collage($images);
 $imageObj->execute();
-$imageObj->saveFile("img/{$time}.jpg", $type);
+$imageObj->saveFile("../img/{$time}.jpg", $type);
 
-echo "<img src=\"images/{$time}.{$type}\" />";
+//echo "<img src=\"../img/{$time}.{$type}\" />";
 
+header('Content-Type: application/json');
+$resultJson = array("text" => $time);
 
+echo json_encode($resultJson);
 
-
-
+ 
+?>
