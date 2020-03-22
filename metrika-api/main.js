@@ -22,7 +22,7 @@ document.getElementById('submit').onclick = () => {
 	else if (api_m.date1 == '') alert('Введите дату начала периода');
 	else if (api_m.date2 == '') alert('Введите дату окончания периода');
 	else {
-		window.open(`https://metrika.yandex.ru/dashboard?period=${period_n}6&id=${api_m.ids}&format=pdf`);
+		window.open(`https://metrika.yandex.ru/dashboard?period=${period_n}&id=${api_m.ids}&format=pdf`);
 	}
 
 
