@@ -864,6 +864,7 @@ $(document).ready( function() {
   // direct click action callbacks come first: click, nextMonth, previousMonth, nextYear, previousYear, or today.
   // then onMonthChange (if the month changed).
   // finally onYearChange (if the year changed).
+  var last_date_bg;
 
   calendars.clndr1 = $('.calendar').clndr({
     events: eventArray,
@@ -873,6 +874,13 @@ $(document).ready( function() {
     // },
     clickEvents: {
       click: function(target) {
+        document.querySelector(`.calendar-day-${target.date._i}`).classList.add("bg-danger");
+        if(last_date_bg !== undefined) {
+          document.querySelector(`.calendar-day-${last_date_bg}`).classList.remove("bg-danger");
+        }
+
+        last_date_bg = target.date._i;
+
         string_date_text(target);
         if($(target.element).hasClass('inactive')) {
         //  console.log('not a valid datepicker date.');

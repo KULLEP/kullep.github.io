@@ -1,28 +1,4 @@
 
-// https://oauth.vk.com/authorize?client_id=7348710&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=groups&response_type=token&v=5.103
-
-// https://api.vk.com/method/users.get?user_id=210700286&v=5.52
-
-// popup  - page
-// https://oauth.vk.com/authorize?client_id=7348710&display=popup&redirect_uri=https://kullep.github.io/vk_api_happy/&scope=groups&response_type=token&v=5.103&state=123456
-
-// https://oauth.vk.com/authorize?client_id=7348710&display=popup&redirect_uri=https://vk.com/app7348710_260069152&scope=groups&response_type=token&v=5.103
-
-
-
-// CODE
-// https://oauth.vk.com/authorize?client_id=7348710&display=page&redirect_uri=https://vk.com/app7348710_260069152&scope=wall,groups&response_type=code&v=5.103
-
-// ACCESS TOKEN
-// https://oauth.vk.com/access_token?client_id=7348710&client_secret=cyyHvSRIS2nQhBjF2Ivo&redirect_uri=https://vk.com/app7348710_260069152&code=17566fe4606a6532fe
-
-
-
-
-// https://oauth.vk.com/access_token?client_id=7348710&client_secret=cyyHvSRIS2nQhBjF2Ivo&redirect_uri=https://vk.com/app7348710_260069152&code=5991c9c25b82a1d145
-
-
-
 
 // $.ajax({
 // 	url: `https://oauth.vk.com/access_token?client_id=7348710&client_secret=cyyHvSRIS2nQhBjF2Ivo&redirect_uri=https://vk.com/app7348710_260069152&code=6a3e4ed4c27703922c`,
@@ -32,21 +8,6 @@
 // 		console.log(d);
 // 	}
 // });
-
-
-
-
-// if(localStorage.hasOwnProperty('access_token_this_vk_api_happy')) { // Проверка наличия ключа в куках если он есть
-// 	document.getElementById('form_authorized').classList.remove("d-block");
-// 	document.getElementById('form_authorized').classList.add("d-none");	
-// 	document.getElementById('form_authorized').innerHTML = ''; // Удаление формы
-// } else {
-// 	document.getElementById('form_access_token').onclick = () => {
-// 		let access_token = document.getElementById('form_access_token_input').value;
-// 		localStorage.setItem('access_token_this_vk_api_happy', access_token);
-// 		window.location = window.location;
-// 	}
-// }
 
 
 /* ЭТО ДЛЯ КАЛЕНДАРЯ */
@@ -74,7 +35,7 @@ from_group: '', // Данный параметр учитывается, есл�
 message: '', // Текст сообщения (является обязательным, если не задан параметр attachments)
 attachments: '', // Список объектов, приложенных к записи и разделённых символом ","
 publish_date: '', // Дата публикации записи в формате unixtime. Если параметр указан, публикация записи будет отложена до указанного времени.
-close_comments: '' //1 — комментарии к записи отключены. 0 — комментарии к записи включены.
+close_comments: '', //1 — комментарии к записи отключены. 0 — комментарии к записи включены.
 };
 
 
@@ -85,7 +46,6 @@ close_comments: '' //1 — комментарии к записи отключе
 /*   Получить случайное поздравление и записать его в textarea   */
 const get_random_congratulation = () => { 
 	let r = Math.round(Math.random()*10);
-
 	if(form_post_happy_info.birth_num == 1) {
 		form_post_happy_info.message = congratulation.solo[r];
 	} else if (form_post_happy_info.birth_num > 1) {
@@ -94,8 +54,12 @@ const get_random_congratulation = () => {
 	document.getElementById('congratulation_textarea').innerHTML = form_post_happy_info.message;
 };
 
+
+
 obj_user_group_info.bdate += tomorrow+'.'+month_tt;
 document.querySelector('#birth_day_men_date').innerHTML = obj_user_group_info.bdate;
+
+
 
 
 function GetUrl(method, params) {
@@ -103,7 +67,9 @@ function GetUrl(method, params) {
 	params = params || {}; // Либо равны либо пустой объект
 	params['access_token'] = localStorage.getItem('access_token_this_vk_api_happy');
 	return `https://api.vk.com/method/${method}?${$.param(params)}&v=5.103`;
-}
+};
+
+
 
 
 const sendRequest = (method, params, func) => {
@@ -113,7 +79,9 @@ const sendRequest = (method, params, func) => {
 		dataType: 'JSONP',
 		success: func
 	});
-}
+};
+
+
 
 
 
@@ -129,11 +97,14 @@ get_info_user();
 
 
 
+
+
 const getIdGroupUser = () => {	
 	VK.api("groups.get", {count: 7}, function (data) {		
 		drowGroupsOnLoad(data.response.items);
 	});
 };
+
 
 
 
@@ -150,7 +121,6 @@ const drowGroupsOnLoad = (groups) => {
 			`;	
 		});
 	});
-
 };
 
 
@@ -158,13 +128,16 @@ const drowGroupsOnLoad = (groups) => {
 
 getIdGroupUser();
 
-
 const btn_get_group_info = (e) => {
 	document.querySelector('#group_info_users').classList.add("d-block");
 	document.querySelector('#group_info_users').classList.remove("d-none");
 	document.querySelector('body').classList.add("bg-dark-1");
 	obj_user_group_info.group_id = e; // ID Группы в объект
-}
+};
+
+
+
+
 
 
 const string_date_text = (e) => {
@@ -239,9 +212,47 @@ const string_date_text = (e) => {
 		alert( "Нет таких значений" );
 	}
 
+
+	/* ПОЛУЧИТЬ ИМЕНИННИКОВ */
+	VK.api("groups.getMembers", {group_id: obj_user_group_info.group_id, fields:'bdate'}, function (data) {	
+		form_post_happy_info.birth_num = 0;
+		regexp = new RegExp(obj_user_group_info.bdate);
+		var b_str_user = '';
+		let count = data.response.count;
+		if(count >= 998) { count = 998; }
+		for(let i = 0; i < count; i++) {
+			let d = data.response.items[i];
+			if(d.bdate != undefined) {
+				let text_d = d.bdate;
+				if(text_d.match(regexp) != null) {
+					form_post_happy_info.birth_num += 1;
+					b_str_user += ','+d.id;
+				}
+			}
+		}
+		document.querySelector('#birth_men_count').innerHTML = 'Найдено '+form_post_happy_info.birth_num+' именинников';
+		if(form_post_happy_info.birth_num == 0) {
+			document.getElementById('birthday_mans_list').innerHTML = `<h3 class="col-12">Именинники не обнаружены</h3>`;
+			document.getElementById('post_mailing').innerHTML = '';
+			document.getElementById('link_users_list').innerHTML = '';
+			form_post_happy_info.happy_list_link = '';
+			form_post_happy_info.happy_list_link_with_name = '';
+		}
+		else {
+			drowUserBirthDay(b_str_user);
+		}
+	});
 	obj_user_group_info.bdate = day+'.'+month_date;;
 	document.querySelector('#birth_day_men_date').innerHTML = day + ' ' + month_str;
-}
+};
+
+
+
+
+
+
+
+
 
 
 
@@ -265,6 +276,36 @@ const btn_form_post_happy_back = () => {
 	document.getElementById('form_post').classList.remove("d-flex");
 	document.getElementById('form_post').classList.add("d-none");
 }
+
+
+/*  СОЗДАТЬ ПОСТ С ПОЗДРАВЛЕНИЕМ БЕЗ НАСТРОЕК */
+const create_post_without_settings = (e) => {
+
+	get_random_congratulation();
+	let date_t_1 = new Date();
+	date_t_1.setDate(form_post_happy_info.publish_date);
+	date_t_1.setHours('9');
+	date_t_1.setMinutes('0');
+	date_t_1.setSeconds('0');
+	let date_t_2 = date_t_1.getTime() / 1000;
+	let id_group = '-'+obj_user_group_info.group_id;
+
+	VK.api("wall.post", {
+		owner_id: id_group, 
+		attachments: form_post_happy_info.photo_arr,
+		friends_only: form_post_happy_info.friends_only, 
+		from_group: 1, // От имени группы
+		message: form_post_happy_info.start_congratulation+form_post_happy_info.message+'\n\n\n',
+		publish_date: date_t_2,
+		close_comments: form_post_happy_info.close_comments
+	}, function (data) {		
+		console.log(data);
+	});
+}
+
+
+
+
 
 
 
@@ -338,12 +379,19 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 
   let message_result = form_post_happy_info.start_congratulation + form_post_happy_info.message;
 
-  VK.api("wall.post", {owner_id: this_param_own_id, attachments: form_post_happy_info.photo_arr, friends_only: form_post_happy_info.friends_only, from_group: form_post_happy_info.from_group, message: message_result, publish_date: form_post_happy_info.publish_date, close_comments: form_post_happy_info.close_comments
+  VK.api("wall.post", {
+  	owner_id: this_param_own_id, 
+  	attachments: form_post_happy_info.photo_arr, 
+  	friends_only: form_post_happy_info.friends_only, 
+  	from_group: form_post_happy_info.from_group,
+  	message: message_result,
+  	publish_date: form_post_happy_info.publish_date, 
+  	close_comments: form_post_happy_info.close_comments
   }, function (data) {		
   	console.log(data);
   });
 
-}
+};
 
 
 
@@ -355,16 +403,32 @@ document.getElementById('btn_form_post_happy').onclick = () => {
 
 /* ОТПРАВИТЬ ПОЗДРАВЛЕНИЕ ИМЕНИННИКАМ  */
 const submit_congratulation = (e) => {
-	console.log(e);
+	console.log(obj_user_group_info.user_id);
+	VK.api("messages.send", {
+		user_id: obj_user_group_info.user_id,
+		random_id: (Math.random()*1000).toFixed(),
+		message: 'Поздравляю с ДР',
+
+		// attachments: form_post_happy_info.photo_arr,
+	}, function (data) {		
+		console.log(data);
+	});
+
 };
 
+
+
+
+
+
+// <button onclick='submit_congratulation()' class="mb-1 btn btn-primary">Отправить поздравления именинникам</button>
 
 const drowUserBirthDay = (e) => {
 	let str = e.slice(1); // Убрать запятую в начале
 	if (form_post_happy_info.birth_num > 0) {
 		document.getElementById('post_mailing').innerHTML = `
-		<button onclick='create_post();' class="mb-1 btn btn-primary">Разместить запись с поздравлением именинников</button>
-		<button onclick='submit_congratulation()' class="mb-1 btn btn-primary">Отправить поздравления именинникам</button>
+		<button onclick='create_post();' class="mb-1 btn btn-primary">Разместить пост с настройками</button>
+		<button onclick='create_post_without_settings();' class="mb-1 btn btn-primary">Разместить пост без настроек</button>
 		<hr/>
 		`;
 	}
@@ -375,6 +439,7 @@ const drowUserBirthDay = (e) => {
 		form_post_happy_info.photo_for_collage = [];
 		form_post_happy_info.happy_list_link = '';
 		form_post_happy_info.happy_list_link_with_name = '';
+		form_post_happy_info.photo_arr = '';
 
 		for(let i=0; i < d.length; i++) {
 			form_post_happy_info.photo_for_collage.push(d[i].photo_100);
@@ -399,11 +464,17 @@ const drowUserBirthDay = (e) => {
 				contentType: 'application/json',
 				json: true
 			}).done(function(data){
-				document.getElementById('post_mailing').innerHTML += `<a class="mb-1 btn btn-success" href="https://panda-hub.ru/vk_api_happy/img/${data.text}.jpg">Ссылка на фотоколлаж</a>`
+				document.getElementById('post_mailing').innerHTML += `<a target="_blank" class="mb-1 btn btn-success" href="https://panda-hub.ru/vk_api_happy/img/${data.text}.jpg">Ссылка на фотоколлаж</a>`
 			});
 		}
 	});
 };
+
+
+
+
+
+
 
 
 
@@ -421,6 +492,11 @@ const copy_in_buffer = () => {
 };
 
 
+
+
+
+
+
 const copy_in_buffer_with_name = () => {
 	console.log(form_post_happy_info.happy_list_link_with_name);
 	let inputValue = form_post_happy_info.happy_list_link_with_name;
@@ -435,34 +511,6 @@ const copy_in_buffer_with_name = () => {
 };
 
 
-
-document.getElementById('birth_day_men').onclick = () => {
-	VK.api("groups.getMembers", {group_id: obj_user_group_info.group_id, fields:'bdate'}, function (data) {	
-		form_post_happy_info.birth_num = 0;
-		regexp = new RegExp(obj_user_group_info.bdate);
-		var b_str_user = '';
-		for(let i=0; i <= 900; i++) {
-			let d = data.response.items[i];
-			if(d.bdate != undefined) {
-				let text_d = d.bdate;
-				if(text_d.match(regexp) != null) {
-					form_post_happy_info.birth_num += 1;
-					b_str_user += ','+d.id;
-				}
-			}
-		}
-		if(form_post_happy_info.birth_num == 0) {
-			document.getElementById('birthday_mans_list').innerHTML = `<h3 class="col-12">Именинники не обнаружены</h3>`;
-			document.getElementById('post_mailing').innerHTML = '';
-			document.getElementById('link_users_list').innerHTML = '';
-			form_post_happy_info.happy_list_link = '';
-			form_post_happy_info.happy_list_link_with_name = '';
-		}
-		else {
-			drowUserBirthDay(b_str_user);
-		}
-	});
-};
 
 
 

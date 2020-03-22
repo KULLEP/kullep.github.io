@@ -47,12 +47,12 @@
 		</ul>
 
 		<!-- GROUP INFO -->
-		<div id="group_info_users" class="h-100 bg-white col-12 row justify-content-center position-absolute d-none">
+		<div id="group_info_users" class="pr-0 h-100 bg-white col-12 row justify-content-center position-absolute d-none">
 			<div class="mt-3 text-center">
 				<span class="h5">Когда день рождения у пользователя ?</span>
 			</div>
 			<div class='col-12 my-4 p-0'>
-				<div class="container">
+				<div style="max-width:60%!important;" class="container">
 					<div class="row">
 						<div class="col-md-offset-3">
 							<!-- Calendar --><div class="calendar"></div><!-- /Calendar -->
@@ -61,10 +61,14 @@
 				</div><!--/.container-->
 			</div>
 			<div class="text-center mt-3 col-12">
-				<h4 id="birth_day_men_date"></h4>
+
+				<div class="row justify-content-center mb-4">
+					<span id="birth_day_men_date" class="p-0 m-0 col-3 h6"></span>
+					<span id="birth_men_count" class="p-0 m-0 col-5 h6"></span>
+				</div>
+
 
 				<a onclick="btn_group_info_users_back();" href="javascript:void(0);" id="btn_form_post_happy_back" class="btn btn-danger">Назад</a>
-				<button id="birth_day_men" type="submit" class=" btn btn-primary">Получить именинников</button>
 
 				<hr/>
 			</div>
@@ -82,18 +86,21 @@
 					</a>
 				</div>
 
-				<div class="col-10">
-					<details class="col-12">
+				<div class="col-12 p-0">
+					<details>
 						<summary class="noselect">Ссылки на пользователей</summary>
 						<div class="border rounded dorder-info" id='link_users_list'>
 						</div>
 					</details>
 				</div>
-				
-				<div class="col-12">
-					<ul id="birthday_mans_list" class="row">
-					</ul>
+				<div class="col-12 p-0">
+					<details>
+						<summary class="noselect">Показать именинников</summary>
+						<ul id="birthday_mans_list" class="row">
+						</ul>
+					</details>
 				</div>
+
 
 			</div>
 		</div>
