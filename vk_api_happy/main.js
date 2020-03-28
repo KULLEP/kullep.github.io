@@ -464,7 +464,7 @@ const drowUserBirthDay = (e) => {
 				contentType: 'application/json',
 				json: true
 			}).done(function(data){
-				document.getElementById('post_mailing').innerHTML += `<a target="_blank" class="mb-1 btn btn-success" href="https://panda-hub.ru/vk_api_happy/img/${data.text}.jpg">Ссылка на фотоколлаж</a>`
+				document.getElementById('post_mailing').innerHTML += `<a target="_blank" class="mb-1 btn btn-success" href="https://panda-hub.ru/vk_api_happy/img/${data.text}.jpg">Ссылка на фотоколлаж</a>`;
 			});
 		}
 	});
