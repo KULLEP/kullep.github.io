@@ -2,48 +2,10 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$mpdf = new \Mpdf\Mpdf();
-$mpdf->WriteHTML('<html>
-  <head>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load("current", {"packages":["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-
-        var data = google.visualization.arrayToDataTable([
-          ["Task", "Hours per Day"],
-          ["Work",     11],
-          ["Eat",      2],
-          ["Commute",  2],
-          ["Watch TV", 2],
-          ["Sleep",    7]
-        ]);
-
-        var options = {
-          title: "My Daily Activities"
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById("piechart"));
-
-        chart.draw(data, options);
-      }
-    </script>
-  </head>
-  <body>
- 
-    <div id="piechart" style="width: 900px; height: 500px;"></div>
-  </body>
-</html>');
-// $mpdf->Output();
+$global_result = '';
 
 
-
-
-
-
-function the_user_clicks_info($id, $date_1, $date_2, $metrics, $dimensions, $id_div, $name_func, $graph) {
+function draw_graph($id, $date_1, $date_2, $metrics, $dimensions, $graph, $wh_ht) {
 	$url = 'https://api-metrika.yandex.ru/stat/v1/data';
 
 	$params = [
@@ -57,100 +19,56 @@ function the_user_clicks_info($id, $date_1, $date_2, $metrics, $dimensions, $id_
 
    	$get_cont = file_get_contents( $url . '?' . http_build_query($params) );
    	$d = json_decode($get_cont);
-$arr_length = count($d->data); // Длина массива
-$result_str = ''; // Результат для вывода
+	$arr_length = count($d->data); // Длина массива
+	$metrika_name = ''; // Имя метрики
+	$metrika_num = ''; // Значение метрики
 
 for($i = 0; $i < $arr_length; $i++) {
-	if($graph == 'corechart') {
-		$result_str .= '["'.$d->data[$i]->dimensions[0]->name.'",'.$d->data[$i]->metrics[0].'],';
-	} elseif($graph == 'line') {
-		$result_str .= '['.substr($d->data[$i]->dimensions[0]->name, 8).','.$d->data[$i]->metrics[0].'],';
-	}
+	$metrika_name .= $d->data[$i]->dimensions[0]->name.'|';
+	$metrika_num .= $d->data[$i]->metrics[0].',';
+}
+
+$result_name = substr($metrika_name, 0, -1); // Удаление запятой
+$result_num = substr($metrika_num, 0, -1); // Удаление запятой
+
+
+$html_l = '
+<div style="text-align: center; margin-bottom:20px;">
+<img style="-webkit-user-select: none;margin: auto;" src="https://chart.googleapis.com/chart?cht='.$graph.'&chd=t:'.$result_num.'&chs='.$wh_ht.'&chl='.$result_name.'&chds=a">
+</div>
+';
+
+global $global_result;
+$global_result .= $html_l;
 }
 
 
-
-
-if($graph == 'corechart') {
-	$html_l = "
-	google.charts.load('current', {'packages':['".$graph."']});
-	google.charts.setOnLoadCallback(".$name_func.");
-
-	function ".$name_func."() {
-		var data = new google.visualization.DataTable();
-		data.addColumn('string', 'Topping');
-		data.addColumn('number', 'Slices');
-		data.addRows([" . $result_str."]);
-		var options = {
-			'title':'Источник трафика',
-			pieHole: 0.4,
-		};
-		var chart = new google.visualization.PieChart(document.getElementById('".$id_div."'));
-		chart.draw(data, options);
-	}";
-} 
-elseif($graph == 'line') {
-	$html_l = "
-	google.charts.load('current', {'packages':['".$graph."']});
-	google.charts.setOnLoadCallback(".$name_func.");
-
-	function ".$name_func."() {
-		var data = new google.visualization.DataTable();
-		data.addColumn('number', 'День');
-		data.addColumn('number', 'Посетители');
-		data.addRows([" . $result_str."]);
-		var options = {
-			chart: {
-				title: 'Посетители',
-				subtitle: ''
-				},
-				width: 700,
-				height: 400
-			};
-			var chart = new google.charts.Line(document.getElementById('".$id_div."'));
-			chart.draw(data, google.charts.Line.convertOptions(options));
-		}";
-	}
-	
-	return($html_l);
+function draw_pdf() {
+$mpdf = new \Mpdf\Mpdf();
+global $global_result;
+$mpdf->WriteHTML($global_result);
+$mpdf->Output();
 }
-
 // Параметры для - the_user_clicks_info();
 // 1 - id 44147844
 // 2 - Дата от = '2020-03-13'
 // 3 - Дата до = '2020-03-17'
 // 4 - metrics = ym:pv:pageviews,ym:pv:users
 // 5 - dimensions = ym:pv:title
-// 6 - div - id блока
-// 7 - Любое название функции для отрисовки, не должна повторяться
-// 8 - График - corechart, line
+// 6 - График - [p3 - круг], [lc - линейный график], [bvg - гистограмма]
+// 7 - Ширина, Высота
+
+
+
+draw_graph(44147844, '2020-03-13', '2020-03-17', 'ym:s:visits', 'ym:s:date', 'p3', '600x200');
+ 
+draw_graph(44147844, '2020-03-13', '2020-03-17', 'ym:s:visits', 'ym:s:trafficSource', 'lc', '900x300');
+
+draw_graph(44147844, '2020-03-13', '2020-03-17', 'ym:s:visits', 'ym:s:trafficSource', 'bvg', '400x400');
+
+draw_pdf();
+
 ?>
 
-
-<html>
-<head>
-	<!--Load the AJAX API-->
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<script type="text/javascript">
-
-		<? echo the_user_clicks_info(44147844, '2020-03-13', '2020-03-17', 'ym:s:visits', 'ym:s:trafficSource', 'the_user_clicks_info_div', 'the_user_clicks_info_1', 'corechart'); ?>
-
-		<? echo the_user_clicks_info(44147844, '2020-03-13', '2020-03-17', 'ym:s:visits', 'ym:s:date', 'linechart_material', 'the_user_clicks_info_2', 'line'); ?> 
-	</script>
-
-	 
-</head>
-
-<body>
-	<!--Div that will hold the pie chart-->
-	<div id="the_user_clicks_info_div" style="width: 600px; height: 500px;"></div>
-
-	<div id="linechart_material"></div>
-
-
- 
-
-</body>
-</html>
 
 
