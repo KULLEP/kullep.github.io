@@ -49,7 +49,7 @@ global $global_result;
 $mpdf->WriteHTML($global_result);
 $mpdf->Output();
 }
-// Параметры для - the_user_clicks_info();
+// Параметры для - draw_graph();
 // 1 - id 44147844
 // 2 - Дата от = '2020-03-13'
 // 3 - Дата до = '2020-03-17'
