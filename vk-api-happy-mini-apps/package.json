@@ -2,8 +2,8 @@
   "name": "vk-api-happy-mini-apps",
   "version": "1.0.0",
   "description": "",
-  "homepage": "./",
-  "home": "https://github.com/KULLEP/kullep.github.io/tree/master/vk-api-happy-mini-apps",
+  "homepage": "http://kullep.github.io/vk-api-happy-mini-apps/",
+  "home": "http://kullep.github.io/vk-api-happy-mini-apps/",
   "main": "index.js",
   "scripts": {
     "start": "cross-env PORT=10888 HTTPS=true react-scripts start",
@@ -30,6 +30,7 @@
     "eruda": "^2.2.0",
     "eruda-code": "^2.0.0",
     "eruda-dom": "^2.0.0",
+    "gh-pages": "^2.2.0",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0"
