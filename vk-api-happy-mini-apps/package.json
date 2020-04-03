@@ -2,6 +2,7 @@
   "name": "vk-api-happy-mini-apps",
   "version": "1.0.0",
   "description": "",
+  "homepage": "./",
   "home": "https://github.com/KULLEP/kullep.github.io/tree/master/vk-api-happy-mini-apps",
   "main": "index.js",
   "scripts": {
