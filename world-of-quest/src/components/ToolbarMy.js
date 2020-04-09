@@ -1,19 +1,17 @@
 import React from 'react';
 
-import { BrowserRouter, NavLink } from 'react-router-dom';
-import { Page, Button, Input, Toolbar, ToolbarButton, Icon, BackButton } from 'react-onsenui'; 
+import { NavLink } from 'react-router-dom';
+import { Toolbar, ToolbarButton, BackButton } from 'react-onsenui'; 
 
-import 'onsenui/css/onsenui.css';
-import 'onsenui/css/onsen-css-components.css';
-import './main.css';
-
+import { rerenderNewTreeFunc } from './RerenderNewTree';
 
 const ToolbarMy = ({backlink, heightTitle}) => {
 
 
 	const exitAccount = () => {
 		localStorage.clear();
-		window.location = '/home';
+		window.infoUser.status = '';
+		rerenderNewTreeFunc('0');
 	};
 
 	return(
@@ -34,18 +32,18 @@ const ToolbarMy = ({backlink, heightTitle}) => {
 		{heightTitle}
 		</div>
 
-		{ (localStorage.getItem('authLoginStatus') != null && localStorage.getItem('authLoginStatus') != '') ?
-			<div className="right">
-			<ToolbarButton onClick={exitAccount}>
-			EXIT
-			</ToolbarButton>
-			</div> : null
-		}
-		
-		</Toolbar>   
-		/>
-		</div>
-		)
+		{ (localStorage.getItem('authLoginStatus') !== null && localStorage.getItem('authLoginStatus') !== '') ?
+		<div className="right">
+		<ToolbarButton onClick={exitAccount}>
+		EXIT
+		</ToolbarButton>
+		</div> : null
+	}
+
+	</Toolbar>   
+	/>
+	</div>
+	)
 }
 
 export default ToolbarMy;

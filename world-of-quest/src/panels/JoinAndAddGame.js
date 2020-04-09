@@ -1,12 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-import { Button, SpeedDial, Fab, Input } from 'react-onsenui';
-import { Redirect } from 'react-router-dom';
+import { Button, Input } from 'react-onsenui';
 
 import ToolbarMy from '.././components/ToolbarMy';
-
- 
+import RedirectNoAuth from '.././components/RedirectNoAuth';
 
 const JoinAndAddGame = ({isAuth}) => {
 
@@ -16,12 +13,11 @@ const JoinAndAddGame = ({isAuth}) => {
 	};
 
 	return(
-		<div>
 
-		{ isAuth == '' ? <Redirect from='/' to='/home'/> : null }
+		<div>
+		<RedirectNoAuth/>
 
 		<ToolbarMy backlink='/player-main-page' heightTitle='Войти в игру' />
-
 		<div className='user-auth-block'>
 		<Input
 		className='nameGame'

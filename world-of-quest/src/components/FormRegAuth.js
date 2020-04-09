@@ -1,29 +1,25 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-import { BrowserRouter, NavLink } from 'react-router-dom';
-import { Fab, Button, Input, SpeedDial } from 'react-onsenui'; 
-
-import 'onsenui/css/onsenui.css';
-import 'onsenui/css/onsen-css-components.css';
-import $ from 'jquery';
-
-import ToolbarMy from '.././components/ToolbarMy';
-
+import { Button, Input } from 'react-onsenui'; 
 import data_json_admin from '../json-info/admins.json';
 import data_json_player from '../json-info/users.json';
+ 
+import { rerenderNewTreeFunc } from './RerenderNewTree';
+
+ 
+ 
 
 const FormRegAuth = ({typeForm, typeUser}) => {
 
 	const submit = () => {
-		if(typeForm == 'auth') {
+		if(typeForm === 'auth') {
 			var statusUser;
 			var data_json;
-			if(typeUser == 'admin') {
+			if(typeUser === 'admin') {
 				data_json = data_json_admin;
 				statusUser = 'admin';
 			}
-			else if (typeUser == 'player') {
+			else if (typeUser === 'player') {
 				data_json = data_json_player;
 				statusUser = 'player';
 			}
@@ -32,11 +28,11 @@ const FormRegAuth = ({typeForm, typeUser}) => {
 			for(let i = 0; i < data_json.length; i++) {
 				let log = data_json[i].login;
 				let pas = data_json[i].password;
-				if(loginInp == log && passInp == pas)
+				if(loginInp === log && passInp === pas)
 				{
 					localStorage.setItem('authLoginName', log);
 					localStorage.setItem('authLoginStatus', statusUser);
-					window.location = '/home';
+				    rerenderNewTreeFunc('1');
 				}
 			}
 		}

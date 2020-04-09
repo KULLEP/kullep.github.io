@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { Button } from 'react-onsenui';
 import { NavLink } from 'react-router-dom';
@@ -11,7 +10,7 @@ const GameBlock = ({gameNAME}) => {
 	var arr_g;
 
 	for(let i = 0; i < data_json_games.length; i++) {
-		if(data_json_games[i].game == gameNAME) {	 
+		if(data_json_games[i].game === gameNAME) {	 
 			arr_g = data_json_games[i];
 			break;
 		}
