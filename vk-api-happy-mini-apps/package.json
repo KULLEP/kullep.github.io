@@ -2,8 +2,7 @@
   "name": "vk-api-happy-mini-apps",
   "version": "1.0.0",
   "description": "",
-  "homepage": "http://kullep.github.io/vk-api-happy-mini-apps/",
-  "home": "http://kullep.github.io/vk-api-happy-mini-apps/",
+  "homepage": "https://kullep.github.io/vk-api-happy-mini-apps-react",
   "main": "index.js",
   "scripts": {
     "start": "cross-env PORT=10888 HTTPS=true react-scripts start",
@@ -20,6 +19,7 @@
     "react-scripts": "^3.4.1"
   },
   "dependencies": {
+    "@happysanta/vk-app-ui": "^1.0.3",
     "@vkontakte/icons": "^1.18.2",
     "@vkontakte/vk-bridge": "^2.1.6",
     "@vkontakte/vk-miniapps-deploy": "0.0.17",
@@ -33,7 +33,8 @@
     "gh-pages": "^2.2.0",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react-dom": "^16.9.0",
+    "react-router-dom": "^5.1.2"
   },
   "browserslist": {
     "production": [

@@ -30,42 +30,79 @@ const onIconClick2 = (e) => {
 };
 
 
+const searchInput = (e) => {
 
+	async function getInfoGroupsUser() {
+		const data = await bridge.send("VKWebAppCallAPIMethod", {
+			"method": "groups.getById",
+			"params": {
+				"fields": 'members_count',
+				"group_ids": e.target.value,
+				"access_token": window.obj_user_group_info.user_auth_token,
+				"v": "5.103"
+			}
+		});
+		let result = data.response[0];
+		//console.log(result);
 
+		return(
+			<Group>
+			<Cell onClick={go} id_group={result.id} data-to="groupinfo"
+			before={result.photo_200 ? <Avatar src={result.photo_200}/> : null}
+			description={result.members_count}
+			>
+			{`${result.name}`}
+			</Cell>
+			</Group>
+			)
 
+		// document.querySelector('.resultSearch').innerHTML = `
+		// <div id_group="${result.id}" data-to="groupinfo" class="Cell Cell--ios Cell--m">
+		// <div role="button" class="Tappable Tappable--ios Cell__in Tappable--inactive">
+		// <div class="Cell__before">
+		// <div class="Cell__before-in">
+		// <div class="Avatar Avatar--ios Avatar--type-default">
+		// <div class="Avatar__in">
+		// <img class="Avatar__img" src="${result.photo_200}" style="width: 48px; height: 48px; border-radius: 50%;">
+		// </div>
+		// </div>
+		// </div>
+		// </div>
+		// <div class="Cell__main">
+		// <div class="Cell__children">
+		// ${result.name}
+		// </div>
+		// <div class="Cell__description">
+		// ${result.members_count}
+		// </div>
+		// </div>
+		// <div class="Cell__indicator">
+		// </div>
+		// <div class="Cell__aside">
+		// </div>
+		// </div>
+		// </div>
+		// `;
+	};
+	getInfoGroupsUser();
+
+	const element = (
+		<div>
+		<h1>Привет, мир!</h1>
+		<h2>Сейчас {new Date().toLocaleTimeString()}.</h2>
+		</div>
+		);
+	ReactDOM.render(
+		element,
+		document.querySelector('.hhh')
+		);
+};
+
+ 
 
 const Home = ({ id, go, fetchedUser, fetchedGroupsInfo }) => {
 
-	const searchInput = (e) => {
 
-		async function getInfoGroupsUser() {
-			const data = await bridge.send("VKWebAppCallAPIMethod", {
-				"method": "groups.getById",
-				"params": {
-					"fields": 'members_count',
-					"group_ids": e.target.value,
-					"access_token": window.obj_user_group_info.user_auth_token,
-					"v": "5.103"
-				}
-			});
-			let result = data.response[0];
-			// console.log(result);
-
-			const result2 = (
-				<Group>
-				<Cell onClick={go} id_group={result.id} data-to="groupinfo"
-				before={result.photo_200 ? <Avatar src={result.photo_200}/> : null}
-				description={result.members_count}
-				>
-				{`${result.name}`}
-				</Cell>
-				</Group>
-				);
-
-			ReactDOM.render(result2, document.querySelector('.resultSearch'));
-		};
-		getInfoGroupsUser();
-	};
 
 	return(
 		<Panel id={id}>
@@ -84,13 +121,19 @@ const Home = ({ id, go, fetchedUser, fetchedGroupsInfo }) => {
 		<Group>
 		<Div>
 
+		<Div className='hhh'></Div>
+
 		<Search onChange={searchInput} />
 
-		<Group>
 
+
+		<Group>
 		<List>
-		<Div className='resultSearch'></Div>
 		<Div> 
+
+		<Group id='resultSearch'>
+
+		</Group>
 
 		{fetchedGroupsInfo &&
 			<Group>

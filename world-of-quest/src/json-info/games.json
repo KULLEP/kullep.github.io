@@ -1,0 +1,124 @@
+[
+	{
+		"game": "g001",
+		"admins": [
+			"admin1",
+			"admin2"
+		],
+		"teams": [
+			{
+				"code": "g1t1",
+				"name": "Team 1",
+				"captain": "Player1",
+				"players": [
+					"Player1",
+					"Player2",
+					"Player3"
+				],
+				"activeQuestion": "1",
+				"activeHint": "1"
+			},
+			{
+				"code": "g1t2",
+				"name": "Team 2",
+				"captain": "Player4",
+				"players": [
+					"Player4",
+					"Player5",
+					"Player6"
+				],
+				"activeQuestion": "1",
+				"activeHint": "1"
+			}
+
+		],
+
+		"questions": [
+			{
+				"num": "1",
+				"quest": "Найти меченый ключ или набор, он обёрнут в записку с правильным ответом",
+				"video": "http://link",
+				"photo": "http://photo",
+				"maxHint": "3",
+				"timeToNextHint": "00:10",
+				"hints": [
+					"Ключ лежит в шкатулке",
+					"Шкатулке находится в шкафу",
+					"Шкаф находится в центре комнаты"
+				],
+				"answer": "f1h34"
+			},
+
+			{
+				"num": "2",
+				"quest": "Найти ультрафиолетовый фонарик",
+				"video": "http://link",
+				"photo": "http://photo",
+				"hint": "1",
+				"maxHint": "3",
+				"timeToNextHint": "00:10"
+			},
+
+			{
+				"num": "3",
+				"quest": "На улице с помощью фонарика найти помеченое место и рыть руками, ну или найти лопату",
+				"video": "http://link",
+				"photo": "http://photo",
+				"hint": "1",
+				"maxHint": "3",
+				"timeToNextHint": "00:10"
+			}
+
+
+
+		],
+		"timeToStart": "00:10",
+		"timeToEnd": "10:00"
+
+	},
+
+	{
+		"game": "g002",
+		"admins": [
+			"admin1",
+			"admin2"
+		],
+		"teams": [
+			{
+				"name": "Team 1",
+				"captain": "Player1",
+				"players": [
+					"Player1",
+					"Player2",
+					"Player3"
+				],
+				"activeQuestion": "1",
+				"activeHint": "1"
+			}
+
+		],
+
+		"questions": [
+			{
+				"num": "1",
+				"quest": "Найти меченый ключ или набор, он обёрнут в записку с правильным ответом",
+				"video": "http://link",
+				"photo": "http://photo",
+				"maxHint": "3",
+				"timeToNextHint": "00:10",
+				"hints": [
+					"Ключ лежит в шкатулке",
+					"Шкатулке находится в шкафу",
+					"Шкаф находится в центре комнаты"
+				],
+				"answer": "f1h34"
+			}
+		],
+		"timeToStart": "00:10",
+		"timeToEnd": "10:00"
+
+	}
+
+
+
+]

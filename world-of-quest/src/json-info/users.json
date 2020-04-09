@@ -1,0 +1,16 @@
+[
+	{
+		"login": "player1",
+		"password": "player1",
+		"totalAnswerIsTrue": 0,
+		"totalAnswerIsFalse": 0,
+		"activeGame": "g001",
+		"team": ""
+	},
+	{
+		"login": "player2",
+		"password": "player2",
+		"answerIsTrue": 0,
+		"answerIsFalse": 0
+	}
+]
