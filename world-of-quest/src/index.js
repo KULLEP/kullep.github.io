@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 window.infoUser = {
 	jsonInfo: [],
+  jsonInfoGame: [],
 	status: '',
 	login: '',
 	answerIsTrue: 0,
@@ -13,11 +14,11 @@ window.infoUser = {
 };
 
 ReactDOM.render(
-  <React.StrictMode>
-   <BrowserRouter>
+   
+   <HashRouter>
     <App />
-     </BrowserRouter>
-  </React.StrictMode>,
+     </HashRouter>
+  ,
   document.getElementById('root')
 );
 

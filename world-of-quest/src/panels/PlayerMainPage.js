@@ -10,11 +10,13 @@ import GameBlock from '.././components/GameBlock';
 
 const PlayerMainPage = () => {
 
- 
+
 	return(
 		<div>
 
 		{ window.infoUser.status !== 'player' ? <Redirect from='/' to='/home'/> : null }
+		
+		{ (window.infoUser.jsonInfo.activeGame !== '' && window.infoUser.jsonInfo.activeGame !== undefined) ? <Redirect from='/' to='/page-info-game'/> : null }
 
 		<ToolbarMy heightTitle='PLAYER' />
 		<div className='main-block-page'>

@@ -52,7 +52,8 @@ accessAccount();
 return (
   <div>
 
-  <Route path='/home' component={Home} />
+  <Route exact path='/' component={Home} />
+  <Route exact path='/home' component={Home} />
 
   <Route path='/player-auth' render={ () => <PlayerAuth />} />
   <Route path='/player-register' component={PlayerRegister} />
@@ -64,7 +65,6 @@ return (
   <Route path='/join-and-add-game' component={JoinAndAddGame} />
   <Route path='/page-info-game' component={InfoGame} />
 
- 
 
   </div>
   );

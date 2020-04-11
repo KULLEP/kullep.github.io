@@ -41,7 +41,6 @@ const ToolbarMy = ({backlink, heightTitle}) => {
 	}
 
 	</Toolbar>   
-	/>
 	</div>
 	)
 }
