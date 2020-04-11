@@ -1,12 +1,15 @@
-html {
-	background-color: #EFEFF4;
-}
 body {
 	overflow-y: auto!important;
+	background-color: #EDEEF0; 
 }
 
+.w-75 {
+	width: 75%;
+}
+
+
 .mw-100 {
-max-width: 100%;
+	max-width: 100%;
 }
 
 .my-20 {
@@ -116,7 +119,12 @@ max-width: 100%;
 	display: grid;
 	justify-content: center;
 	margin-top: 20px;
-	height: 80vh;
+	height: auto;
+}
+
+.main-block-page div{
+	width: 20em;
+	margin-bottom: 30px; 
 }
 
 
@@ -142,4 +150,9 @@ max-width: 100%;
 	justify-content: center;
 	margin-top: 50px;
 	height: auto;
+}
+
+.center-flex {
+	justify-content: center;
+	display: flex;
 }

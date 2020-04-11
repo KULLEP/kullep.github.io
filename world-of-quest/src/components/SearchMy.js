@@ -2,16 +2,15 @@ import React from 'react';
 import { SearchInput } from 'react-onsenui'; // Only import the necessary components
 
 
-const SearchMy = () => {
+const SearchMy = ({searchText, onChange}) => {
 
-
+ 
 	return(
 		<SearchInput
-		onChange='12'
+		onChange={onChange}
 		modifier='material'
-		placeholder='Поиск игр' />
+		placeholder={searchText} />
 		)
-
 }
 
 export default SearchMy;

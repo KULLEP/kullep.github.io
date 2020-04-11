@@ -1,0 +1,35 @@
+[
+	{
+		"team": "Team 1",
+		"code": "g1t1",
+		"name": "Крутые бобры",
+		"captain": "Player1",
+		"players": [
+			"Player1",
+			"Player2",
+			"Player3"
+		],
+		"activeQuestion": "0",
+		"activeHint": "-1",
+		"nextHint": "0",
+		"mistakes": "0"
+	},
+
+	{
+		"team": "Team 2",
+		"code": "g1t1",
+		"name": "Крутые бобры",
+		"captain": "Player1",
+		"players": [
+			"Player1",
+			"Player2",
+			"Player3"
+		],
+		"activeQuestion": "0",
+		"activeHint": "-1",
+		"nextHint": "0",
+		"mistakes": "0"
+	}
+
+
+]

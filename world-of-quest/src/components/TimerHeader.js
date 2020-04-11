@@ -1,13 +1,5 @@
 import React from 'react';
 import Timer from 'react-compound-timer';
-import ReactDOM from 'react-dom';
-import TimerBlock from './TimerBlock';
-import { HashRouter, Redirect } from 'react-router-dom';
-import App from '.././App';
-import BlockHint from './BlockHint';
-
-
-
 
 
 const TimerHeader = () => {
@@ -24,7 +16,7 @@ const TimerHeader = () => {
 
 	 const rendererNewTimer = () => {
 
-	 	if(nextHint == info_game.questions[activeQuestion].hints.length - 1) {
+	 	if(nextHint === info_game.questions[activeQuestion].hints.length - 1) {
 	 		console.log('LAST HINT AND NEXT QUEST');
 	 		window.infoUser.jsonInfoGame.teams[team_player].activeQuestion = +activeQuestion + 1;
 	 		window.infoUser.jsonInfoGame.teams[team_player].activeHint = -1;
