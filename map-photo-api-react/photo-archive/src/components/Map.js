@@ -1,15 +1,14 @@
+import React from 'react';
+import $ from "jquery";
+import { YMaps, Map, Placemark } from "react-yandex-maps";
 
-
-window.photosLists = [];
-
-
-
+const Map = () => {
  const closeModal = (e) => {
- 	document.getElementById('photoModal').style.display = 'none';
- };
+  document.getElementById('photoModal').style.display = 'none';
+};
 
- const getModal = (e) => {
- 	document.getElementById('photoModal').style.display = 'block';
+const getModal = (e) => {
+  document.getElementById('photoModal').style.display = 'block';
  	// let json = JSON.stringify(window.photosLists);
  	// console.log(json);
  	console.log(e);
@@ -163,27 +162,6 @@ CustomSearchProvider.prototype.geocode = function (request, options) {
     return deferred.promise();
 };
 
+};
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default Map;

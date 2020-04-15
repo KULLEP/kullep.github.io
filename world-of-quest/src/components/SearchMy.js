@@ -4,9 +4,8 @@ import { SearchInput } from 'react-onsenui'; // Only import the necessary compon
 
 const SearchMy = ({searchText, onChange}) => {
 
- 
 	return(
-		<SearchInput
+		<SearchInput id='searchMy' 
 		onChange={onChange}
 		modifier='material'
 		placeholder={searchText} />

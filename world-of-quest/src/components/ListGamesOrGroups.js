@@ -6,66 +6,104 @@ import { Button } from 'semantic-ui-react';
 
 const ListGames = ({typeContent, nameContent}) => {
 
-	console.log(nameContent);
+const nameEdit = (e) => {
+window.infoUser.editName = e.target.id;
+localStorage.setItem('gameEditor', window.infoUser.editName);
+};
+
 
 	if(typeContent === 'games') {
-		if(nameContent == undefined) {
+		if(nameContent === undefined || nameContent === '') {
 			return (
-				data_json_games.map(arr => (
-					<div className='center-flex'>
-					<NavLink className='link-disable' to='/info-game-for-admin'>
-					<Button inverted color='orange'>
-					{arr.game}
-					</Button>
-					</NavLink>
-					<br/>
-					</div>
-					))
+				data_json_games.map(arr => {
+
+					let nameGame = arr.game;
+					let regexp = new RegExp(``, 'igm');
+					let result = nameGame.match(regexp);
+					return (
+						<div className='col-12 p-0 m-0 mb-3 row row-justify-center content-center'>
+						<NavLink onClick={nameEdit} className='col-6 text-center' to='/info-game-for-admin'>
+						<Button id={nameGame} inverted color='orange'>
+						{nameGame}
+						</Button>							 
+						</NavLink>
+
+						<NavLink onClick={nameEdit} className='col-6 text-center' to='/edit-game-for-admin'>
+						<Button id={nameGame} inverted color='blue'>
+						Редактировать
+						</Button>							 
+						</NavLink>
+						</div>
+						)
+				})
 				)
 		} else if (nameContent !== undefined) {
 			return (
 				data_json_games.map(arr => {
-					if(nameContent === arr.game || nameContent === undefined || nameContent === '') {
+					let nameGame = arr.game;
+					let regexp = new RegExp(`${nameContent}`, 'igm');
+					let result = nameGame.match(regexp);
+
+					if (result) {
 						return (
-							<div className='center-flex'>
-							<NavLink className='link-disable' to='/info-game-for-admin'>
-							<Button inverted color='orange'>
-							{arr.game}
-							</Button>
+							<div className='col-12 p-0 m-0 mb-3 row row-justify-center content-center'>
+							<NavLink onClick={nameEdit} className='col-6 text-center' to='/info-game-for-admin'>
+							<Button id={nameGame} inverted color='orange'>
+							{nameGame}
+							</Button>							 
 							</NavLink>
-							<br/>
+
+							<NavLink onClick={nameEdit} className='col-6 text-center' to='/info-game-for-admin'>
+							<Button id={nameGame} inverted color='blue'>
+							Редактировать
+							</Button>							 
+							</NavLink>
 							</div>
 							)
 					}
 				}
 				))
 		}
-	} else if (typeContent == 'groups') {
-		if(nameContent == undefined) {
+	} else if (typeContent === 'groups') {
+		if(nameContent === undefined) {
 			return (
 				data_json_teams.map(arr => (
-					<div className='center-flex'>
-					<NavLink className='link-disable' to='/info-team-for-admin'>
+					<div className='col-12 p-0 m-0 mb-3 row row-justify-center content-center'>
+					<NavLink className='col-6 text-center' to='/info-team-for-admin'>
 					<Button inverted color='orange'>
-					{arr.team}
-					</Button>
+					{arr.name}
+					</Button>							 
 					</NavLink>
-					<br/>
+
+					<NavLink onClick={nameEdit} className='col-6 text-center' to='/info-team-for-admin'>
+					<Button id={arr.name} inverted color='blue'>
+					Редактировать
+					</Button>							 
+					</NavLink>
 					</div>
 					))
 				)
 		} else if (nameContent !== undefined) {
 			return (
 				data_json_teams.map(arr => {
-					if(nameContent === arr.team || nameContent === undefined || nameContent === '') {
+					let nameTeam = arr.name;
+					let regexp = new RegExp(`${nameContent}`, 'igm');
+					let result = nameTeam.match(regexp);
+
+					if (result) {
 						return (
-							<div className='center-flex'>
-							<NavLink className='link-disable' to='/info-team-for-admin'>
+							<div className='col-12 p-0 m-0 mb-3 row row-justify-center content-center'>
+							<NavLink className='col-6 text-center' to='/info-team-for-admin'>
 							<Button inverted color='orange'>
-							{arr.team}
-							</Button>
+							{nameTeam}
+							</Button>							 
 							</NavLink>
-							<br/>
+
+							<NavLink onClick={nameEdit} className='col-6 text-center' to='/info-team-for-admin'>
+							<Button id={nameTeam} inverted color='blue'>
+							Редактировать
+							</Button>							 
+							</NavLink>
 							</div>
 							)
 					}

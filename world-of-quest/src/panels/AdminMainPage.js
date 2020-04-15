@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Redirect, BrowserRouter } from 'react-router-dom';
+import { Redirect, HashRouter } from 'react-router-dom';
 import ToolbarMy from '.././components/ToolbarMy';
 import { Button } from 'semantic-ui-react';
 import AdminCardMainPage from '.././components/AdminCardMainPage';
@@ -17,10 +17,9 @@ const AdminMainPage = () => {
 				<AdminCardMainPage typeContent='games' searchText='Поиск игр' />,
 				document.getElementById('cardContent')
 				);
-
 			ReactDOM.render(
 				<Button.Group>
-				<Button id='btnGames' onClick={getCardContent} positive >Игры </Button>
+				<Button id='btnGames' onClick={getCardContent} positive >Игры</Button>
 				<Button.Or text='|||' />
 				<Button id='btnGroups' onClick={getCardContent} >Группы</Button>
 				</Button.Group>,
@@ -33,7 +32,7 @@ const AdminMainPage = () => {
 				);
 			ReactDOM.render(
 				<Button.Group>
-				<Button id='btnGames' onClick={getCardContent} >Игры </Button>
+				<Button id='btnGames' onClick={getCardContent} >Игры</Button>
 				<Button.Or text='|||' />
 				<Button id='btnGroups' onClick={getCardContent} positive>Группы</Button>
 				</Button.Group>,
@@ -51,11 +50,7 @@ const AdminMainPage = () => {
 		<div align='center'>
 
 		{ window.infoUser.status !== 'admin' ? <Redirect from='/' to='/home'/> : null }
-
-
-
-		<ToolbarMy heightTitle='Админ' />
-		
+		<ToolbarMy heightTitle='Админ' />	
 		<div id='btnOption'>
 		<Button.Group>
 		<Button id='btnGames' onClick={getCardContent} positive >Игры</Button>
@@ -63,14 +58,11 @@ const AdminMainPage = () => {
 		<Button id='btnGroups' onClick={getCardContent}>Группы</Button>
 		</Button.Group>
 		</div>
-
-		<br/><br/><br/>
-
-
-		<div id='cardContent' className='w-75'>
-		<BrowserRouter>
+		<br/><br/>
+		<div id='cardContent' className='col-md-10 col-sm-12 p-0'>
+		<HashRouter>
 		<AdminCardMainPage typeContent='games' searchText='Поиск игр' />
-		</BrowserRouter>
+		</HashRouter>
 		</div>
 
 

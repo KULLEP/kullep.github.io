@@ -1,35 +1,33 @@
 import React from 'react';
-import { SearchInput } from 'react-onsenui'; // Only import the necessary components
-import { Divider, Header, Icon, Table, Button, Segment, Input, Card } from 'semantic-ui-react';
+
+import { Button, Card } from 'semantic-ui-react';
 import SearchMy from '.././components/SearchMy';
-import { NavLink, BrowserRouter } from 'react-router-dom';
+import { NavLink, HashRouter } from 'react-router-dom';
 import ListGamesOrGroups from '.././components/ListGamesOrGroups';
 import ReactDOM from 'react-dom';
 
 const AdminCardMainPage = ({typeContent, searchText}) => {
-
+  
 	const onChangeSearch = (e) => {
 		let text = e.target.value;
 		ReactDOM.render(
-			<BrowserRouter>
+			<HashRouter>
 			<ListGamesOrGroups typeContent={typeContent} nameContent={text} />
-			</BrowserRouter>,
-			document.querySelector('.main-block-page')
+			</HashRouter>,
+			document.querySelector('.list-games-or-groups')
 			);
 	};
 
 
 
 	return(
-		<BrowserRouter>
+		<HashRouter>
 		<Card fluid>
 		<SearchMy onChange={onChangeSearch} searchText={searchText} />
 		
 		<Card.Content>
-		<div className='main-block-page'>
-		<BrowserRouter>
+		<div className='list-games-or-groups'>
 		<ListGamesOrGroups typeContent={typeContent} />
-		</BrowserRouter>
 		</div>
 		</Card.Content>
 
@@ -58,7 +56,7 @@ const AdminCardMainPage = ({typeContent, searchText}) => {
 		</Card.Content>
 
 		</Card>
-		</BrowserRouter>
+		</HashRouter>
 		)
 }
 

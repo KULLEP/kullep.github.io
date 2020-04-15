@@ -1,12 +1,66 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;;
+}
+
+body {
+	background-color: #EDEEF0; 
+}
+
+.flexbox {
+	display: flex;
+	justify-content: space-between;
+
+	width: 100%;
+	max-width: 750px;
+	height: 100vh;
+
+	overflow: hidden;
+
+	margin: 0 auto;
+	padding: 15px;
+}
+
+.flexbox .board {
+	display: flex;
+	flex-direction: column;
+
+	width: 100%;
+	max-width: 300px;
+
+	background-color: #313131;
+	
+	padding: 15px;
+}
+
+.flexbox .board .card {
+	padding: 15px 25px;
+	background-color: #f3f3f3;
+
+	cursor: pointer;
+	margin-bottom: 15px;
+}
+
+
+
 body {
 	overflow-y: auto!important;
 	background-color: #EDEEF0; 
 }
 
-.w-75 {
-	width: 75%;
+.overflow-a {
+	overflow: auto;
 }
 
+
+.w-75 {
+	width: 75%!important;
+}
+
+.w-80 {
+	width: 80%!important;
+}
 
 .mw-100 {
 	max-width: 100%;
@@ -25,7 +79,7 @@ body {
 .footer-answer-count {
 	position: fixed;
 	bottom: 0px;
-	height: 44px;
+	height: 55px;
 	width: 100%;
 	left: 0;
 	right: 0;

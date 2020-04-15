@@ -1,35 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Redirect } from 'react-router-dom';
+import { HashRouter, Redirect } from 'react-router-dom';
 import App from '.././App';
 
 
 export const rerenderNewTreeFunc = (statusRenderer) => {
 	if(statusRenderer === '0') {
 		ReactDOM.render(
-			<React.StrictMode>
-			<BrowserRouter>
+			<HashRouter>
 			<Redirect from='/player-main-page' to='/home'/>
 			<Redirect from='/admin-main-page' to='/home'/>
 			<App />
-			</BrowserRouter>
-			</React.StrictMode>,
+			</HashRouter>,
 			document.getElementById('root')
 			);
-	}
-	else if(statusRenderer === '1') {
-		ReactDOM.render(
-			<React.StrictMode>
-			<BrowserRouter>
+		}
+		else if(statusRenderer === '1') {
+			ReactDOM.render(
+			<HashRouter>
 			<Redirect from='/player-auth' to='/home'/>
 			<Redirect from='/player-register' to='/home'/>
 			<Redirect from='/admin-auth' to='/home'/>
 			<App />
-			</BrowserRouter>
-			</React.StrictMode>,
+			</HashRouter>,
 			document.getElementById('root')
 			);
+		}
+
+
 	}
-
-
-}

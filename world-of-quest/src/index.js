@@ -7,11 +7,14 @@ import { HashRouter } from 'react-router-dom';
 window.infoUser = {
 	jsonInfo: [],
 	jsonInfoGame: [],
+	jsonInfoTeams: [],
 	status: '',
 	login: '',
 	answerIsTrue: 0,
 	answerIsFalse: 0,
-	gameIfAdmin: ''
+	gameIfAdmin: '',
+	editName: '',
+	newJsonInfoTeams: []
 };
 
 ReactDOM.render(

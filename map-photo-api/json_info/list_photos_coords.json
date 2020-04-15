@@ -1,0 +1,26 @@
+[
+	{
+		"id": "0",
+		"coords": [54.710825, 20.5118610],
+		"name": "Дом советов",
+		"years": "2015",
+		"description": "Это дом советор Калининграда",
+		"photo": "http://balticplus.ru/wp-content/uploads/dom-sovetov-2.jpg",
+		"author": "Author 1",
+		"rank": "10"
+	},
+
+
+	{
+		"id": "1",
+		"coords": [54.749430, 20.485359],
+		"name": "Янтарный",
+		"years": "2018",
+		"description": "Спортивный комплекс",
+		"photo": "https://avatars.mds.yandex.net/get-altay/906486/2a000001640680fa2e2c3f7c5eb133dd1b65/XXXL",
+		"author": "Author 2",
+		"rank": "12"
+	}
+
+
+]
