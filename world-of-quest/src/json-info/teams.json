@@ -12,7 +12,8 @@
 		"activeQuestion": "0",
 		"activeHint": "-1",
 		"nextHint": "0",
-		"mistakes": "0"
+		"falseAnswer": "0",
+		"trueAnswer": "0"
 	},
 
 	{
@@ -28,7 +29,8 @@
 		"activeQuestion": "0",
 		"activeHint": "-1",
 		"nextHint": "0",
-		"mistakes": "0"
+		"falseAnswer": "0",
+		"trueAnswer": "0"
 	},
 
 	{
@@ -44,7 +46,8 @@
 		"activeQuestion": "0",
 		"activeHint": "-1",
 		"nextHint": "0",
-		"mistakes": "0"
+		"falseAnswer": "0",
+		"trueAnswer": "0"
 	}
 
 

@@ -1,8 +1,6 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
 import data_json_games from './../../json-info/games.json';
- 
-import { Card, Button, Input, Modal } from 'semantic-ui-react';
+import { Card, Button, Modal } from 'semantic-ui-react';
 
 
 const EditorQuestion = () => {

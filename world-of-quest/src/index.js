@@ -14,7 +14,8 @@ window.infoUser = {
 	answerIsFalse: 0,
 	gameIfAdmin: '',
 	editName: '',
-	newJsonInfoTeams: []
+	codeTeam: '',
+	newJsonInfoUsers: []
 };
 
 ReactDOM.render(

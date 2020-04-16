@@ -1,18 +1,57 @@
 [
 	{
+		"id": 0,
 		"login": "player1",
-		"password": "player1",
+		"password": "player",
+		"answerIsTrue": 0,
+		"answerIsFalse": 0,
 		"totalAnswerIsTrue": 0,
 		"totalAnswerIsFalse": 0,
 		"activeGame": "g001",
 		"team": "g1t1"
 	},
 	{
+		"id": 1,
 		"login": "player2",
-		"password": "player2",
+		"password": "player",
 		"answerIsTrue": 0,
 		"answerIsFalse": 0,
+		"totalAnswerIsTrue": 0,
+		"totalAnswerIsFalse": 0,
+		"activeGame": "g001",
+		"team": "g1t1"
+	},
+	{
+		"id": 2,
+		"login": "player3",
+		"password": "player",
+		"answerIsTrue": 0,
+		"answerIsFalse": 0,
+		"totalAnswerIsTrue": 0,
+		"totalAnswerIsFalse": 0,
 		"activeGame": "g001",
 		"team": "g1t2"
+	},
+	{
+		"id": 3,
+		"login": "player4",
+		"password": "player",
+		"answerIsTrue": 0,
+		"answerIsFalse": 0,
+		"totalAnswerIsTrue": 0,
+		"totalAnswerIsFalse": 0,
+		"activeGame": "g001",
+		"team": "g1t2"
+	},
+	{
+		"id": 4,
+		"login": "player5",
+		"password": "player",
+		"answerIsTrue": 0,
+		"answerIsFalse": 0,
+		"totalAnswerIsTrue": 0,
+		"totalAnswerIsFalse": 0,
+		"activeGame": "g001",
+		"team": "g1t1"
 	}
 ]

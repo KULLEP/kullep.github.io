@@ -4,9 +4,7 @@ import { answerIsTrue } from './NextTaskOrWin';
 
 const TimerHeader = () => {
 
-
 	var totalTime = 0;
-	var team_player = +window.infoUser.jsonInfo.team; // Номер команды игрока
 	var info_team_player =  window.infoUser.jsonInfoTeams; // Информация о команде игрока
 	var activeQuestion = +info_team_player.activeQuestion; // Активный вопрос команды
 	var activeHint = +info_team_player.activeHint; // Активная подсказка команды

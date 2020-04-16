@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import QuestionInfo from './QuestionInfo';
 import Task from './Task';
 
 
@@ -12,14 +11,9 @@ export const answerIsTrue = () => {
 	window.infoUser.jsonInfoTeams.activeHint = -1;
 	window.infoUser.jsonInfoTeams.nextHint = 0;
 
+	/* alert('Правильно');
+	 /window.location = '/#/page-info-game'; */
 
-
-	// alert('Правильно');
-
-
-		// ReactDOM.render(<QuestionInfo activeQuestNum={activeQuestionNum} />,document.getElementById('div_question_info')); // Отрисовка следующего вопроса
-
-//window.location = '/#/page-info-game';
 		ReactDOM.render(<Task/>,document.getElementById('infoGameBlock')); // Отрисовка следующего вопроса
 
 

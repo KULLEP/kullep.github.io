@@ -3,9 +3,6 @@ import ToolbarMy from '.././components/ToolbarMy';
 import { Button } from 'semantic-ui-react';
 import ReactDOM from 'react-dom';
 import CardListContent from '.././components/PageEditorGame/CardListContent';
-import ContentQuestionList from './../components/PageEditorGame/ContentQuestionList';
-import ContentPlayersList from './../components/PageEditorGame/ContentPlayersList';
-
 
 
 const EditGameForAdmit = (props) => {

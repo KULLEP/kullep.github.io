@@ -24,6 +24,7 @@ import './components/main.css';
 import data_json_admins from './json-info/admins.json';
 import data_json_users from './json-info/users.json';
 import data_json_teams from './json-info/teams.json';
+import 'bootstrap-4-react';
 
 const App = () => {
 
@@ -36,6 +37,7 @@ const accessAccount = () => {
 
     if(localStorage.getItem('authLoginStatus') === 'admin') {
       data_json = data_json_admins;
+      window.infoUser.newJsonInfoUsers = data_json_users;
       window.infoUser.status = 'admin'; 
       window.infoUser.jsonInfoTeams = data_json_teams; // ЗАГРУЗКА ВСЕХ КОМАНД
     }
@@ -44,11 +46,12 @@ const accessAccount = () => {
       window.infoUser.status = 'player';
     }
     for(let i = 0; i < data_json.length; i++) { // ЗАГРУЗКА ПРОФИЛЯ
+
       if(data_json[i].login === name)
       {
         window.infoUser.jsonInfo = data_json[i];
       }
-      for(let i = 0; i < data_json.length; i++) { // ЗАГРУЗКА КОМАНДЫ
+      for(let i = 0; i < data_json_teams.length; i++) { // ЗАГРУЗКА КОМАНДЫ
         if(window.infoUser.jsonInfo.team === data_json_teams[i].code) {
          window.infoUser.jsonInfoTeams = data_json_teams[i]; 
        }

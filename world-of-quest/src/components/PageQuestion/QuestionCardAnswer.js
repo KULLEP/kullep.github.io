@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card, Button, Input } from 'react-onsenui';
-import ReactDOM from 'react-dom';
 import { answerIsTrue } from './NextTaskOrWin';
 
 

@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ToolbarMy from '.././components/ToolbarMy';
-import { Form, Button, Checkbox, Card  } from 'semantic-ui-react';
+import { Form, Button, Card  } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-
-import { Alert } from 'bootstrap-4-react';
 
 
 const CreateNewGame = () => {
@@ -13,30 +11,20 @@ const CreateNewGame = () => {
 	var timeGameElement = React.createRef(); // Время
 
 	const addPostNewGame = () => {
-
 		var obj_result = {};
-
 		let nameGame = nameGameElement.current.value;
 		let dateGame = dateGameElement.current.value;
 		let timeGame = timeGameElement.current.value;
-
 		console.log(nameGame);
-
-
 		obj_result = {
 			"game": nameGame,
 			"dateToStart": dateGame,
 			"timeToStart": timeGame
 		}
-
 		console.log(obj_result);
-
 		if(nameGame !== '' && dateGame !== '' && timeGame !== '') {
 			alert(`Название игры - ${obj_result.game}\nДата начала - ${obj_result.dateToStart}\nВремя начала - ${obj_result.timeToStart}`);
 		}
-
-
-
 	};
 
 

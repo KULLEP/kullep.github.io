@@ -2,7 +2,6 @@ import React from 'react';
 
 const BlockHint = () => {
 
-     var team_player = +window.infoUser.jsonInfo.team; // Номер команды игрока
 	 var info_team_player =  window.infoUser.jsonInfoTeams; // Информация о команде игрока
 	 var activeHint = +info_team_player.activeHint; // Активная подсказка команды
 	 var activeQuestion = +info_team_player.activeQuestion; // Следующий вопрос команды
