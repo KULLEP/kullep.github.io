@@ -1,56 +1,56 @@
 
 
 window.photosLists = [];
+window.infoAuthor = [];
+
+
+const closeModal = (e) => {
+  document.getElementById('photoModal').style.display = 'none';
+};
 
 
 
- const closeModal = (e) => {
- 	document.getElementById('photoModal').style.display = 'none';
- };
-
- const getModal = (e) => {
- 	document.getElementById('photoModal').style.display = 'block';
- 	// let json = JSON.stringify(window.photosLists);
- 	// console.log(json);
- 	console.log(e);
- 	let obj_photo = window.photosLists[e];
- 	let html_modal = modal(obj_photo);
- 	console.log(obj_photo);
- 	$('#photoModal').html(html_modal);
- 	// $.ajax({
- 	// 	type: 'GET',
- 	// 	url: 'php/modal.php',
- 	// 	data: {id: '123123123123123123132'},
- 	// 	success: function(data){
- 	// 		$('#photoModal').html(data);
- 	// 	}
- 	// });
-
-
- };
+const getModal = (e) => {
+  document.getElementById('photoModal').style.display = 'block';
+  $.ajax({
+    dataType: "json",
+    url: 'json_info/users.json',
+    success: function (data) {
+        for (let i = 0; i < data.length; i++) {
+            if(window.photosLists[e].id_author === data[i].id) {
+                window.infoAuthor = data[i];
+                let obj_photo = window.photosLists[e];
+                let html_modal = modal(obj_photo);
+                $('#photoModal').html(html_modal);
+            }
+        }
+    }
+});
+};
 
 
 
- function getFullPhotos() {
- 	$.ajax({
- 		dataType: "json",
- 		url: 'json_info/list_photos_coords.json',
- 		success: function (e) {
- 			window.photosLists = e;
- 			ymaps.ready(init);
- 		}
- 	});
- }
- getFullPhotos();
+function getFullPhotos() {
+  $.ajax({
+     dataType: "json",
+     url: 'json_info/list_photos_coords.json',
+     success: function (e) {
+           // console.log(e);
+           window.photosLists = e;
+           ymaps.ready(init);
+       }
+   });
+}
+getFullPhotos();
 
 
 
- function init () {
- 	var myMap = new ymaps.Map('map', {
- 		center: [54.710454, 20.512733],
- 		zoom: 11,
- 		controls: ['zoomControl']
- 	}),
+function init () {
+  var myMap = new ymaps.Map('map', {
+     center: [54.710454, 20.512733],
+     zoom: 11,
+     controls: ['zoomControl']
+ }),
     // Создаем коллекцию.
     myCollection = new ymaps.GeoObjectCollection(),
     // Создаем массив с данными.
@@ -73,7 +73,7 @@ window.photosLists = [];
     			iconLayout: 'default#image',
     //  iconImageClipRect: [[69,0], [97, 46]],
     iconImageHref: `${point.photo}`,
-    //  iconImageSize: [35, 63],
+    iconImageSize: [75, 75],
     //  iconImageOffset: [-35, -63]
 }
 ));
