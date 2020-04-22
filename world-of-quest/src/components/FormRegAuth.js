@@ -1,43 +1,42 @@
 import React from 'react';
 
 import { Button, Input } from 'react-onsenui'; 
-import data_json_admin from '../json-info/admins.json';
-import data_json_player from '../json-info/users.json';
- 
-import { rerenderNewTreeFunc } from './RerenderNewTree';
 
- 
- 
+import { rerenderNewTreeFunc } from './RerenderNewTree';
+import { ajax_auth } from './GetInfoAjax/GetInfoAjax';
+
+
 
 const FormRegAuth = ({typeForm, typeUser}) => {
 
 	const submit = () => {
+
+		let loginInp = document.querySelector('.inputLogin').value;
+		let passInp = document.querySelector('.inputPassword').value;
+
 		if(typeForm === 'auth') {
-			var statusUser;
-			var data_json;
+
 			if(typeUser === 'admin') {
-				data_json = data_json_admin;
-				statusUser = 'admin';
+				ajax_auth(loginInp, passInp, 'admin');
+				if(window.infoUser.status_auth === 1) {
+					localStorage.setItem('authStatus', 'admin');
+					localStorage.setItem('authLogin', loginInp);
+					localStorage.setItem('authPassword', passInp);
+					rerenderNewTreeFunc('1');
+				}
+
 			}
 			else if (typeUser === 'player') {
-				data_json = data_json_player;
-				statusUser = 'player';
-			}
-			let loginInp = document.querySelector('.inputLogin').value;
-			let passInp = document.querySelector('.inputPassword').value;
-			for(let i = 0; i < data_json.length; i++) {
-				let log = data_json[i].login;
-				let pas = data_json[i].password;
-				if(loginInp === log && passInp === pas)
-				{
-					localStorage.setItem('authLoginName', log);
-					localStorage.setItem('authLoginStatus', statusUser);
-				    rerenderNewTreeFunc('1');
+				ajax_auth(loginInp, passInp, 'player');
+				if(window.infoUser.status_auth === 1) {
+					localStorage.setItem('authStatus', 'player');
+					localStorage.setItem('authLogin', loginInp);
+					localStorage.setItem('authPassword', passInp);
+					rerenderNewTreeFunc('1');
 				}
 			}
+
 		}
-
-
 	}
 
 	return(

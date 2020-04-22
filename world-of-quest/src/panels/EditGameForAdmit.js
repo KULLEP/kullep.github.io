@@ -7,12 +7,6 @@ import CardListContent from '.././components/PageEditorGame/CardListContent';
 
 const EditGameForAdmit = (props) => {
 
-	/* LOKAL STORAGE */
-	let gameName = localStorage.getItem('gameEditor');
-	if(gameName !== null) {
-		window.infoUser.editName = gameName;
-	}
-	/* LOKAL STORAGE */
 
 	const getCardContent = (e) => {
 		var idBtn = e.target.id;
@@ -48,7 +42,7 @@ const EditGameForAdmit = (props) => {
 
 	return(	
 		<div align='center'>
-		<ToolbarMy backlink='/admin-main-page' heightTitle={`Редактор ${window.infoUser.editName} игры`} />	
+		<ToolbarMy backlink='/admin-main-page' heightTitle={`Редактор ${window.infoUser.editID} игры`} />	
 		<div id='btnOption'>
 		<Button.Group>
 		<Button id='btnQuestions' onClick={getCardContent} positive >Вопросы</Button>

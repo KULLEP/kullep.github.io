@@ -9,13 +9,11 @@ import Icon28ChevronBack from '@vkontakte/icons/dist/28/chevron_back';
 import Icon24Back from '@vkontakte/icons/dist/24/back';
 import { Calendar } from "@happysanta/vk-app-ui";
 import Div from '@vkontakte/vkui/dist/components/Div/Div';
-import Cell from '@vkontakte/vkui/dist/components/Cell/Cell';
 
 import Button from '@vkontakte/vkui/dist/components/Button/Button';
 import Group from '@vkontakte/vkui/dist/components/Group/Group';
 import Header from '@vkontakte/vkui/dist/components/Header/Header';
 
-import PostOptions from './PostOptions';
 
 const osName = platform();
 
@@ -24,7 +22,8 @@ const postMessageForUsers = () => {
 	alert('В данный момент кнопка на ремонте. \n\n Извеняюсь за предоставленные неудобства');
 };
 
-const copy_in_buffer = () => {
+ 
+const copy_in_buffer = () => {	
 	let inputValue = window.obj_user_group_info.happy_list_name_congratulation;
 	if (inputValue) {
 		navigator.clipboard.writeText(inputValue)
@@ -55,9 +54,8 @@ const GroupInfo = ({id, go}) => (
 	<Calendar onChange={onChange} />
 	</Div>
 
-	<Div align='center' className='happyDataDiv'></Div>
-	
-
+	<div align='center' className='happyDateDiv'></div>
+	<div align='center' className='happyListDiv'></div>
 
 	<br/>
 	<Div align='center'>
@@ -152,9 +150,10 @@ const onChange = (e) => {
 	}
 
 
-	let str_res;
-	str_res = e._d.toString().substring(0, 15);
-	document.querySelector('.happyDataDiv').innerHTML = `<h3>${day} ${month_str}</h3>`;
+	// let str_res;
+	// str_res = e._d.toString().substring(0, 15);
+	document.querySelector('.happyDateDiv').innerHTML = `<h3>${day} ${month_str}</h3>`;
+	document.querySelector('.happyListDiv').innerHTML = '';
 
 	async function getGroupsUser() {
 		const groupsUserConst = await bridge.send("VKWebAppCallAPIMethod", {
@@ -181,15 +180,13 @@ const onChange = (e) => {
 		window.obj_user_group_info.happy_list_photo_congratulation = '';
 		if(groupsUserConst.response.items.length > 11) {
 			for (let i = 0; i < 10; i++) {
-				if (groupsUserConst.response.items[i].photo_id != undefined && groupsUserConst.response.items[i].photo_id != null) {
+				if (groupsUserConst.response.items[i].photo_id !== undefined && groupsUserConst.response.items[i].photo_id !== null) {
 					window.obj_user_group_info.happy_list_photo_congratulation += ',photo'+groupsUserConst.response.items[i].photo_id;
 				}
 			}
-			window.obj_user_group_info.happy_list_photo_congratulation = window.obj_user_group_info.happy_list_photo_congratulation.slice(1); // Удалить запятую в начале
-			// console.log(window.obj_user_group_info.happy_list_photo_congratulation);
-
+			window.obj_user_group_info.happy_list_photo_congratulation = window.obj_user_group_info.happy_list_photo_congratulation.slice(1);
 		}
-		document.querySelector('.happyDataDiv').innerHTML += `
+		document.querySelector('.happyListDiv').innerHTML = `
 		<h3>Найдено ${groupsUserConst.response.count} именинников</h3>
 		`;
 	};

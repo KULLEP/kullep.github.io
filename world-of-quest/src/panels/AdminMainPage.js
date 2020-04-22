@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Redirect, HashRouter } from 'react-router-dom';
 import ToolbarMy from '.././components/ToolbarMy';
 import { Button } from 'semantic-ui-react';
-import AdminCardMainPage from '.././components/AdminCardMainPage';
+import AdminCardMainPage from '.././components/Admin/AdminCardMainPage';
 
 
 const AdminMainPage = () => {

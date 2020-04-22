@@ -8,8 +8,7 @@ export const rerenderNewTreeFunc = (statusRenderer) => {
 	if(statusRenderer === '0') {
 		ReactDOM.render(
 			<HashRouter>
-			<Redirect from='/player-main-page' to='/home'/>
-			<Redirect from='/admin-main-page' to='/home'/>
+			<Redirect from='/' to='/home'/>
 			<App />
 			</HashRouter>,
 			document.getElementById('root')
@@ -18,14 +17,11 @@ export const rerenderNewTreeFunc = (statusRenderer) => {
 		else if(statusRenderer === '1') {
 			ReactDOM.render(
 			<HashRouter>
-			<Redirect from='/player-auth' to='/home'/>
-			<Redirect from='/player-register' to='/home'/>
-			<Redirect from='/admin-auth' to='/home'/>
+			<Redirect from='/' to='/home'/>
 			<App />
 			</HashRouter>,
 			document.getElementById('root')
 			);
 		}
-
 
 	}

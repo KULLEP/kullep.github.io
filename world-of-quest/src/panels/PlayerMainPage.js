@@ -1,51 +1,45 @@
 import React from 'react';
-
-import { SpeedDial, Fab } from 'react-onsenui';
-import { Redirect, NavLink } from 'react-router-dom';
-
-
+import { Redirect } from 'react-router-dom';
 import ToolbarMy from '.././components/ToolbarMy';
-import GameBlock from '.././components/GameBlock';
-
+import { Button, Input } from 'react-onsenui';
+import { Card } from 'react-onsenui';
+import { ajax_auth_in_team } from './../components/GetInfoAjax/AdminAjax';
 
 const PlayerMainPage = () => {
 
 
-	return(
-		<div>
+	const submit = () => {
+		var code = document.getElementById('code').value;
+		var id_user = window.infoUser.info_user.id;
+		ajax_auth_in_team(code, id_user);
+	};
 
+
+	return (
+		<div align='center'>
 		{ window.infoUser.status !== 'player' ? <Redirect from='/' to='/home'/> : null }
-		
-		{ (window.infoUser.jsonInfo.activeGame !== '' && window.infoUser.jsonInfo.activeGame !== undefined) ? <Redirect from='/' to='/page-info-game'/> : null }
 
-		<ToolbarMy heightTitle='PLAYER' />
-		<div className='main-block-page'>
-		<div className='formAddGame'>
+		{ (window.infoUser.info_user.id_team !== '' && window.infoUser.info_user.id_team !== '0') ? <Redirect from='/' to='/page-info-game'/> : null }
+
+
+		<ToolbarMy className='my-20' heightTitle='Присоединиться к команде' />
+
+		<Card className='w-50'>	
+		<div>
+		<div className='user-auth-block'>
+		<Input
+		id='code'
+		float
+		modifier='material'
+		placeholder='ПИН КОД' />
+		<Button onClick={submit} className='mt-100'>ОК</Button>
 		</div>
-		{
-		// Показать блок если есть игра
-		(window.infoUser.jsonInfo.activeGame !== '' && window.infoUser.jsonInfo.activeGame !== undefined) ? 
-		<GameBlock gameNAME={window.infoUser.jsonInfo.activeGame} /> :
-		null }
-		{
-		 // Показать блок если нету игры
-		 (window.infoUser.jsonInfo.activeGame === '') ? 
-		 <div className='user-auth-block'>
-		 <NavLink to='/join-and-add-game'>
-		 <SpeedDial>
-		 <Fab>
-		 +
-		 </Fab>
-		 </SpeedDial>
-		 </NavLink>	 
-		 </div> :
-		 null }
-		 </div>
+		</div>
+		</Card>
 
-		 </div>
-		 );
-
-}
+		</div>
+		)
+};
 
 
 export default PlayerMainPage;

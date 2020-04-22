@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Button, Card } from 'semantic-ui-react';
-import SearchMy from '.././components/SearchMy';
+import SearchMy from '.././SearchMy';
 import { NavLink, HashRouter } from 'react-router-dom';
-import ListGamesOrGroups from '.././components/ListGamesOrGroups';
+import ListGamesOrGroups from './ListGamesOrGroups';
 import ReactDOM from 'react-dom';
 
 const AdminCardMainPage = ({typeContent, searchText}) => {

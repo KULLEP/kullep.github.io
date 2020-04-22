@@ -3,11 +3,18 @@ import ToolbarMy from '.././components/ToolbarMy';
 import { Form, Button, Card } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
+import { ajax_get_list_users, ajax_create_new_team  } from '.././components/GetInfoAjax/AdminAjax';
+
+
 const CreateNewGame = () => {
 
-	var usersList = window.infoUser.newJsonInfoUsers; /* Список пользователей */
+	ajax_get_list_users();
+
+
+	var usersList = window.infoUser.list_users_admin; /* Список пользователей */
 	var randomCode = ''; /* Случайный код для группы */
 	var captain = ''; /* Капитан */
+	var captain_id = ''; /* ID Капитана */
 	var nameTeamElement = React.createRef(); /* Название группы */
 	var obj_result = {}; /* Результат */
 
@@ -22,18 +29,19 @@ const CreateNewGame = () => {
 
 
 	const getCaptain = (e) => {
-		captain = e.target.value;
+		captain_id = e.target.value;
+		let users = window.infoUser.list_users_admin;
+		users.filter(e => {
+			if(e.id == captain_id) {
+				captain = e.login;
+			}
+		})
 	};
 
 	const addNewGroup = () => {
 		let nameTeam = nameTeamElement.current.value;
-		obj_result = {
-			"name": nameTeam,
-			"code": randomCode,
-			"captain": captain
-		}
 		if(nameTeam !== '' && randomCode !== '') {
-			console.log(obj_result);
+			ajax_create_new_team(nameTeam, randomCode, captain, captain_id);
 			alert(`Название игры - ${nameTeam}\nКапитан - ${captain}\nКод для доступа к группе - ${randomCode}`);
 		}
 	};

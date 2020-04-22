@@ -4,18 +4,29 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { HashRouter } from 'react-router-dom';
 
+
+
 window.infoUser = {
-	jsonInfo: [],
-	jsonInfoGame: [],
-	jsonInfoTeams: [],
+
+	info_team: {},
+	info_user: {},
+	info_task: {},
+	info_game: {},
 	status: '',
-	login: '',
-	answerIsTrue: 0,
-	answerIsFalse: 0,
-	gameIfAdmin: '',
-	editName: '',
-	codeTeam: '',
-	newJsonInfoUsers: []
+	active_hint: '',
+	info_teams_admin: [],
+	info_games_admin: [],
+	list_users_admin: [],
+	editID: '',
+	list_info_teams_by_id: [],
+	list_info_users_by_id: [],
+	list_info_tasks_by_id: [],
+	list_info_hints_by_id: [],
+	status_auth: 0,
+
+	timer_is_run: false,
+	timeIntervalFullInfo: false,
+	game_is_start_second: false
 };
 
 ReactDOM.render(

@@ -3,11 +3,8 @@ import bridge from '@vkontakte/vk-bridge';
 import View from '@vkontakte/vkui/dist/components/View/View';
 import ScreenSpinner from '@vkontakte/vkui/dist/components/ScreenSpinner/ScreenSpinner';
 import '@vkontakte/vkui/dist/vkui.css';
-
 import Home from './panels/Home';
-// import Persik from './panels/Persik';
 import GroupInfo from './panels/GroupInfo';
-import Div from '@vkontakte/vkui/dist/components/Div/Div';
 import PostOptions from './panels/PostOptions';
 
 const App = () => {
@@ -78,11 +75,11 @@ const App = () => {
 
 
 	const go = e => {
-		if(e.currentTarget.attributes.id_group != undefined && e.currentTarget.attributes.id_group != null) {
+		if(e.currentTarget.attributes.id_group !== undefined && e.currentTarget.attributes.id_group !== null) {
 			window.obj_user_group_info.group_id = e.currentTarget.attributes.id_group.value;
 		}
 
-		if(e.currentTarget.attributes.nameTitleOptions != undefined && e.currentTarget.attributes.nameTitleOptions != null) {
+		if(e.currentTarget.attributes.nameTitleOptions !== undefined && e.currentTarget.attributes.nameTitleOptions !== null) {
 			window.obj_user_group_info.nameTitleOptions = e.currentTarget.attributes.nameTitleOptions.value;
 		}
 

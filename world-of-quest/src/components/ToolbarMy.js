@@ -12,6 +12,7 @@ const ToolbarMy = ({backlink, heightTitle}) => {
 		localStorage.clear();
 		window.infoUser.status = '';
 		rerenderNewTreeFunc('0');
+	//	window.location = '/#/home';
 	};
 
 	return(
@@ -32,10 +33,10 @@ const ToolbarMy = ({backlink, heightTitle}) => {
 		{heightTitle}
 		</div>
 
-		{ (localStorage.getItem('authLoginStatus') !== null && localStorage.getItem('authLoginStatus') !== '') ?
+		{ (localStorage.getItem('authLogin') !== null && localStorage.getItem('authPassword') !== null) ?
 		<div className="right">
 		<ToolbarButton onClick={exitAccount}>
-		EXIT
+		ВЫХОД
 		</ToolbarButton>
 		</div> : null
 	}
