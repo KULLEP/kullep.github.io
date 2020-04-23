@@ -88,6 +88,7 @@ function draw_pdf() {
 	$mpdf->WriteHTML($global_result);
 	$mpdf->Output();
 }
+
 // Параметры для - draw_graph();
 // 1 - id 44147844
 // 2 - Дата от = '2020-03-13'
