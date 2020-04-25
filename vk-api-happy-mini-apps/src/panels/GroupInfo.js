@@ -18,11 +18,9 @@ import Header from '@vkontakte/vkui/dist/components/Header/Header';
 const osName = platform();
 
 
-const postMessageForUsers = () => {
-	alert('В данный момент кнопка на ремонте. \n\n Извеняюсь за предоставленные неудобства');
-};
 
- 
+
+
 const copy_in_buffer = () => {	
 	let inputValue = window.obj_user_group_info.happy_list_name_congratulation;
 	if (inputValue) {
@@ -37,7 +35,7 @@ const copy_in_buffer = () => {
 
 
 
-const GroupInfo = ({id, go}) => (
+const GroupInfo = ({id, go, can_post}) => (
 
 	<Panel id={id}>
 	<PanelHeader 
@@ -59,20 +57,23 @@ const GroupInfo = ({id, go}) => (
 
 	<br/>
 	<Div align='center'>
-	<Group header={<Header mode="secondary">Разместить пост</Header>}>
 
+	<Group header={<Header mode="secondary">Разместить пост</Header>}>
+	<br/>
 	<Button nameTitleOptions='1' onClick={go} data-to="postoptions" mode="commerce">С настройками</Button>
 	<br/>
 	<br/>
 	<Button nameTitleOptions='0' onClick={go} data-to="postoptions" mode="commerce">Без настроек</Button>
 	<br/>
 	<br/>
-	<Button onClick={postMessageForUsers} mode="primary">Разослать сообщения с поздравлениями</Button>
-	<br/>
-	<br/>
-	<Button onClick={copy_in_buffer} mode="primary">Скопировать имена с фамилиями как ссылки</Button>
-
 	</Group>
+
+	<Group header={<Header mode="secondary">Скопировать в буфер</Header>}>
+	<br/>
+	<Button onClick={copy_in_buffer} mode="primary">Имена и фамилии как ссылки</Button>
+	</Group>
+
+
 	</Div>
 
 	</Panel>
@@ -178,13 +179,15 @@ const onChange = (e) => {
 		}
 
 		window.obj_user_group_info.happy_list_photo_congratulation = '';
-		if(groupsUserConst.response.items.length > 11) {
+		if(groupsUserConst.response.items.length > 0) {
 			for (let i = 0; i < 10; i++) {
-				if (groupsUserConst.response.items[i].photo_id !== undefined && groupsUserConst.response.items[i].photo_id !== null) {
+				if (groupsUserConst.response.items[i].photo_id !== undefined ) {
 					window.obj_user_group_info.happy_list_photo_congratulation += ',photo'+groupsUserConst.response.items[i].photo_id;
 				}
 			}
 			window.obj_user_group_info.happy_list_photo_congratulation = window.obj_user_group_info.happy_list_photo_congratulation.slice(1);
+		} else {
+			// if(groupsUserConst.response.items.length < 11) COLLAGE
 		}
 		document.querySelector('.happyListDiv').innerHTML = `
 		<h3>Найдено ${groupsUserConst.response.count} именинников</h3>
@@ -197,6 +200,7 @@ const onChange = (e) => {
 GroupInfo.propTypes = {
 	id: PropTypes.string.isRequired,
 	go: PropTypes.func.isRequired,
+	can_post: PropTypes.string.isRequired,
 };
 
 export default GroupInfo;

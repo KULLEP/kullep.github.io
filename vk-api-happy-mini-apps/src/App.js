@@ -17,6 +17,15 @@ const App = () => {
 	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
 
 
+	const publish_date_by_default = () => {
+		var date = new Date();
+		var day = date.getDate() + 1;
+		date.setDate(day);
+		date.setHours('9', '0', '0');
+		window.obj_user_group_info.publish_date = Math.round(date.getTime() / 1000);
+	}
+	publish_date_by_default();
+
 
 	useEffect(() => {
 
@@ -86,7 +95,7 @@ const App = () => {
 		// console.log(e.currentTarget.dataset.to);
 		setActivePanel(e.currentTarget.dataset.to);
 	};
- 
+	
 	return (
 		<View activePanel={activePanel} popout={popout}>
 		<Home fetchedGroupsInfo={fetchedGroupsInfo} id='home' fetchedUser={fetchedUser} go={go} />
@@ -96,8 +105,8 @@ const App = () => {
 		);
 
 
-}
+	}
 
 
-export default App;
+	export default App;
 

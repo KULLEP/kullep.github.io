@@ -24,8 +24,15 @@ const osName = platform();
 
 
 const getDate = (e) => {
-  console.log(e);
-};
+  var day = e._d.getDate(); 
+  var year = e._d.getFullYear(); 
+  var date = new Date();
+  date.setFullYear(year);
+  date.setDate(day);
+  date.setHours('9', '0', '0');
+  window.obj_user_group_info.publish_date = Math.round(date.getTime() / 1000);
+}
+
 
 const randomCongratulation = () => {
   let r = Math.round(Math.random()*10);
@@ -38,6 +45,7 @@ const randomCongratulation = () => {
 
 const PostOptions = ({id, go}) => {
 
+  var postFromGroup = 1; /* От имени группы */
   var commentsCloseOrOpen = 0; /* 0 - комментарии включены, 1 - комментарии отключены */
   var postWallGroupOrUserVal = true; /* true - group, false - user */
   var postId;
@@ -68,20 +76,42 @@ const commentsClose = (e) => {
   }
 };
 
+
+
+const from_group = (e) => {
+  postFromGroup = +e.target.checked; // true - 1, false - 0 
+};
+
+
+
+
+
+
+
 async function wallPost() {
+
   if(postWallGroupOrUserVal === true) { // На стену группы
     postId = '-' + window.obj_user_group_info.group_id;
-  } else if(postWallGroupOrUserVal === false) { // На стену пользователя
-   postId = window.obj_user_group_info.user_id;
- }
+    const wallPostResult = await bridge.send("VKWebAppShowWallPostBox", {
+   "from_group": postFromGroup, // От имени группы или пользователя
+   "owner_id": postId,
+   "close_comments": commentsCloseOrOpen,
+   "message": window.obj_user_group_info.start_congratulation+'\n\n'+window.obj_user_group_info.happy_list_name_congratulation+'\n\n'+window.obj_user_group_info.random_congratulation,
+   attachments: window.obj_user_group_info.happy_list_photo_congratulation,
+ });
+  } else if(postWallGroupOrUserVal === false) { /* На стену пользователя */
+    postId = window.obj_user_group_info.user_id;
+    const wallPostResult = await bridge.send("VKWebAppShowWallPostBox", {
+   "from_group": postFromGroup, // От имени группы или пользователя
+   "owner_id": postId,
+   "publish_date": window.obj_user_group_info.publish_date,
+   "close_comments": commentsCloseOrOpen,
+   "message": window.obj_user_group_info.start_congratulation+'\n\n'+window.obj_user_group_info.happy_list_name_congratulation+'\n\n'+window.obj_user_group_info.random_congratulation,
+   attachments: window.obj_user_group_info.happy_list_photo_congratulation,
+ });
+  }
 
-
- const wallPostResult = await bridge.send("VKWebAppShowWallPostBox", {
-  "owner_id": postId,
-  "close_comments": commentsCloseOrOpen,
-  "message": window.obj_user_group_info.start_congratulation+'\n\n'+window.obj_user_group_info.happy_list_name_congratulation+'\n\n'+window.obj_user_group_info.random_congratulation,
-  attachments: window.obj_user_group_info.happy_list_photo_congratulation,
-});
+  
 };
 
 
@@ -110,8 +140,8 @@ if(window.obj_user_group_info.nameTitleOptions === '1' ) {
     </Cell>
 
 
-    <Cell asideContent={<Switch disabled />}>
-    <p id='text_from_group_of_user_switch'>От имени группы (если это возможно)</p>
+    <Cell asideContent={<Switch onChange={from_group} defaultChecked />}>
+    <p id='text_from_group_of_user_switch'>От имени группы</p>
     </Cell>
 
     <Div align='center'>

@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__ . '/vendor/autoload.php';
-
 $global_result = '';
 
 
@@ -81,14 +79,6 @@ function recommendations($text) {
 	$global_result .= $text.'<br/><br/><br/><br/>';
 }
 
-
-function draw_pdf() {
-	$mpdf = new \Mpdf\Mpdf();
-	global $global_result;
-	$mpdf->WriteHTML($global_result);
-	$mpdf->Output();
-}
-
 // Параметры для - draw_graph();
 // 1 - id 44147844
 // 2 - Дата от = '2020-03-13'
@@ -108,8 +98,9 @@ draw_graph(44147844, '2020-03-13', '2020-03-17', 'ym:s:visits', 'ym:s:trafficSou
 recommendations('Рекомндация ко 2 графику');
 
 //draw_graph(44147844, '2020-03-13', '2020-03-17', 'ym:s:visits', 'ym:s:trafficSource', 'bvg', '400x400');
+global $global_result;
+echo $global_result;
 
-draw_pdf();
 
 ?>
 

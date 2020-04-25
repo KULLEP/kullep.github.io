@@ -21,7 +21,9 @@ window.obj_user_group_info = {
 	random_congratulation: '',
 	happy_list_name_congratulation: '', // Именинники для поста
 	happy_list_photo_congratulation: '', // Фотографии именинников для поста
+	publish_date: ''
 };
+
 
 
 

@@ -24,28 +24,34 @@ const Home = ({ id, go, fetchedUser, fetchedGroupsInfo }) => {
 
 		async function getInfoGroupsUser() {
 			const data = await bridge.send("VKWebAppCallAPIMethod", {
-				"method": "groups.getById",
+				"method": "groups.search",
 				"params": {
-					"fields": 'members_count',
-					"group_ids": e.target.value,
+					"q": e.target.value,
+					"count": 30,
 					"access_token": window.obj_user_group_info.user_auth_token,
 					"v": "5.103"
 				}
 			});
-			let result = data.response[0];
+			console.log(data);
+			let result = data.response.items;
 
-			const result2 = (
-				<Group>
-				<Cell onClick={go} id_group={result.id} data-to="groupinfo"
-				before={result.photo_200 ? <Avatar src={result.photo_200}/> : null}
-				description={result.members_count}
-				>
-				{`${result.name}`}
-				</Cell>
-				</Group>
-				);
-
-			ReactDOM.render(result2, document.querySelector('.resultSearch'));
+			ReactDOM.render(
+				<div>
+				{
+					result.map(e => {
+						return (
+							<Group>
+							<Cell onClick={go} id_group={e.id} data-to="groupinfo"
+							before={e.photo_200 ? <Avatar src={e.photo_200}/> : null}
+							description=''
+							>
+							{`${e.name}`}
+							</Cell>
+							</Group>
+							)
+					})
+				}
+				</div>, document.querySelector('.resultSearch'));
 		};
 		getInfoGroupsUser();
 	};
@@ -87,14 +93,14 @@ const Home = ({ id, go, fetchedUser, fetchedGroupsInfo }) => {
 		}
 		</Group> }
 
-	</Div>
-	</List>
-	</Group>
+		</Div>
+		</List>
+		</Group>
 
-	</Div>
-	</Group>
-	</Panel>
-	);
+		</Div>
+		</Group>
+		</Panel>
+		);
 }
 
 Home.propTypes = {
